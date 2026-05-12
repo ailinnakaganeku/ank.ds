@@ -1,0 +1,21 @@
+.ank-field {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  font-family: var(--ank-body);
+}
+
+.ank-field__helper {
+  font-family: var(--ank-body);
+  font-size: 13px;
+  color: var(--ank-gray-700);
+  line-height: 1.5;
+}
+
+.ank-field__error {
+  font-family: var(--ank-body);
+  font-size: 13px;
+  font-weight: 500;
+  color: var(--ank-error);
+  line-height: 1.5;
+}

@@ -1,0 +1,23 @@
+.ank-label {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  font-family: var(--ank-body);
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--ank-ink);
+  line-height: 1.4;
+  cursor: default;
+}
+
+.ank-label--disabled {
+  color: var(--ank-gray-500);
+}
+
+.ank-label__required {
+  color: var(--ank-error);
+  font-weight: 700;
+  letter-spacing: 0;
+}
