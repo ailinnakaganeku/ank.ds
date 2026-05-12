@@ -1,0 +1,20 @@
+{
+  "name": "ank-ds",
+  "version": "0.0.0",
+  "private": true,
+  "description": "ank.ds",
+  "workspaces": [
+    "packages/*",
+    "apps/*"
+  ],
+  "scripts": {
+    "storybook": "npm run storybook -w @ankds/docs",
+    "build-storybook": "npm run build-storybook -w @ankds/docs",
+    "dev": "npm run storybook",
+    "typecheck": "npm run typecheck -ws --if-present",
+    "clean": "rm -rf node_modules packages/*/node_modules apps/*/node_modules packages/*/dist"
+  },
+  "engines": {
+    "node": ">=18"
+  }
+}

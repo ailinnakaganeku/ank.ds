@@ -1,0 +1,113 @@
+/** @type {import('tailwindcss').Config} */
+export default {
+  content: [
+    './src/**/*.{ts,tsx,mdx}',
+    '../docs/src/**/*.{ts,tsx,mdx}',
+    '../docs/.storybook/**/*.{ts,tsx,mdx}',
+  ],
+  darkMode: ['class', '[data-theme="dark"]'],
+  theme: {
+    extend: {
+      colors: {
+        'ank-primary': {
+          DEFAULT: '#1C3D4F',
+          dark: '#0F2535',
+          light: '#2E5870',
+        },
+        'ank-secondary': {
+          DEFAULT: '#C4714A',
+          dark: '#A05838',
+          light: '#D68E6A',
+        },
+        'ank-accent': {
+          DEFAULT: '#4A7A5C',
+          dark: '#345847',
+          light: '#629E77',
+        },
+        'ank-sand': {
+          DEFAULT: '#D4B896',
+          dark: '#B89B78',
+          light: '#E8D5B5',
+        },
+        'ank-ink': {
+          DEFAULT: '#0D0F0E',
+          soft: '#1A1C1B',
+        },
+        'ank-gray': {
+          900: '#2C2E2D',
+          700: '#4A4C4B',
+          500: '#6E706F',
+          300: '#A8AAAA',
+          100: '#D8DADA',
+        },
+        'ank-bg': '#F7F3ED',
+        'ank-surface': '#EEE9E1',
+        'ank-surface-raised': '#F2EDE5',
+        'ank-white': '#FDFAF6',
+        'ank-success': { DEFAULT: '#3D6B4A', bg: '#EBF4EE' },
+        'ank-warning': { DEFAULT: '#C9973A', bg: '#FDF6E8' },
+        'ank-error':   { DEFAULT: '#B85C3A', bg: '#FDF0EC' },
+        'ank-info':    { DEFAULT: '#1C3D4F', bg: '#E8EFF3' },
+      },
+      fontFamily: {
+        'ank-display': ['"Cormorant Garamond"', 'Georgia', 'serif'],
+        'ank-body':    ['"Space Grotesk"', 'system-ui', 'sans-serif'],
+        'ank-mono':    ['"JetBrains Mono"', 'monospace'],
+      },
+      fontSize: {
+        'ank-xs':   ['11px', { lineHeight: '1.4', fontWeight: '700', letterSpacing: '0.1em' }],
+        'ank-sm':   ['13px', { lineHeight: '1.5' }],
+        'ank-base': ['15px', { lineHeight: '1.6' }],
+        'ank-lg':   ['18px', { lineHeight: '1.5' }],
+        'ank-xl':   ['22px', { lineHeight: '1.4' }],
+        'ank-2xl':  ['30px', { lineHeight: '1.2' }],
+        'ank-3xl':  ['42px', { lineHeight: '1.1' }],
+        'ank-4xl':  ['60px', { lineHeight: '1.05' }],
+        'ank-hero': ['84px', { lineHeight: '1' }],
+      },
+      spacing: {
+        'ank-1':  '4px',
+        'ank-2':  '8px',
+        'ank-3':  '12px',
+        'ank-4':  '16px',
+        'ank-5':  '24px',
+        'ank-6':  '32px',
+        'ank-7':  '48px',
+        'ank-8':  '64px',
+        'ank-9':  '96px',
+        'ank-10': '128px',
+      },
+      boxShadow: {
+        'ank-sm':        '3px 3px 0px #0D0F0E',
+        'ank':           '4px 4px 0px #0D0F0E',
+        'ank-lg':        '6px 6px 0px #0D0F0E',
+        'ank-xl':        '8px 8px 0px #0D0F0E',
+        'ank-primary':   '4px 4px 0px #1C3D4F',
+        'ank-secondary': '4px 4px 0px #C4714A',
+        'ank-accent':    '4px 4px 0px #4A7A5C',
+      },
+      borderWidth: {
+        'ank':     '3px',
+        'ank-2':   '2px',
+        'ank-thin': '1.5px',
+      },
+      borderRadius: {
+        'ank-none': '0px',
+        'ank-sm':   '2px',
+        'ank-md':   '4px',
+      },
+      transitionDuration: {
+        'ank-fast': '80ms',
+        'ank-base': '150ms',
+        'ank-slow': '300ms',
+      },
+      zIndex: {
+        'ank-dropdown': '100',
+        'ank-sticky':   '200',
+        'ank-modal':    '300',
+        'ank-toast':    '400',
+      },
+    },
+  },
+  plugins: [],
+};
