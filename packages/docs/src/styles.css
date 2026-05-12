@@ -1,0 +1,41 @@
+@import '@ankds/tokens/css';
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  body {
+    font-family: var(--ank-body);
+    font-size: var(--ank-text-base);
+    color: var(--ank-ink-soft);
+    background-color: var(--ank-bg);
+    -webkit-font-smoothing: antialiased;
+    text-rendering: optimizeLegibility;
+    margin: 0;
+    line-height: 1.6;
+  }
+
+  h1, h2, h3 {
+    font-family: var(--ank-display);
+    font-weight: 700;
+    color: var(--ank-ink);
+    margin: 0;
+  }
+
+  h4, h5, h6 {
+    font-family: var(--ank-body);
+    font-weight: 700;
+    color: var(--ank-ink);
+    margin: 0;
+  }
+
+  code, pre {
+    font-family: var(--ank-mono);
+  }
+
+  :focus-visible {
+    outline: 2px solid var(--ank-primary);
+    outline-offset: 2px;
+  }
+}
