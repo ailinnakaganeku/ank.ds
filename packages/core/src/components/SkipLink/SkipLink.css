@@ -1,0 +1,28 @@
+.ank-skip-link {
+  position: absolute;
+  top: -200px;
+  left: 16px;
+  z-index: var(--ank-z-toast);
+  padding: 12px 16px;
+  background: var(--ank-ink);
+  color: var(--ank-white);
+  font-family: var(--ank-body);
+  font-size: 14px;
+  font-weight: 700;
+  letter-spacing: 0.02em;
+  text-decoration: none;
+  border: 2.5px solid var(--ank-ink);
+  box-shadow: 4px 4px 0 var(--ank-shadow-color);
+  transition: top var(--ank-transition-base);
+}
+
+.ank-skip-link:focus,
+.ank-skip-link:focus-visible {
+  top: 16px;
+  outline: 2px solid var(--ank-primary);
+  outline-offset: 2px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .ank-skip-link { transition: none; }
+}
