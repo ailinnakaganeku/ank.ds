@@ -7,6 +7,7 @@ export * from './components/Checkbox';
 export * from './components/FieldWrapper';
 export * from './components/Input';
 export * from './components/Label';
+export * from './components/Modal';
 export * from './components/Radio';
 export * from './components/Select';
 export * from './components/Textarea';

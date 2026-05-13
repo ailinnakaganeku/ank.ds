@@ -1,0 +1,117 @@
+.ank-modal-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(13, 15, 14, 0.75);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 24px;
+  z-index: var(--ank-z-modal);
+  animation: ank-modal-overlay-in 200ms ease-out;
+}
+
+.ank-modal {
+  background: var(--ank-white);
+  color: var(--ank-ink);
+  border: 3px solid var(--ank-ink);
+  box-shadow: 8px 8px 0 var(--ank-shadow-color);
+  width: 100%;
+  max-width: 500px;
+  max-height: 90vh;
+  display: flex;
+  flex-direction: column;
+  outline: none;
+  animation: ank-modal-in 200ms ease-out;
+}
+
+.ank-modal--sm { max-width: 380px; }
+.ank-modal--md { max-width: 500px; }
+.ank-modal--lg { max-width: 720px; }
+
+.ank-modal__header {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 16px;
+  padding: 18px 20px 14px 24px;
+  border-bottom: 2.5px solid var(--ank-ink);
+}
+
+.ank-modal__title {
+  font-family: var(--ank-display);
+  font-size: 24px;
+  font-weight: 700;
+  line-height: 1.2;
+  margin: 0;
+  color: var(--ank-ink);
+}
+
+.ank-modal__close {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 32px;
+  height: 32px;
+  margin: -4px -4px -4px 0;
+  background: transparent;
+  border: 0;
+  cursor: pointer;
+  color: var(--ank-ink);
+  flex-shrink: 0;
+  transition: background-color var(--ank-transition-fast);
+}
+
+.ank-modal__close:hover {
+  background: var(--ank-gray-100);
+}
+
+.ank-modal__close:focus-visible {
+  outline: 2px solid var(--ank-primary);
+  outline-offset: 2px;
+}
+
+.ank-modal__close svg {
+  display: block;
+}
+
+.ank-modal__body {
+  padding: 20px 24px;
+  overflow-y: auto;
+  font-family: var(--ank-body);
+  font-size: 15px;
+  line-height: 1.6;
+  color: var(--ank-ink-soft);
+  flex: 1 1 auto;
+}
+
+.ank-modal__footer {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 12px;
+  padding: 14px 24px 20px 24px;
+  border-top: 2.5px solid var(--ank-ink);
+  flex-wrap: wrap;
+}
+
+@keyframes ank-modal-overlay-in {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+@keyframes ank-modal-in {
+  from {
+    opacity: 0;
+    transform: translateY(-16px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .ank-modal-overlay,
+  .ank-modal { animation: none; }
+  .ank-modal__close { transition: none; }
+}
