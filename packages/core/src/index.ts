@@ -10,5 +10,6 @@ export * from './components/Label';
 export * from './components/Modal';
 export * from './components/Radio';
 export * from './components/Select';
+export * from './components/Tabs';
 export * from './components/Textarea';
 export * from './components/Toggle';
