@@ -12,6 +12,9 @@
     "build-storybook": "npm run build-storybook -w @ankds/docs",
     "dev": "npm run storybook",
     "typecheck": "npm run typecheck -ws --if-present",
+    "test": "npm run test -ws --if-present",
+    "test:watch": "npm run test:watch -w @ankds/core",
+    "test:coverage": "npm run test:coverage -w @ankds/core",
     "clean": "rm -rf node_modules packages/*/node_modules apps/*/node_modules packages/*/dist"
   },
   "engines": {
