@@ -1,0 +1,61 @@
+.ank-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  font-family: var(--ank-body);
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  border: 2px solid var(--ank-ink);
+  border-radius: 2px;
+  white-space: nowrap;
+  line-height: 1;
+}
+
+.ank-badge--sm { font-size: 10px; padding: 3px 6px; }
+.ank-badge--md { font-size: 11px; padding: 4px 8px; }
+
+.ank-badge--primary {
+  background: var(--ank-primary);
+  color: var(--ank-white);
+}
+
+.ank-badge--secondary {
+  background: var(--ank-secondary);
+  color: var(--ank-white);
+}
+
+.ank-badge--accent {
+  background: var(--ank-accent);
+  color: var(--ank-white);
+}
+
+.ank-badge--sand {
+  background: var(--ank-sand);
+  color: var(--ank-ink);
+}
+
+.ank-badge--success {
+  background: var(--ank-success);
+  color: var(--ank-white);
+}
+
+.ank-badge--warning {
+  background: var(--ank-warning);
+  color: var(--ank-ink);
+}
+
+.ank-badge--error {
+  background: var(--ank-error);
+  color: var(--ank-white);
+}
+
+.ank-badge--outline {
+  background: transparent;
+  color: var(--ank-ink);
+}
+
+.ank-badge--dark {
+  background: var(--ank-ink);
+  color: var(--ank-white);
+}

@@ -1,0 +1,109 @@
+.ank-card {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  padding: 24px;
+  background: var(--ank-surface);
+  color: var(--ank-ink);
+  border: 3px solid var(--ank-ink);
+  box-shadow: 4px 4px 0 var(--ank-shadow-color);
+  font-family: var(--ank-body);
+}
+
+.ank-card--default {
+  background: var(--ank-surface);
+}
+
+.ank-card--primary {
+  background: var(--ank-primary);
+  color: var(--ank-white);
+}
+
+.ank-card--secondary {
+  background: var(--ank-secondary);
+  color: var(--ank-white);
+}
+
+.ank-card--dark {
+  background: var(--ank-ink);
+  color: var(--ank-white);
+}
+
+.ank-card--outlined {
+  background: transparent;
+}
+
+.ank-card--interactive {
+  cursor: pointer;
+  transition: transform var(--ank-transition-fast), box-shadow var(--ank-transition-fast);
+}
+
+.ank-card--interactive:hover {
+  transform: translate(-2px, -2px);
+  box-shadow: 8px 8px 0 var(--ank-shadow-color);
+}
+
+.ank-card--interactive:focus-visible {
+  outline: 2px solid var(--ank-primary);
+  outline-offset: 3px;
+}
+
+.ank-card__media {
+  display: block;
+  margin: -24px -24px 4px -24px;
+  border-bottom: 3px solid var(--ank-ink);
+}
+
+.ank-card__media img,
+.ank-card__media video,
+.ank-card__media picture {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+
+.ank-card--primary .ank-card__media,
+.ank-card--secondary .ank-card__media,
+.ank-card--dark .ank-card__media {
+  border-bottom-color: var(--ank-ink);
+}
+
+.ank-card__eyebrow {
+  font-family: var(--ank-body);
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: currentColor;
+  opacity: 0.7;
+}
+
+.ank-card__title {
+  font-family: var(--ank-display);
+  font-size: 24px;
+  font-weight: 700;
+  line-height: 1.2;
+  color: currentColor;
+  margin: 0;
+}
+
+.ank-card__description {
+  font-family: var(--ank-body);
+  font-size: 15px;
+  line-height: 1.55;
+  color: currentColor;
+  opacity: 0.85;
+  margin: 0;
+}
+
+.ank-card__footer {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-top: 8px;
+  flex-wrap: wrap;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .ank-card--interactive { transition: none; }
+}
