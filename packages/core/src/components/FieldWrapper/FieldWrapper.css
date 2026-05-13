@@ -16,6 +16,6 @@
   font-family: var(--ank-body);
   font-size: 13px;
   font-weight: 500;
-  color: var(--ank-error);
+  color: var(--ank-error-dark);
   line-height: 1.5;
 }

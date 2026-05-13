@@ -21,7 +21,7 @@
 
 .ank-card--secondary {
   background: var(--ank-secondary);
-  color: var(--ank-white);
+  color: var(--ank-ink);
 }
 
 .ank-card--dark {

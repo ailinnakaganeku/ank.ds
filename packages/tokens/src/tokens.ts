@@ -27,6 +27,8 @@ export const colors = {
   warning: '#C9973A',
   warningBg: '#FDF6E8',
   error: '#B85C3A',
+  errorDark: '#9D4A2E',
+  errorDarker: '#8A3F26',
   errorBg: '#FDF0EC',
   info: '#1C3D4F',
   infoBg: '#E8EFF3',

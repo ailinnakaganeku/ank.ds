@@ -22,7 +22,7 @@
 
 .ank-badge--secondary {
   background: var(--ank-secondary);
-  color: var(--ank-white);
+  color: var(--ank-ink);
 }
 
 .ank-badge--accent {
@@ -46,7 +46,7 @@
 }
 
 .ank-badge--error {
-  background: var(--ank-error);
+  background: var(--ank-error-dark);
   color: var(--ank-white);
 }
 
