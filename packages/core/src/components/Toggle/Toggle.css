@@ -1,0 +1,94 @@
+.ank-toggle {
+  display: inline-flex;
+  align-items: center;
+  gap: 12px;
+  font-family: var(--ank-body);
+  font-size: 15px;
+  color: var(--ank-ink);
+  cursor: pointer;
+  user-select: none;
+  line-height: 1.4;
+}
+
+.ank-toggle--disabled {
+  cursor: not-allowed;
+  color: var(--ank-gray-500);
+}
+
+.ank-toggle__input {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  margin: -1px;
+  padding: 0;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+.ank-toggle__track {
+  display: inline-flex;
+  align-items: center;
+  width: 40px;
+  height: 22px;
+  padding: 0 2px;
+  border: 2.5px solid var(--ank-ink);
+  background: var(--ank-surface);
+  flex-shrink: 0;
+  transition:
+    background-color var(--ank-transition-fast),
+    box-shadow var(--ank-transition-fast);
+}
+
+.ank-toggle__thumb {
+  width: 14px;
+  height: 14px;
+  background: var(--ank-ink);
+  transition: transform var(--ank-transition-fast), background-color var(--ank-transition-fast);
+}
+
+.ank-toggle__input:checked + .ank-toggle__track {
+  background: var(--ank-primary);
+}
+
+.ank-toggle__input:checked + .ank-toggle__track .ank-toggle__thumb {
+  transform: translateX(17px);
+  background: var(--ank-white);
+}
+
+.ank-toggle__input:focus-visible + .ank-toggle__track {
+  box-shadow: 3px 3px 0 var(--ank-primary);
+}
+
+.ank-toggle__input:disabled + .ank-toggle__track {
+  background: var(--ank-surface);
+  border-color: var(--ank-gray-500);
+}
+
+.ank-toggle__input:disabled + .ank-toggle__track .ank-toggle__thumb {
+  background: var(--ank-gray-500);
+}
+
+.ank-toggle__input:disabled:checked + .ank-toggle__track {
+  background: var(--ank-gray-500);
+}
+
+.ank-toggle--sm .ank-toggle__track { width: 32px; height: 18px; }
+.ank-toggle--sm .ank-toggle__thumb { width: 10px; height: 10px; }
+.ank-toggle--sm .ank-toggle__input:checked + .ank-toggle__track .ank-toggle__thumb {
+  transform: translateX(13px);
+}
+.ank-toggle--sm { font-size: 13px; gap: 10px; }
+
+.ank-toggle--lg .ank-toggle__track { width: 48px; height: 26px; }
+.ank-toggle--lg .ank-toggle__thumb { width: 18px; height: 18px; }
+.ank-toggle--lg .ank-toggle__input:checked + .ank-toggle__track .ank-toggle__thumb {
+  transform: translateX(21px);
+}
+.ank-toggle--lg { font-size: 17px; gap: 14px; }
+
+@media (prefers-reduced-motion: reduce) {
+  .ank-toggle__track,
+  .ank-toggle__thumb { transition: none; }
+}

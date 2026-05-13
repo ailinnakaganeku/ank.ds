@@ -1,0 +1,49 @@
+.ank-select-wrapper {
+  position: relative;
+  display: inline-block;
+  width: 100%;
+}
+
+.ank-select-wrapper.ank-input--auto {
+  width: auto;
+}
+
+.ank-select {
+  appearance: none;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  padding-right: 36px;
+  cursor: pointer;
+  background-color: var(--ank-white);
+}
+
+.ank-select::-ms-expand {
+  display: none;
+}
+
+.ank-select-wrapper__arrow {
+  position: absolute;
+  right: 14px;
+  top: 50%;
+  transform: translateY(-50%);
+  pointer-events: none;
+  color: var(--ank-ink);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.ank-select-wrapper__arrow svg {
+  display: block;
+}
+
+.ank-select:disabled {
+  cursor: not-allowed;
+}
+
+.ank-select:disabled ~ .ank-select-wrapper__arrow {
+  color: var(--ank-gray-500);
+}
+
+.ank-select-wrapper--sm .ank-select-wrapper__arrow { right: 10px; }
+.ank-select-wrapper--lg .ank-select-wrapper__arrow { right: 18px; }
