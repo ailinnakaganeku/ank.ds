@@ -1,0 +1,19 @@
+.ank-autogrid {
+  display: grid;
+  grid-template-columns: repeat(
+    auto-fit,
+    minmax(min(100%, var(--ank-autogrid-min, 240px)), 1fr)
+  );
+  gap: var(--ank-autogrid-gap, var(--ank-space-4));
+}
+
+.ank-autogrid--fill {
+  grid-template-columns: repeat(
+    auto-fill,
+    minmax(min(100%, var(--ank-autogrid-min, 240px)), 1fr)
+  );
+}
+
+.ank-autogrid[data-align="center"] { align-items: center; }
+.ank-autogrid[data-align="end"]    { align-items: end; }
+.ank-autogrid[data-align="stretch"] { align-items: stretch; }

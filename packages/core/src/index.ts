@@ -28,5 +28,6 @@ export * from './components/Textarea';
 export * from './components/Toast';
 export * from './components/Toggle';
 export * from './components/Tooltip';
+export * from './layout';
 export * from './patterns';
 export * from './hooks';
