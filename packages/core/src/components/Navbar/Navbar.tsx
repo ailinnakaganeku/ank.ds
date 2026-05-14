@@ -163,7 +163,7 @@ export const Navbar = forwardRef<HTMLElement, NavbarProps>(function Navbar(
           aria-label={menuLabel}
           aria-expanded={drawerOpen}
           aria-controls={drawerTitleId}
-          onClick={() => setDrawerOpen(true)}
+          onClick={() => setDrawerOpen((prev) => !prev)}
           className="ank-navbar__hamburger"
         >
           <HamburgerIcon />
