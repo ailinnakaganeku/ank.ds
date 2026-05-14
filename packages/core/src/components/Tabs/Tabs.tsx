@@ -1,8 +1,11 @@
 import {
   createContext,
   forwardRef,
+  useCallback,
   useContext,
+  useEffect,
   useId,
+  useMemo,
   useRef,
   useState,
   type ButtonHTMLAttributes,
@@ -13,10 +16,13 @@ import {
 import clsx from 'clsx';
 import './Tabs.css';
 
+export type ActivationMode = 'automatic' | 'manual';
+
 interface TabsContextValue {
   value: string;
   setValue: (next: string) => void;
   baseId: string;
+  activationMode: ActivationMode;
 }
 
 const TabsContext = createContext<TabsContextValue | null>(null);
@@ -33,26 +39,63 @@ export interface TabsProps extends Omit<HTMLAttributes<HTMLDivElement>, 'onChang
   value?: string;
   defaultValue?: string;
   onChange?: (value: string) => void;
+  activationMode?: ActivationMode;
   children: ReactNode;
 }
 
 const TabsRoot = forwardRef<HTMLDivElement, TabsProps>(function Tabs(
-  { value, defaultValue, onChange, className, children, ...rest },
+  {
+    value,
+    defaultValue,
+    onChange,
+    activationMode = 'automatic',
+    className,
+    children,
+    ...rest
+  },
   ref,
 ) {
   const [internal, setInternal] = useState<string>(defaultValue ?? '');
   const isControlled = value !== undefined;
   const current = isControlled ? value : internal;
   const baseId = useId();
+  const rootRef = useRef<HTMLDivElement | null>(null);
 
-  const setValue = (next: string) => {
-    if (!isControlled) setInternal(next);
-    onChange?.(next);
-  };
+  const setRefs = useCallback(
+    (node: HTMLDivElement | null) => {
+      rootRef.current = node;
+      if (typeof ref === 'function') ref(node);
+      else if (ref) (ref as React.MutableRefObject<HTMLDivElement | null>).current = node;
+    },
+    [ref],
+  );
+
+  useEffect(() => {
+    if (isControlled) return;
+    if (internal !== '') return;
+    const root = rootRef.current;
+    if (!root) return;
+    const firstTab = root.querySelector<HTMLButtonElement>('[role="tab"]:not([disabled])');
+    const firstValue = firstTab?.dataset.value;
+    if (firstValue) setInternal(firstValue);
+  }, [isControlled, internal]);
+
+  const setValue = useCallback(
+    (next: string) => {
+      if (!isControlled) setInternal(next);
+      onChange?.(next);
+    },
+    [isControlled, onChange],
+  );
+
+  const contextValue = useMemo<TabsContextValue>(
+    () => ({ value: current, setValue, baseId, activationMode }),
+    [current, setValue, baseId, activationMode],
+  );
 
   return (
-    <TabsContext.Provider value={{ value: current, setValue, baseId }}>
-      <div ref={ref} className={clsx('ank-tabs', className)} {...rest}>
+    <TabsContext.Provider value={contextValue}>
+      <div ref={setRefs} className={clsx('ank-tabs', className)} {...rest}>
         {children}
       </div>
     </TabsContext.Provider>
@@ -67,6 +110,7 @@ const TabsList = forwardRef<HTMLDivElement, TabsListProps>(function TabsList(
   { className, children, onKeyDown, ...rest },
   ref,
 ) {
+  const ctx = useTabsContext('<Tabs.List>');
   const listRef = useRef<HTMLDivElement | null>(null);
 
   const setRefs = (node: HTMLDivElement | null) => {
@@ -87,8 +131,9 @@ const TabsList = forwardRef<HTMLDivElement, TabsListProps>(function TabsList(
     );
     if (tabs.length === 0) return;
 
-    const active = document.activeElement as HTMLButtonElement | null;
-    const index = active ? tabs.indexOf(active) : -1;
+    const active = document.activeElement;
+    const activeButton = active instanceof HTMLButtonElement ? active : null;
+    const index = activeButton ? tabs.indexOf(activeButton) : -1;
     if (index === -1) return;
 
     let next: number | null = null;
@@ -112,7 +157,11 @@ const TabsList = forwardRef<HTMLDivElement, TabsListProps>(function TabsList(
     event.preventDefault();
     const target = tabs[next];
     target.focus();
-    target.click();
+
+    if (ctx.activationMode === 'automatic') {
+      const value = target.dataset.value;
+      if (value) ctx.setValue(value);
+    }
   };
 
   return (
@@ -148,6 +197,7 @@ const Tab = forwardRef<HTMLButtonElement, TabProps>(function Tab(
       type="button"
       role="tab"
       id={tabId}
+      data-value={value}
       aria-selected={selected}
       aria-controls={panelId}
       tabIndex={selected ? 0 : -1}
