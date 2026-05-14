@@ -16,7 +16,6 @@ export type FeatureGridGap = '2' | '3' | '4' | '5' | '6';
 export interface FeatureGridProps extends HTMLAttributes<HTMLDivElement> {
   columns?: number;
   gap?: FeatureGridGap;
-  inverted?: boolean;
   children: ReactNode;
 }
 
@@ -28,7 +27,7 @@ interface CSSWithVar extends CSSProperties {
 const FeatureGridContext = createContext<{ columns: number }>({ columns: 3 });
 
 const FeatureGridRoot = forwardRef<HTMLDivElement, FeatureGridProps>(function FeatureGrid(
-  { columns = 3, gap = '4', inverted, className, children, style, ...rest },
+  { columns = 3, gap = '4', className, children, style, ...rest },
   ref,
 ) {
   const mergedStyle: CSSWithVar = {
@@ -43,7 +42,7 @@ const FeatureGridRoot = forwardRef<HTMLDivElement, FeatureGridProps>(function Fe
     <FeatureGridContext.Provider value={ctx}>
       <div
         ref={ref}
-        className={clsx('ank-feature-grid', inverted && 'ank-feature-grid--inverted', className)}
+        className={clsx('ank-feature-grid', className)}
         style={mergedStyle}
         {...rest}
       >

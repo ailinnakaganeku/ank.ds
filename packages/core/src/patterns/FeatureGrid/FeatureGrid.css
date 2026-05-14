@@ -7,8 +7,6 @@
   background: var(--ank-bg);
 }
 
-.ank-feature-grid--inverted { background: var(--ank-surface); }
-
 .ank-feature-grid > * {
   min-width: 0;
 }

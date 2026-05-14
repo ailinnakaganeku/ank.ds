@@ -2,7 +2,6 @@ import { forwardRef, useId, type HTMLAttributes, type ReactNode } from 'react';
 import clsx from 'clsx';
 import './Hero.css';
 
-export type HeroVariant = 'default' | 'surface' | 'primary' | 'ink' | 'terminal';
 export type HeroAlign = 'start' | 'center';
 
 export interface HeroProps extends Omit<HTMLAttributes<HTMLElement>, 'title'> {
@@ -11,7 +10,6 @@ export interface HeroProps extends Omit<HTMLAttributes<HTMLElement>, 'title'> {
   description?: ReactNode;
   actions?: ReactNode;
   decoration?: ReactNode;
-  variant?: HeroVariant;
   align?: HeroAlign;
 }
 
@@ -22,7 +20,6 @@ export const Hero = forwardRef<HTMLElement, HeroProps>(function Hero(
     description,
     actions,
     decoration,
-    variant = 'default',
     align = 'start',
     className,
     ...rest
@@ -38,7 +35,6 @@ export const Hero = forwardRef<HTMLElement, HeroProps>(function Hero(
       aria-labelledby={titleId}
       className={clsx(
         'ank-hero',
-        `ank-hero--${variant}`,
         split && 'ank-hero--split',
         align === 'center' && 'ank-hero--center',
         className,

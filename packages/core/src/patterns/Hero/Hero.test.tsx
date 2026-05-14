@@ -43,23 +43,19 @@ describe('Hero', () => {
     expect(screen.getByTestId('dec')).toBeInTheDocument();
   });
 
-  it('applies the requested variant', () => {
-    const { container } = render(<Hero title="t" variant="terminal" />);
-    expect(container.firstElementChild).toHaveClass('ank-hero--terminal');
+  it('applies the center alignment class when align="center"', () => {
+    const { container } = render(<Hero title="t" align="center" />);
+    expect(container.firstElementChild).toHaveClass('ank-hero--center');
   });
 
-  it('has no axe violations across variants', async () => {
-    for (const variant of ['default', 'surface', 'primary', 'ink', 'terminal'] as const) {
-      const { container, unmount } = render(
-        <Hero
-          title={`${variant} hero`}
-          description="body"
-          variant={variant}
-          actions={<button>cta</button>}
-        />,
-      );
-      expect(await axe(container)).toHaveNoViolations();
-      unmount();
-    }
+  it('has no axe violations', async () => {
+    const { container } = render(
+      <Hero
+        title="default hero"
+        description="body"
+        actions={<button>cta</button>}
+      />,
+    );
+    expect(await axe(container)).toHaveNoViolations();
   });
 });
