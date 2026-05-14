@@ -1,0 +1,54 @@
+.ank-tooltip-wrapper {
+  position: relative;
+  display: inline-flex;
+}
+
+.ank-tooltip {
+  position: absolute;
+  z-index: var(--ank-z-toast);
+  padding: 6px 10px;
+  font-family: var(--ank-body);
+  font-size: 12px;
+  font-weight: 500;
+  line-height: 1.4;
+  color: var(--ank-white);
+  background: var(--ank-ink);
+  border: 1.5px solid var(--ank-ink);
+  box-shadow: 3px 3px 0 var(--ank-shadow-color);
+  white-space: nowrap;
+  pointer-events: none;
+  animation: ank-tooltip-in 120ms ease-out;
+}
+
+.ank-tooltip[data-side="top"] {
+  bottom: calc(100% + 6px);
+  left: 50%;
+  transform: translateX(-50%);
+}
+
+.ank-tooltip[data-side="bottom"] {
+  top: calc(100% + 6px);
+  left: 50%;
+  transform: translateX(-50%);
+}
+
+.ank-tooltip[data-side="left"] {
+  right: calc(100% + 6px);
+  top: 50%;
+  transform: translateY(-50%);
+}
+
+.ank-tooltip[data-side="right"] {
+  left: calc(100% + 6px);
+  top: 50%;
+  transform: translateY(-50%);
+}
+
+@keyframes ank-tooltip-in {
+  from { opacity: 0; }
+  to   { opacity: 1; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .ank-tooltip { animation: none; }
+}

@@ -1,0 +1,98 @@
+.ank-accordion {
+  display: flex;
+  flex-direction: column;
+  border: 2.5px solid var(--ank-ink);
+  background: var(--ank-white);
+  font-family: var(--ank-body);
+}
+
+.ank-accordion__item + .ank-accordion__item {
+  border-top: 2.5px solid var(--ank-ink);
+}
+
+.ank-accordion__heading {
+  margin: 0;
+  font-size: inherit;
+  font-weight: inherit;
+}
+
+.ank-accordion__trigger {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  width: 100%;
+  padding: 14px 18px;
+  background: transparent;
+  border: 0;
+  cursor: pointer;
+  font-family: var(--ank-body);
+  font-size: 15px;
+  font-weight: 700;
+  color: var(--ank-ink);
+  text-align: left;
+  line-height: 1.4;
+  transition: background-color var(--ank-transition-fast);
+}
+
+.ank-accordion__trigger:hover {
+  background: var(--ank-surface);
+}
+
+.ank-accordion__trigger:focus-visible {
+  outline: 2px solid var(--ank-primary);
+  outline-offset: -2px;
+}
+
+.ank-accordion__icon {
+  display: inline-flex;
+  width: 18px;
+  height: 18px;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  color: var(--ank-ink);
+}
+
+.ank-accordion__icon-line {
+  background: currentColor;
+  width: 14px;
+  height: 2.5px;
+  display: inline-block;
+}
+
+.ank-accordion__icon-line--vertical {
+  position: absolute;
+  width: 2.5px;
+  height: 14px;
+  transition: transform var(--ank-transition-base);
+}
+
+.ank-accordion__icon-wrapper {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 14px;
+  height: 14px;
+}
+
+.ank-accordion__trigger[aria-expanded="true"] .ank-accordion__icon-line--vertical {
+  transform: scaleY(0);
+}
+
+.ank-accordion__panel {
+  padding: 0 18px 16px 18px;
+  font-size: 15px;
+  line-height: 1.6;
+  color: var(--ank-ink-soft);
+}
+
+.ank-accordion__panel[hidden] {
+  display: none;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .ank-accordion__icon-line--vertical { transition: none; }
+  .ank-accordion__trigger { transition: none; }
+}
