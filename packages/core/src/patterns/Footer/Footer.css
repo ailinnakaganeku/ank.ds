@@ -1,0 +1,109 @@
+.ank-footer {
+  background: var(--ank-ink);
+  color: var(--ank-white);
+  padding: 64px 48px 32px 48px;
+  font-family: var(--ank-body);
+}
+
+.ank-footer--light {
+  background: var(--ank-bg);
+  color: var(--ank-ink);
+}
+
+.ank-footer__top {
+  display: grid;
+  grid-template-columns: minmax(0, 1.4fr) minmax(0, 3fr);
+  gap: 48px;
+  align-items: start;
+  padding-bottom: 48px;
+}
+
+.ank-footer__brand {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  font-family: var(--ank-display);
+  font-size: 30px;
+  font-weight: 700;
+  line-height: 1.1;
+  color: currentColor;
+}
+
+.ank-footer__brand > p {
+  font-family: var(--ank-body);
+  font-size: 14px;
+  font-weight: 400;
+  line-height: 1.55;
+  opacity: 0.72;
+  max-width: 320px;
+  margin: 0;
+}
+
+.ank-footer__columns {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+  gap: 32px;
+}
+
+.ank-footer__column-title {
+  font-family: var(--ank-body);
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: currentColor;
+  opacity: 0.55;
+  margin: 0 0 16px 0;
+}
+
+.ank-footer__column-links {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  padding: 0;
+  margin: 0;
+  list-style: none;
+}
+
+.ank-footer__column-link {
+  color: currentColor;
+  text-decoration: none;
+  font-size: 14px;
+  font-weight: 500;
+  display: inline-flex;
+  align-items: center;
+  border-bottom: 2px solid transparent;
+  padding-bottom: 2px;
+  transition: border-bottom-color var(--ank-transition-fast);
+}
+
+.ank-footer__column-link:hover {
+  border-bottom-color: currentColor;
+}
+
+.ank-footer__column-link:focus-visible {
+  outline: 2px solid var(--ank-secondary);
+  outline-offset: 2px;
+}
+
+.ank-footer--light .ank-footer__column-link:focus-visible {
+  outline-color: var(--ank-primary);
+}
+
+.ank-footer__bottom {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  align-items: center;
+  gap: 16px;
+  padding-top: 24px;
+  border-top: 2.5px solid currentColor;
+  font-family: var(--ank-mono);
+  font-size: 11px;
+  opacity: 0.72;
+}
+
+@media (max-width: 767px) {
+  .ank-footer { padding: 40px 20px 24px 20px; }
+  .ank-footer__top { grid-template-columns: 1fr; gap: 32px; padding-bottom: 32px; }
+}

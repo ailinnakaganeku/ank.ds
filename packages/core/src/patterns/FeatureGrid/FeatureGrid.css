@@ -1,0 +1,26 @@
+.ank-feature-grid {
+  display: grid;
+  grid-template-columns: repeat(var(--ank-feature-grid-columns, 3), minmax(0, 1fr));
+  gap: 20px;
+  padding: 64px 48px;
+  font-family: var(--ank-body);
+  background: var(--ank-bg);
+}
+
+.ank-feature-grid--inverted { background: var(--ank-surface); }
+
+.ank-feature-grid > * {
+  min-width: 0;
+}
+
+@media (max-width: 1023px) {
+  .ank-feature-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+}
+
+@media (max-width: 639px) {
+  .ank-feature-grid {
+    grid-template-columns: 1fr;
+    padding: 40px 20px;
+  }
+  .ank-feature-grid > [data-span] { grid-column: auto !important; }
+}
