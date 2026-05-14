@@ -77,6 +77,24 @@ describe('Dropdown', () => {
     expect(trigger).toHaveFocus();
   });
 
+  it('closes on Tab and returns focus to the trigger', async () => {
+    const user = userEvent.setup();
+    render(<Demo />);
+    const trigger = screen.getByRole('button', { name: 'Actions' });
+    await user.click(trigger);
+
+    await user.keyboard('{Tab}');
+    expect(screen.queryByRole('menu')).not.toBeInTheDocument();
+    expect(trigger).toHaveFocus();
+  });
+
+  it('exposes the menu with aria-orientation="vertical"', async () => {
+    const user = userEvent.setup();
+    render(<Demo />);
+    await user.click(screen.getByRole('button', { name: 'Actions' }));
+    expect(screen.getByRole('menu')).toHaveAttribute('aria-orientation', 'vertical');
+  });
+
   it('closes on Escape and returns focus to the trigger', async () => {
     const user = userEvent.setup();
     render(<Demo />);

@@ -1,37 +1,55 @@
-import { forwardRef, type HTMLAttributes, type ReactNode, type CSSProperties } from 'react';
+import {
+  createContext,
+  forwardRef,
+  useContext,
+  useMemo,
+  type CSSProperties,
+  type HTMLAttributes,
+  type ReactNode,
+} from 'react';
 import clsx from 'clsx';
 import './FeatureGrid.css';
 
 export type FeatureGridItemSize = 'sm' | 'md' | 'lg' | 'hero';
+export type FeatureGridGap = '2' | '3' | '4' | '5' | '6';
 
 export interface FeatureGridProps extends HTMLAttributes<HTMLDivElement> {
   columns?: number;
+  gap?: FeatureGridGap;
   inverted?: boolean;
   children: ReactNode;
 }
 
 interface CSSWithVar extends CSSProperties {
   '--ank-feature-grid-columns'?: string;
+  '--ank-feature-grid-gap'?: string;
 }
 
+const FeatureGridContext = createContext<{ columns: number }>({ columns: 3 });
+
 const FeatureGridRoot = forwardRef<HTMLDivElement, FeatureGridProps>(function FeatureGrid(
-  { columns = 3, inverted, className, children, style, ...rest },
+  { columns = 3, gap = '4', inverted, className, children, style, ...rest },
   ref,
 ) {
   const mergedStyle: CSSWithVar = {
     '--ank-feature-grid-columns': String(columns),
+    '--ank-feature-grid-gap': `var(--ank-space-${gap})`,
     ...style,
   };
 
+  const ctx = useMemo(() => ({ columns }), [columns]);
+
   return (
-    <div
-      ref={ref}
-      className={clsx('ank-feature-grid', inverted && 'ank-feature-grid--inverted', className)}
-      style={mergedStyle}
-      {...rest}
-    >
-      {children}
-    </div>
+    <FeatureGridContext.Provider value={ctx}>
+      <div
+        ref={ref}
+        className={clsx('ank-feature-grid', inverted && 'ank-feature-grid--inverted', className)}
+        style={mergedStyle}
+        {...rest}
+      >
+        {children}
+      </div>
+    </FeatureGridContext.Provider>
   );
 });
 
@@ -53,7 +71,9 @@ const Item = forwardRef<HTMLDivElement, FeatureGridItemProps>(function FeatureGr
   { size, span, rowSpan, className, style, children, ...rest },
   ref,
 ) {
-  const effectiveSpan = span ?? (size ? sizeToSpan[size] : undefined);
+  const { columns } = useContext(FeatureGridContext);
+  const requested = span ?? (size ? sizeToSpan[size] : undefined);
+  const effectiveSpan = requested ? Math.min(requested, columns) : undefined;
   const mergedStyle: CSSProperties = {
     ...(effectiveSpan ? { gridColumn: `span ${effectiveSpan}` } : {}),
     ...(rowSpan ? { gridRow: `span ${rowSpan}` } : {}),
@@ -79,14 +99,17 @@ export interface FeatureGridSpotlightProps extends HTMLAttributes<HTMLDivElement
 }
 
 const Spotlight = forwardRef<HTMLDivElement, FeatureGridSpotlightProps>(function FeatureGridSpotlight(
-  { className, children, ...rest },
+  { className, children, style, ...rest },
   ref,
 ) {
+  const { columns } = useContext(FeatureGridContext);
+  const span = Math.min(sizeToSpan.hero, columns);
   return (
     <div
       ref={ref}
       data-size="hero"
-      style={{ gridColumn: `span ${sizeToSpan.hero}` }}
+      data-span={span}
+      style={{ gridColumn: `span ${span}`, ...style }}
       className={clsx(
         'ank-feature-grid__item',
         'ank-feature-grid__spotlight',

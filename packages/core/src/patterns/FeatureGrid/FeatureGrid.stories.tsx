@@ -40,6 +40,7 @@ export default meta;
 type Story = StoryObj<typeof meta>;
 
 export const Bento: Story = {
+  args: { children: null },
   render: () => (
     <FeatureGrid>
       <FeatureGrid.Item size="lg">
@@ -62,6 +63,7 @@ export const Bento: Story = {
 };
 
 export const WithSpotlight: Story = {
+  args: { children: null },
   render: () => (
     <FeatureGrid>
       <FeatureGrid.Spotlight>
@@ -96,6 +98,7 @@ export const WithSpotlight: Story = {
 };
 
 export const ProjectShowcase: Story = {
+  args: { children: null },
   render: () => (
     <FeatureGrid>
       <FeatureGrid.Spotlight>
@@ -139,6 +142,7 @@ export const ProjectShowcase: Story = {
 };
 
 export const FourColumns: Story = {
+  args: { children: null },
   render: () => (
     <FeatureGrid columns={4}>
       <FeatureGrid.Item><Metric label="speed"   value="0.3s"  /></FeatureGrid.Item>

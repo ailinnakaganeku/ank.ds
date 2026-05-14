@@ -179,7 +179,7 @@ const Menu = forwardRef<HTMLUListElement, DropdownMenuProps>(function DropdownMe
     };
     document.addEventListener('keydown', handleKey);
     return () => document.removeEventListener('keydown', handleKey);
-  }, [ctx]);
+  }, [ctx.open, ctx.setOpen, ctx.triggerRef]);
 
   const handleKeyDown = (event: KeyboardEvent<HTMLUListElement>) => {
     const menu = ctx.menuRef.current;
@@ -202,18 +202,26 @@ const Menu = forwardRef<HTMLUListElement, DropdownMenuProps>(function DropdownMe
       event.preventDefault();
       items[items.length - 1].focus();
     } else if (event.key === 'Tab') {
+      event.preventDefault();
       ctx.setOpen(false);
+      ctx.triggerRef.current?.focus();
     }
   };
+
+  const composedRef = useCallback(
+    (node: HTMLUListElement | null) => setComposedRef(ref, ctx.menuRef, node),
+    [ref, ctx.menuRef],
+  );
 
   if (!ctx.open) return null;
 
   return (
     <ul
-      ref={(node) => setComposedRef(ref, ctx.menuRef, node)}
+      ref={composedRef}
       role="menu"
       id={ctx.menuId}
       aria-labelledby={ctx.triggerId}
+      aria-orientation="vertical"
       tabIndex={-1}
       data-align={align}
       onKeyDown={handleKeyDown}

@@ -61,12 +61,6 @@ export const useToast = (): ToastContextValue => {
   return ctx;
 };
 
-let toastCounter = 0;
-const nextId = () => {
-  toastCounter += 1;
-  return `ank-toast-${toastCounter}-${Date.now()}`;
-};
-
 export interface ToastProviderProps {
   children: ReactNode;
   placement?: ToastPlacement;
@@ -163,6 +157,7 @@ export const ToastProvider = ({
   const [toasts, setToasts] = useState<ToastData[]>([]);
   const [mounted, setMounted] = useState(false);
   const timers = useRef<Map<string, number>>(new Map());
+  const counterRef = useRef(0);
 
   useEffect(() => {
     setMounted(true);
@@ -187,7 +182,8 @@ export const ToastProvider = ({
 
   const show = useCallback(
     (options: ToastOptions): string => {
-      const id = nextId();
+      counterRef.current += 1;
+      const id = `ank-toast-${counterRef.current}`;
       const duration = options.duration ?? defaultDuration;
       setToasts((prev) => [...prev, { ...options, id }]);
 
@@ -206,10 +202,24 @@ export const ToastProvider = ({
     setToasts([]);
   }, []);
 
-  const variantHelper = useCallback(
-    (variant: ToastVariant) =>
-      (title: ReactNode, options: Omit<ToastOptions, 'variant' | 'title'> = {}) =>
-        show({ ...options, title, variant }),
+  const success = useCallback(
+    (title: ReactNode, options: Omit<ToastOptions, 'variant' | 'title'> = {}) =>
+      show({ ...options, title, variant: 'success' }),
+    [show],
+  );
+  const warning = useCallback(
+    (title: ReactNode, options: Omit<ToastOptions, 'variant' | 'title'> = {}) =>
+      show({ ...options, title, variant: 'warning' }),
+    [show],
+  );
+  const error = useCallback(
+    (title: ReactNode, options: Omit<ToastOptions, 'variant' | 'title'> = {}) =>
+      show({ ...options, title, variant: 'error' }),
+    [show],
+  );
+  const info = useCallback(
+    (title: ReactNode, options: Omit<ToastOptions, 'variant' | 'title'> = {}) =>
+      show({ ...options, title, variant: 'info' }),
     [show],
   );
 
@@ -217,14 +227,14 @@ export const ToastProvider = ({
     () => ({
       toasts,
       show,
-      success: variantHelper('success'),
-      warning: variantHelper('warning'),
-      error: variantHelper('error'),
-      info: variantHelper('info'),
+      success,
+      warning,
+      error,
+      info,
       dismiss,
       dismissAll,
     }),
-    [toasts, show, variantHelper, dismiss, dismissAll],
+    [toasts, show, success, warning, error, info, dismiss, dismissAll],
   );
 
   return (
@@ -236,7 +246,6 @@ export const ToastProvider = ({
           <div
             role="region"
             aria-label={viewportLabel}
-            aria-live="polite"
             data-placement={placement}
             className="ank-toast-viewport"
           >

@@ -1,7 +1,7 @@
 .ank-feature-grid {
   display: grid;
   grid-template-columns: repeat(var(--ank-feature-grid-columns, 3), minmax(0, 1fr));
-  gap: 20px;
+  gap: var(--ank-feature-grid-gap, var(--ank-space-4));
   padding: 64px 48px;
   font-family: var(--ank-body);
   background: var(--ank-bg);

@@ -47,7 +47,7 @@ const Columns = ({ className, children, ...rest }: HTMLAttributes<HTMLDivElement
   </div>
 );
 
-export interface FooterColumnProps extends HTMLAttributes<HTMLDivElement> {
+export interface FooterColumnProps extends Omit<HTMLAttributes<HTMLDivElement>, 'title'> {
   title?: ReactNode;
   children: ReactNode;
 }
@@ -85,6 +85,7 @@ const Link = forwardRef<HTMLAnchorElement, FooterLinkProps>(function FooterLink(
         {...rest}
       >
         {children}
+        {external && <span className="ank-sr-only"> (opens in new tab)</span>}
       </a>
     </li>
   );

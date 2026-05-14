@@ -12,6 +12,7 @@ export default meta;
 type Story = StoryObj<typeof meta>;
 
 export const Default: Story = {
+  args: { children: null },
   render: () => (
     <Footer>
       <Footer.Top>
@@ -51,6 +52,7 @@ export const Default: Story = {
 };
 
 export const Light: Story = {
+  args: { children: null },
   render: () => (
     <Footer variant="light">
       <Footer.Top>
@@ -80,6 +82,7 @@ export const Light: Story = {
 };
 
 export const Minimal: Story = {
+  args: { children: null },
   render: () => (
     <Footer>
       <Footer.Bottom>

@@ -4,7 +4,7 @@ import './CodeDemo.css';
 
 export type CodeDemoVariant = 'dark' | 'light';
 
-export interface CodeDemoProps extends HTMLAttributes<HTMLDivElement> {
+export interface CodeDemoProps extends Omit<HTMLAttributes<HTMLDivElement>, 'title'> {
   title?: ReactNode;
   variant?: CodeDemoVariant;
   showDots?: boolean;

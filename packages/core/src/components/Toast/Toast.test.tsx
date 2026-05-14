@@ -50,7 +50,7 @@ describe('Toast', () => {
     click('show');
 
     const region = screen.getByRole('region', { name: 'Notifications' });
-    expect(region).toHaveAttribute('aria-live', 'polite');
+    expect(region).not.toHaveAttribute('aria-live');
     expect(screen.getByText('Saved')).toBeInTheDocument();
     expect(screen.getByText('All good')).toBeInTheDocument();
   });

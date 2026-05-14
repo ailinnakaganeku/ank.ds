@@ -38,9 +38,9 @@ describe('Footer', () => {
     expect(lists[0].querySelectorAll('li').length).toBe(2);
   });
 
-  it('marks external links with target and rel', () => {
+  it('marks external links with target and rel and a screen-reader cue', () => {
     render(<Sample />);
-    const github = screen.getByRole('link', { name: 'GitHub' });
+    const github = screen.getByRole('link', { name: /GitHub.*opens in new tab/i });
     expect(github).toHaveAttribute('target', '_blank');
     expect(github).toHaveAttribute('rel', 'noopener noreferrer');
   });

@@ -70,6 +70,36 @@ describe('FeatureGrid', () => {
     expect(item.style.gridColumn).toBe('span 3');
   });
 
+  it('clamps Spotlight span to the available columns count', () => {
+    const { container } = render(
+      <FeatureGrid columns={2}>
+        <FeatureGrid.Spotlight>x</FeatureGrid.Spotlight>
+      </FeatureGrid>,
+    );
+    const item = container.querySelector('.ank-feature-grid__spotlight') as HTMLElement;
+    expect(item.style.gridColumn).toBe('span 2');
+  });
+
+  it('clamps Item span to the available columns count', () => {
+    const { container } = render(
+      <FeatureGrid columns={2}>
+        <FeatureGrid.Item span={4}>x</FeatureGrid.Item>
+      </FeatureGrid>,
+    );
+    const item = container.querySelector('.ank-feature-grid__item') as HTMLElement;
+    expect(item.style.gridColumn).toBe('span 2');
+  });
+
+  it('exposes the gap prop through a CSS variable', () => {
+    const { container } = render(
+      <FeatureGrid gap="6">
+        <FeatureGrid.Item>x</FeatureGrid.Item>
+      </FeatureGrid>,
+    );
+    const root = container.firstElementChild as HTMLElement;
+    expect(root.style.getPropertyValue('--ank-feature-grid-gap')).toBe('var(--ank-space-6)');
+  });
+
   it('has no axe violations', async () => {
     const { container } = render(
       <FeatureGrid>
