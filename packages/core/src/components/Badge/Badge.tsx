@@ -28,6 +28,8 @@ const badgeVariants = cva('ank-badge', {
 });
 
 export type BadgeVariants = VariantProps<typeof badgeVariants>;
+export type BadgeVariant = NonNullable<BadgeVariants['variant']>;
+export type BadgeSize = NonNullable<BadgeVariants['size']>;
 
 export interface BadgeProps
   extends HTMLAttributes<HTMLSpanElement>,

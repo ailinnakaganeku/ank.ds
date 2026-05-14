@@ -54,7 +54,6 @@
   background: var(--ank-ink);
   border-bottom: 2px solid var(--ank-ink);
   border-right: 2px solid var(--ank-ink);
-  white-space: nowrap;
 }
 
 .ank-table th:last-child {
