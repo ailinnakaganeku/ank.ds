@@ -1,0 +1,22 @@
+.ank-kbd {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 22px;
+  height: 22px;
+  padding: 0 6px;
+  font-family: var(--ank-mono);
+  font-size: 12px;
+  font-weight: 500;
+  line-height: 1;
+  color: var(--ank-ink);
+  background: var(--ank-surface);
+  border: 1.5px solid var(--ank-ink);
+  border-bottom-width: 3px;
+  border-radius: 2px;
+  letter-spacing: 0;
+}
+
+.ank-kbd + .ank-kbd {
+  margin-left: 4px;
+}
