@@ -9,11 +9,43 @@ const FOCUSABLE_SELECTOR = [
   '[tabindex]:not([tabindex="-1"])',
 ].join(',');
 
+const isFocusable = (el: HTMLElement): boolean => {
+  if (el.hasAttribute('aria-hidden')) return false;
+  if (el.hidden) return false;
+  if (typeof el.checkVisibility === 'function') {
+    return el.checkVisibility({ checkOpacity: false, checkVisibilityCSS: true });
+  }
+  return true;
+};
+
 export const getFocusableElements = (root: HTMLElement): HTMLElement[] => {
   const nodes = root.querySelectorAll<HTMLElement>(FOCUSABLE_SELECTOR);
-  return Array.from(nodes).filter(
-    (el) => !el.hasAttribute('aria-hidden') && el.offsetParent !== null,
-  );
+  return Array.from(nodes).filter(isFocusable);
+};
+
+let bodyLockCount = 0;
+let savedBodyOverflow: string | null = null;
+
+const acquireBodyLock = () => {
+  if (bodyLockCount === 0) {
+    savedBodyOverflow = document.body.style.overflow;
+    document.body.style.overflow = 'hidden';
+  }
+  bodyLockCount += 1;
+};
+
+const releaseBodyLock = () => {
+  bodyLockCount = Math.max(0, bodyLockCount - 1);
+  if (bodyLockCount === 0 && savedBodyOverflow !== null) {
+    document.body.style.overflow = savedBodyOverflow;
+    savedBodyOverflow = null;
+  }
+};
+
+export const __resetBodyLockForTests = () => {
+  bodyLockCount = 0;
+  savedBodyOverflow = null;
+  document.body.style.overflow = '';
 };
 
 export interface UseFocusTrapOptions {
@@ -35,11 +67,9 @@ export const useFocusTrap = ({
     if (!active) return;
 
     const previouslyFocused = document.activeElement as HTMLElement | null;
-    let originalOverflow = '';
 
     if (lockScroll) {
-      originalOverflow = document.body.style.overflow;
-      document.body.style.overflow = 'hidden';
+      acquireBodyLock();
     }
 
     const rafId = requestAnimationFrame(() => {
@@ -88,7 +118,7 @@ export const useFocusTrap = ({
       cancelAnimationFrame(rafId);
       document.removeEventListener('keydown', handleKeyDown);
       if (lockScroll) {
-        document.body.style.overflow = originalOverflow;
+        releaseBodyLock();
       }
       previouslyFocused?.focus?.();
     };
