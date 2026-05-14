@@ -25,7 +25,7 @@ describe('FeatureGrid', () => {
     expect(root.style.getPropertyValue('--ank-feature-grid-columns')).toBe('4');
   });
 
-  it('applies grid-column span on items', () => {
+  it('applies grid-column span when span prop is set', () => {
     const { container } = render(
       <FeatureGrid>
         <FeatureGrid.Item span={2}>x</FeatureGrid.Item>
@@ -33,14 +33,48 @@ describe('FeatureGrid', () => {
     );
     const item = container.querySelector('.ank-feature-grid__item') as HTMLElement;
     expect(item.style.gridColumn).toBe('span 2');
-    expect(item).toHaveAttribute('data-span', '2');
+  });
+
+  it('maps size preset to a span and adds data-size', () => {
+    const { container } = render(
+      <FeatureGrid>
+        <FeatureGrid.Item size="lg">a</FeatureGrid.Item>
+        <FeatureGrid.Item size="hero">b</FeatureGrid.Item>
+      </FeatureGrid>,
+    );
+    const items = container.querySelectorAll<HTMLElement>('.ank-feature-grid__item');
+    expect(items[0].style.gridColumn).toBe('span 2');
+    expect(items[0]).toHaveAttribute('data-size', 'lg');
+    expect(items[1].style.gridColumn).toBe('span 3');
+    expect(items[1]).toHaveAttribute('data-size', 'hero');
+  });
+
+  it('honors an explicit span over the size preset', () => {
+    const { container } = render(
+      <FeatureGrid>
+        <FeatureGrid.Item size="hero" span={2}>x</FeatureGrid.Item>
+      </FeatureGrid>,
+    );
+    const item = container.querySelector('.ank-feature-grid__item') as HTMLElement;
+    expect(item.style.gridColumn).toBe('span 2');
+  });
+
+  it('Spotlight renders as a hero-sized item', () => {
+    const { container } = render(
+      <FeatureGrid>
+        <FeatureGrid.Spotlight>x</FeatureGrid.Spotlight>
+      </FeatureGrid>,
+    );
+    const item = container.querySelector('.ank-feature-grid__spotlight') as HTMLElement;
+    expect(item).toHaveAttribute('data-size', 'hero');
+    expect(item.style.gridColumn).toBe('span 3');
   });
 
   it('has no axe violations', async () => {
     const { container } = render(
       <FeatureGrid>
-        <FeatureGrid.Item>one</FeatureGrid.Item>
-        <FeatureGrid.Item>two</FeatureGrid.Item>
+        <FeatureGrid.Item size="lg">one</FeatureGrid.Item>
+        <FeatureGrid.Item size="md">two</FeatureGrid.Item>
       </FeatureGrid>,
     );
     expect(await axe(container)).toHaveNoViolations();

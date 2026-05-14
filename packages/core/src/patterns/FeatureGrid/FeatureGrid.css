@@ -13,6 +13,29 @@
   min-width: 0;
 }
 
+.ank-feature-grid__item[data-size="sm"]    { font-size: 13px; }
+.ank-feature-grid__item[data-size="md"]    { font-size: 14px; }
+.ank-feature-grid__item[data-size="lg"]    { font-size: 15px; }
+.ank-feature-grid__item[data-size="hero"]  { font-size: 16px; }
+
+.ank-feature-grid__item[data-size="hero"] .ank-card__title {
+  font-size: clamp(28px, 3.6vw, 42px);
+  line-height: 1.05;
+}
+
+.ank-feature-grid__item[data-size="lg"] .ank-card__title {
+  font-size: clamp(22px, 2.4vw, 30px);
+}
+
+.ank-feature-grid__item[data-size="sm"] .ank-card__title {
+  font-size: 18px;
+}
+
+.ank-feature-grid__spotlight .ank-card__title {
+  font-family: var(--ank-display);
+  letter-spacing: -0.01em;
+}
+
 @media (max-width: 1023px) {
   .ank-feature-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
 }
@@ -23,4 +46,5 @@
     padding: 40px 20px;
   }
   .ank-feature-grid > [data-span] { grid-column: auto !important; }
+  .ank-feature-grid > [data-size] { grid-column: auto !important; }
 }
