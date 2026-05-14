@@ -1,0 +1,92 @@
+.ank-dropdown {
+  position: relative;
+  display: inline-block;
+}
+
+.ank-dropdown__menu {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  margin-top: 8px;
+  z-index: var(--ank-z-dropdown);
+  min-width: 200px;
+  padding: 6px;
+  background: var(--ank-white);
+  color: var(--ank-ink);
+  border: 2.5px solid var(--ank-ink);
+  box-shadow: 4px 4px 0 var(--ank-shadow-color);
+  font-family: var(--ank-body);
+  list-style: none;
+  margin-block: 8px 0;
+  outline: none;
+  animation: ank-dropdown-in 120ms ease-out;
+}
+
+.ank-dropdown__menu[data-align="end"] {
+  left: auto;
+  right: 0;
+}
+
+.ank-dropdown__item {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  width: 100%;
+  padding: 8px 10px;
+  font-family: var(--ank-body);
+  font-size: 14px;
+  color: var(--ank-ink);
+  background: transparent;
+  border: 0;
+  cursor: pointer;
+  text-align: left;
+  user-select: none;
+  transition: background-color var(--ank-transition-fast);
+}
+
+.ank-dropdown__item:hover:not([aria-disabled="true"]) {
+  background: var(--ank-surface);
+}
+
+.ank-dropdown__item:focus {
+  background: var(--ank-ink);
+  color: var(--ank-white);
+  outline: none;
+}
+
+.ank-dropdown__item[aria-disabled="true"] {
+  color: var(--ank-gray-500);
+  cursor: not-allowed;
+}
+
+.ank-dropdown__item--destructive { color: var(--ank-error-dark); }
+.ank-dropdown__item--destructive:focus { background: var(--ank-error-dark); color: var(--ank-white); }
+
+.ank-dropdown__separator {
+  height: 2px;
+  background: var(--ank-ink);
+  margin: 6px 4px;
+  border: 0;
+  list-style: none;
+}
+
+.ank-dropdown__label {
+  display: block;
+  padding: 8px 10px 4px 10px;
+  font-family: var(--ank-body);
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--ank-gray-500);
+}
+
+@keyframes ank-dropdown-in {
+  from { opacity: 0; transform: translateY(-4px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .ank-dropdown__menu { animation: none; }
+  .ank-dropdown__item { transition: none; }
+}
