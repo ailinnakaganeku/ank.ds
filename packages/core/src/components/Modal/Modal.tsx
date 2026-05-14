@@ -1,8 +1,8 @@
 import {
+  useEffect,
   useId,
   useRef,
   useState,
-  useEffect,
   type HTMLAttributes,
   type MouseEvent,
   type ReactNode,
@@ -52,6 +52,8 @@ const ModalRoot = ({
 }: ModalProps) => {
   const titleId = useId();
   const containerRef = useRef<HTMLDivElement>(null);
+  const overlayRef = useRef<HTMLDivElement>(null);
+  const mouseDownTargetRef = useRef<EventTarget | null>(null);
   const [mounted, setMounted] = useState(false);
 
   useEffect(() => {
@@ -66,16 +68,48 @@ const ModalRoot = ({
     lockScroll: true,
   });
 
+  useEffect(() => {
+    if (!open) return;
+    const overlay = overlayRef.current;
+    if (!overlay) return;
+    const inerted: Element[] = [];
+    Array.from(document.body.children).forEach((child) => {
+      if (child !== overlay && !child.hasAttribute('inert')) {
+        child.setAttribute('inert', '');
+        inerted.push(child);
+      }
+    });
+    return () => {
+      inerted.forEach((node) => node.removeAttribute('inert'));
+    };
+  }, [open]);
+
   if (!mounted || !open) return null;
 
+  const handleOverlayMouseDown = (event: MouseEvent<HTMLDivElement>) => {
+    mouseDownTargetRef.current = event.target;
+  };
+
   const handleOverlayClick = (event: MouseEvent<HTMLDivElement>) => {
-    if (closeOnOverlay && event.target === event.currentTarget) {
+    if (!closeOnOverlay) {
+      mouseDownTargetRef.current = null;
+      return;
+    }
+    const clickedOverlay = event.target === event.currentTarget;
+    const startedOnOverlay = mouseDownTargetRef.current === event.currentTarget;
+    mouseDownTargetRef.current = null;
+    if (clickedOverlay && startedOnOverlay) {
       onClose();
     }
   };
 
   return createPortal(
-    <div className="ank-modal-overlay" onMouseDown={handleOverlayClick}>
+    <div
+      ref={overlayRef}
+      className="ank-modal-overlay"
+      onMouseDown={handleOverlayMouseDown}
+      onClick={handleOverlayClick}
+    >
       <div
         ref={containerRef}
         role="dialog"
