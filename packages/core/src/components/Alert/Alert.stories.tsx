@@ -21,7 +21,13 @@ const meta = {
   argTypes: {
     variant: { control: 'inline-radio', options: ['success', 'warning', 'error', 'info'] },
   },
-  decorators: [(Story) => <div style={{ width: 480 }}><Story /></div>],
+  decorators: [
+    (Story) => (
+      <div style={{ width: 480 }}>
+        <Story />
+      </div>
+    ),
+  ],
 } satisfies Meta<typeof Alert>;
 
 export default meta;
@@ -58,7 +64,11 @@ export const TitleOnly: Story = {
 };
 
 export const DescriptionOnly: Story = {
-  args: { variant: 'info', title: undefined, children: 'Heads up — we updated the privacy policy.' },
+  args: {
+    variant: 'info',
+    title: undefined,
+    children: 'Heads up — we updated the privacy policy.',
+  },
 };
 
 export const Dismissible: Story = {
@@ -74,17 +84,21 @@ export const Dismissible: Story = {
               Your changes were saved successfully.
             </Alert>
           ) : (
-            <button type="button" onClick={() => setOpen(true)} style={{
-              alignSelf: 'flex-start',
-              padding: '8px 12px',
-              border: '2.5px solid var(--ank-ink)',
-              background: 'var(--ank-white)',
-              boxShadow: '4px 4px 0 var(--ank-shadow-color)',
-              fontFamily: 'var(--ank-body)',
-              fontSize: 13,
-              fontWeight: 700,
-              cursor: 'pointer',
-            }}>
+            <button
+              type="button"
+              onClick={() => setOpen(true)}
+              style={{
+                alignSelf: 'flex-start',
+                padding: '8px 12px',
+                border: '2.5px solid var(--ank-ink)',
+                background: 'var(--ank-white)',
+                boxShadow: '4px 4px 0 var(--ank-shadow-color)',
+                fontFamily: 'var(--ank-body)',
+                fontSize: 13,
+                fontWeight: 700,
+                cursor: 'pointer',
+              }}
+            >
               Show alert
             </button>
           )}

@@ -21,7 +21,7 @@
   animation: ank-popover-in 120ms ease-out;
 }
 
-.ank-popover__content[data-side="top"] {
+.ank-popover__content[data-side='top'] {
   top: auto;
   bottom: 100%;
   margin-top: 0;
@@ -29,7 +29,7 @@
   animation-name: ank-popover-in-top;
 }
 
-.ank-popover__content[data-side="right"] {
+.ank-popover__content[data-side='right'] {
   top: 0;
   left: 100%;
   margin-top: 0;
@@ -37,7 +37,7 @@
   animation-name: ank-popover-in-right;
 }
 
-.ank-popover__content[data-side="left"] {
+.ank-popover__content[data-side='left'] {
   top: 0;
   left: auto;
   right: 100%;
@@ -46,34 +46,60 @@
   animation-name: ank-popover-in-left;
 }
 
-.ank-popover__content[data-align="end"] {
+.ank-popover__content[data-align='end'] {
   left: auto;
   right: 0;
 }
 
-.ank-popover__content[data-align="center"] {
+.ank-popover__content[data-align='center'] {
   left: 50%;
   right: auto;
   transform: translateX(-50%);
 }
 
 @keyframes ank-popover-in {
-  from { opacity: 0; transform: translateY(-4px); }
-  to   { opacity: 1; transform: translateY(0); }
+  from {
+    opacity: 0;
+    transform: translateY(-4px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }
 @keyframes ank-popover-in-top {
-  from { opacity: 0; transform: translateY(4px); }
-  to   { opacity: 1; transform: translateY(0); }
+  from {
+    opacity: 0;
+    transform: translateY(4px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }
 @keyframes ank-popover-in-right {
-  from { opacity: 0; transform: translateX(-4px); }
-  to   { opacity: 1; transform: translateX(0); }
+  from {
+    opacity: 0;
+    transform: translateX(-4px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
 }
 @keyframes ank-popover-in-left {
-  from { opacity: 0; transform: translateX(4px); }
-  to   { opacity: 1; transform: translateX(0); }
+  from {
+    opacity: 0;
+    transform: translateX(4px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .ank-popover__content { animation: none; }
+  .ank-popover__content {
+    animation: none;
+  }
 }

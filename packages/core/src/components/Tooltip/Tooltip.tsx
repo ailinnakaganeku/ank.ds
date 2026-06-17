@@ -35,13 +35,15 @@ interface TriggerProps {
   'aria-describedby'?: string;
 }
 
-const compose = <E extends React.SyntheticEvent>(
-  userHandler: ((event: E) => void) | undefined,
-  ourHandler: (event: E) => void,
-) => (event: E) => {
-  userHandler?.(event);
-  if (!event.defaultPrevented) ourHandler(event);
-};
+const compose =
+  <E extends React.SyntheticEvent>(
+    userHandler: ((event: E) => void) | undefined,
+    ourHandler: (event: E) => void,
+  ) =>
+  (event: E) => {
+    userHandler?.(event);
+    if (!event.defaultPrevented) ourHandler(event);
+  };
 
 export const Tooltip = ({
   content,
@@ -94,9 +96,12 @@ export const Tooltip = ({
     return () => document.removeEventListener('keydown', onKey);
   }, [open]);
 
-  useEffect(() => () => {
-    if (timerRef.current !== null) window.clearTimeout(timerRef.current);
-  }, []);
+  useEffect(
+    () => () => {
+      if (timerRef.current !== null) window.clearTimeout(timerRef.current);
+    },
+    [],
+  );
 
   const triggerProps = child.props as TriggerProps;
 

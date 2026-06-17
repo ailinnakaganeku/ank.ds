@@ -1,3 +1,5 @@
+import './styles/global.css';
+
 export * from '@ankds/tokens';
 export * from './components/Accordion';
 export * from './components/Alert';
@@ -9,6 +11,7 @@ export * from './components/Card';
 export * from './components/Checkbox';
 export * from './components/Dropdown';
 export * from './components/FieldWrapper';
+export * from './components/Icon';
 export * from './components/Input';
 export * from './components/Kbd';
 export * from './components/Label';

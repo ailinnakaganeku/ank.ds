@@ -32,7 +32,7 @@
     box-shadow var(--ank-transition-fast);
 }
 
-.ank-tab:hover:not([disabled]):not([aria-selected="true"]) {
+.ank-tab:hover:not([disabled]):not([aria-selected='true']) {
   background: var(--ank-surface);
 }
 
@@ -41,7 +41,7 @@
   outline-offset: 2px;
 }
 
-.ank-tab[aria-selected="true"] {
+.ank-tab[aria-selected='true'] {
   background: var(--ank-ink);
   color: var(--ank-white);
   box-shadow: 0 3px 0 var(--ank-shadow-color);
@@ -62,5 +62,7 @@
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .ank-tab { transition: none; }
+  .ank-tab {
+    transition: none;
+  }
 }

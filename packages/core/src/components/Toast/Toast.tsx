@@ -11,6 +11,7 @@ import {
 import { createPortal } from 'react-dom';
 import clsx from 'clsx';
 import './Toast.css';
+import { CheckIcon, WarningIcon, ErrorIcon, InfoIcon, CloseIcon } from '../Icon';
 
 export type ToastVariant = 'default' | 'success' | 'warning' | 'error' | 'info';
 
@@ -45,8 +46,8 @@ interface ToastContextValue {
   show: (options: ToastOptions) => string;
   success: (title: ReactNode, options?: Omit<ToastOptions, 'variant' | 'title'>) => string;
   warning: (title: ReactNode, options?: Omit<ToastOptions, 'variant' | 'title'>) => string;
-  error:   (title: ReactNode, options?: Omit<ToastOptions, 'variant' | 'title'>) => string;
-  info:    (title: ReactNode, options?: Omit<ToastOptions, 'variant' | 'title'>) => string;
+  error: (title: ReactNode, options?: Omit<ToastOptions, 'variant' | 'title'>) => string;
+  info: (title: ReactNode, options?: Omit<ToastOptions, 'variant' | 'title'>) => string;
   dismiss: (id: string) => void;
   dismissAll: () => void;
 }
@@ -68,40 +69,12 @@ export interface ToastProviderProps {
   viewportLabel?: string;
 }
 
-const SuccessIcon = () => (
-  <svg viewBox="0 0 20 20" fill="none" stroke="currentColor" strokeWidth="2.5" aria-hidden>
-    <path d="M4 10l4 4 8-8" strokeLinecap="square" strokeLinejoin="miter" />
-  </svg>
-);
-const WarningIcon = () => (
-  <svg viewBox="0 0 20 20" fill="none" stroke="currentColor" strokeWidth="2.5" aria-hidden>
-    <path d="M10 4v8" strokeLinecap="square" />
-    <circle cx="10" cy="15.5" r="1.2" fill="currentColor" stroke="none" />
-  </svg>
-);
-const ErrorIcon = () => (
-  <svg viewBox="0 0 20 20" fill="none" stroke="currentColor" strokeWidth="2.5" aria-hidden>
-    <path d="M5 5l10 10M15 5L5 15" strokeLinecap="square" />
-  </svg>
-);
-const InfoIcon = () => (
-  <svg viewBox="0 0 20 20" fill="none" stroke="currentColor" strokeWidth="2.5" aria-hidden>
-    <path d="M10 9v6" strokeLinecap="square" />
-    <circle cx="10" cy="5.5" r="1.2" fill="currentColor" stroke="none" />
-  </svg>
-);
-const CloseIcon = () => (
-  <svg viewBox="0 0 14 14" fill="none" stroke="currentColor" strokeWidth="2.5" aria-hidden>
-    <path d="M3 3l8 8M11 3l-8 8" strokeLinecap="square" />
-  </svg>
-);
-
 const icons: Record<ToastVariant, ReactNode> = {
   default: null,
-  success: <SuccessIcon />,
+  success: <CheckIcon />,
   warning: <WarningIcon />,
-  error:   <ErrorIcon />,
-  info:    <InfoIcon />,
+  error: <ErrorIcon />,
+  info: <InfoIcon />,
 };
 
 const ToastItem = ({ toast, onDismiss }: { toast: ToastData; onDismiss: () => void }) => {
@@ -120,9 +93,7 @@ const ToastItem = ({ toast, onDismiss }: { toast: ToastData; onDismiss: () => vo
       )}
       <div className="ank-toast__body">
         {toast.title && <div className="ank-toast__title">{toast.title}</div>}
-        {toast.description && (
-          <div className="ank-toast__description">{toast.description}</div>
-        )}
+        {toast.description && <div className="ank-toast__description">{toast.description}</div>}
         {toast.action && (
           <button
             type="button"

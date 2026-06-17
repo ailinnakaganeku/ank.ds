@@ -84,22 +84,30 @@
   border-left-color: var(--ank-success);
   background: var(--ank-success-bg);
 }
-.ank-alert--success .ank-alert__icon { color: var(--ank-success); }
+.ank-alert--success .ank-alert__icon {
+  color: var(--ank-success);
+}
 
 .ank-alert--warning {
   border-left-color: var(--ank-warning);
   background: var(--ank-warning-bg);
 }
-.ank-alert--warning .ank-alert__icon { color: var(--ank-warning); }
+.ank-alert--warning .ank-alert__icon {
+  color: var(--ank-warning);
+}
 
 .ank-alert--error {
   border-left-color: var(--ank-error);
   background: var(--ank-error-bg);
 }
-.ank-alert--error .ank-alert__icon { color: var(--ank-error); }
+.ank-alert--error .ank-alert__icon {
+  color: var(--ank-error);
+}
 
 .ank-alert--info {
   border-left-color: var(--ank-info);
   background: var(--ank-info-bg);
 }
-.ank-alert--info .ank-alert__icon { color: var(--ank-info); }
+.ank-alert--info .ank-alert__icon {
+  color: var(--ank-info);
+}

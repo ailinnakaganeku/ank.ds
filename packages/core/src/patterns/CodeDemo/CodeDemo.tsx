@@ -52,11 +52,7 @@ const Line = forwardRef<HTMLSpanElement, CodeDemoLineProps>(function CodeDemoLin
   return (
     <span
       ref={ref}
-      className={clsx(
-        'ank-code-demo__line',
-        output && 'ank-code-demo__line--output',
-        className,
-      )}
+      className={clsx('ank-code-demo__line', output && 'ank-code-demo__line--output', className)}
       {...rest}
     >
       {prompt && (

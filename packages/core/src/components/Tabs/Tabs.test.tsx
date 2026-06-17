@@ -1,4 +1,4 @@
-import { describe, expect, it, vi } from 'vitest';
+import { describe, expect, it } from 'vitest';
 import { useState } from 'react';
 import { render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
@@ -37,7 +37,9 @@ describe('Tabs', () => {
     render(
       <Tabs>
         <Tabs.List aria-label="No default">
-          <Tabs.Tab value="a" disabled>Alpha</Tabs.Tab>
+          <Tabs.Tab value="a" disabled>
+            Alpha
+          </Tabs.Tab>
           <Tabs.Tab value="b">Beta</Tabs.Tab>
           <Tabs.Tab value="c">Gamma</Tabs.Tab>
         </Tabs.List>
@@ -112,7 +114,9 @@ describe('Tabs', () => {
       <Tabs defaultValue="a">
         <Tabs.List aria-label="With disabled">
           <Tabs.Tab value="a">Alpha</Tabs.Tab>
-          <Tabs.Tab value="b" disabled>Beta</Tabs.Tab>
+          <Tabs.Tab value="b" disabled>
+            Beta
+          </Tabs.Tab>
           <Tabs.Tab value="c">Gamma</Tabs.Tab>
         </Tabs.List>
         <Tabs.Panel value="a">A</Tabs.Panel>

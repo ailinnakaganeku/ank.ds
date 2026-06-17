@@ -23,7 +23,13 @@ const meta = {
       options: ['primary', 'secondary', 'accent', 'success', 'warning', 'error'],
     },
   },
-  decorators: [(Story) => <div style={{ width: 360 }}><Story /></div>],
+  decorators: [
+    (Story) => (
+      <div style={{ width: 360 }}>
+        <Story />
+      </div>
+    ),
+  ],
 } satisfies Meta<typeof Progress>;
 
 export default meta;
@@ -56,9 +62,11 @@ export const Variants: Story = {
   decorators: [(Story) => <Story />],
   render: () => (
     <div style={{ display: 'flex', flexDirection: 'column', gap: 20, padding: 32, maxWidth: 360 }}>
-      {(['primary', 'secondary', 'accent', 'success', 'warning', 'error'] as const).map((variant) => (
-        <Progress key={variant} variant={variant} value={70} label={variant} showValue />
-      ))}
+      {(['primary', 'secondary', 'accent', 'success', 'warning', 'error'] as const).map(
+        (variant) => (
+          <Progress key={variant} variant={variant} value={70} label={variant} showValue />
+        ),
+      )}
     </div>
   ),
 };

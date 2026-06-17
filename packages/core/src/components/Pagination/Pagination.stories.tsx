@@ -7,13 +7,19 @@ const meta = {
   component: Pagination,
   tags: ['autodocs'],
   parameters: { layout: 'centered' },
-  args: { page: 1, pageCount: 10, siblingCount: 1 },
+  args: { page: 1, pageCount: 10, siblingCount: 1, onPageChange: () => {} },
 } satisfies Meta<typeof Pagination>;
 
 export default meta;
 type Story = StoryObj<typeof meta>;
 
-const Demo = ({ pageCount = 10, siblingCount = 1 }: { pageCount?: number; siblingCount?: number }) => {
+const Demo = ({
+  pageCount = 10,
+  siblingCount = 1,
+}: {
+  pageCount?: number;
+  siblingCount?: number;
+}) => {
   const [page, setPage] = useState(1);
   return (
     <Pagination

@@ -2,7 +2,14 @@ import type { Meta, StoryObj } from '@storybook/react';
 import { Stack } from './Stack';
 
 const Item = ({ children }: { children: React.ReactNode }) => (
-  <div style={{ padding: 16, background: 'var(--ank-surface)', border: '2.5px solid var(--ank-ink)', fontFamily: 'var(--ank-body)' }}>
+  <div
+    style={{
+      padding: 16,
+      background: 'var(--ank-surface)',
+      border: '2.5px solid var(--ank-ink)',
+      fontFamily: 'var(--ank-body)',
+    }}
+  >
     {children}
   </div>
 );
@@ -12,6 +19,7 @@ const meta = {
   component: Stack,
   tags: ['autodocs'],
   parameters: { layout: 'padded' },
+  args: { children: 'Stack' },
 } satisfies Meta<typeof Stack>;
 
 export default meta;

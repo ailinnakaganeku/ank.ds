@@ -16,21 +16,26 @@
     line-height: 1.6;
   }
 
-  h1, h2, h3 {
+  h1,
+  h2,
+  h3 {
     font-family: var(--ank-display);
     font-weight: 700;
     color: var(--ank-ink);
     margin: 0;
   }
 
-  h4, h5, h6 {
+  h4,
+  h5,
+  h6 {
     font-family: var(--ank-body);
     font-weight: 700;
     color: var(--ank-ink);
     margin: 0;
   }
 
-  code, pre {
+  code,
+  pre {
     font-family: var(--ank-mono);
   }
 

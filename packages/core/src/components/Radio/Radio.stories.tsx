@@ -3,9 +3,7 @@ import { useState } from 'react';
 import { Radio } from './Radio';
 
 const Stack = ({ children }: { children: React.ReactNode }) => (
-  <div style={{ display: 'flex', flexDirection: 'column', gap: 12, padding: 32 }}>
-    {children}
-  </div>
+  <div style={{ display: 'flex', flexDirection: 'column', gap: 12, padding: 32 }}>{children}</div>
 );
 
 const meta = {
@@ -36,9 +34,15 @@ export const Sizes: Story = {
   parameters: { layout: 'fullscreen' },
   render: () => (
     <Stack>
-      <Radio name="size-demo" size="sm">Small</Radio>
-      <Radio name="size-demo" size="md">Medium</Radio>
-      <Radio name="size-demo" size="lg">Large</Radio>
+      <Radio name="size-demo" size="sm">
+        Small
+      </Radio>
+      <Radio name="size-demo" size="md">
+        Medium
+      </Radio>
+      <Radio name="size-demo" size="lg">
+        Large
+      </Radio>
     </Stack>
   ),
 };
@@ -61,7 +65,14 @@ export const Group: Story = {
               {value[0].toUpperCase() + value.slice(1)}
             </Radio>
           ))}
-          <div style={{ fontFamily: 'var(--ank-mono)', fontSize: 12, color: 'var(--ank-gray-500)', marginTop: 8 }}>
+          <div
+            style={{
+              fontFamily: 'var(--ank-mono)',
+              fontSize: 12,
+              color: 'var(--ank-gray-500)',
+              marginTop: 8,
+            }}
+          >
             selected: {plan}
           </div>
         </Stack>

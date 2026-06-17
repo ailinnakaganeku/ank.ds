@@ -1,9 +1,4 @@
-import {
-  forwardRef,
-  type AnchorHTMLAttributes,
-  type HTMLAttributes,
-  type ReactNode,
-} from 'react';
+import { forwardRef, type AnchorHTMLAttributes, type HTMLAttributes, type ReactNode } from 'react';
 import clsx from 'clsx';
 import './Footer.css';
 
@@ -73,9 +68,7 @@ const Link = forwardRef<HTMLAnchorElement, FooterLinkProps>(function FooterLink(
   { external, className, children, ...rest },
   ref,
 ) {
-  const externalAttrs = external
-    ? { target: '_blank' as const, rel: 'noopener noreferrer' }
-    : {};
+  const externalAttrs = external ? { target: '_blank' as const, rel: 'noopener noreferrer' } : {};
   return (
     <li>
       <a

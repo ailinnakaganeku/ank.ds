@@ -6,6 +6,7 @@ const meta = {
   component: Breadcrumb,
   tags: ['autodocs'],
   parameters: { layout: 'centered' },
+  args: { children: 'Breadcrumb items' },
 } satisfies Meta<typeof Breadcrumb>;
 
 export default meta;

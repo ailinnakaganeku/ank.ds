@@ -3,13 +3,7 @@ import clsx from 'clsx';
 import './Progress.css';
 
 export type ProgressSize = 'sm' | 'md' | 'lg';
-export type ProgressVariant =
-  | 'primary'
-  | 'secondary'
-  | 'accent'
-  | 'success'
-  | 'warning'
-  | 'error';
+export type ProgressVariant = 'primary' | 'secondary' | 'accent' | 'success' | 'warning' | 'error';
 
 export interface ProgressProps extends Omit<HTMLAttributes<HTMLDivElement>, 'role'> {
   value?: number;
@@ -43,7 +37,7 @@ export const Progress = forwardRef<HTMLDivElement, ProgressProps>(function Progr
   const safeMax = max > 0 ? max : 100;
   const safeValue = clamp(value, 0, safeMax);
   const percent = (safeValue / safeMax) * 100;
-  const labelledBy = label ? ariaLabelledByProp ?? labelId : ariaLabelledByProp;
+  const labelledBy = label ? (ariaLabelledByProp ?? labelId) : ariaLabelledByProp;
 
   return (
     <div
@@ -65,15 +59,13 @@ export const Progress = forwardRef<HTMLDivElement, ProgressProps>(function Progr
             </span>
           )}
           {showValue && !indeterminate && (
-            <span className="ank-progress__value">
-              {Math.round(percent)}%
-            </span>
+            <span className="ank-progress__value">{Math.round(percent)}%</span>
           )}
         </div>
       )}
       <div
         role="progressbar"
-        aria-label={!label && !ariaLabelledByProp ? ariaLabel ?? 'Progress' : undefined}
+        aria-label={!label && !ariaLabelledByProp ? (ariaLabel ?? 'Progress') : undefined}
         aria-labelledby={labelledBy}
         aria-valuemin={0}
         aria-valuemax={safeMax}

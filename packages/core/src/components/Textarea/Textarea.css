@@ -6,5 +6,11 @@
   resize: vertical;
 }
 
-.ank-textarea.ank-input--sm { min-height: 72px; padding: 8px 10px; }
-.ank-textarea.ank-input--lg { min-height: 144px; padding: 16px 18px; }
+.ank-textarea.ank-input--sm {
+  min-height: 72px;
+  padding: 8px 10px;
+}
+.ank-textarea.ank-input--lg {
+  min-height: 144px;
+  padding: 16px 18px;
+}

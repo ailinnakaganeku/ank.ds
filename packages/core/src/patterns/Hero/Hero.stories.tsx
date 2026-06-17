@@ -3,7 +3,15 @@ import { Hero } from './Hero';
 import { Button } from '../../components/Button';
 
 const ArrowRight = () => (
-  <svg width="14" height="14" viewBox="0 0 14 14" fill="none" stroke="currentColor" strokeWidth="2.5" aria-hidden>
+  <svg
+    width="14"
+    height="14"
+    viewBox="0 0 14 14"
+    fill="none"
+    stroke="currentColor"
+    strokeWidth="2.5"
+    aria-hidden
+  >
     <path d="M2 7h10M8 3l4 4-4 4" strokeLinecap="square" strokeLinejoin="miter" />
   </svg>
 );
@@ -50,10 +58,13 @@ export const TitleBleed: Story = {
   args: {
     title: 'Make it loud.',
     titleBleed: true,
-    description: 'Headlines that escape the container. Pure neubrutalism — calculated chaos with consistent rhythm.',
+    description:
+      'Headlines that escape the container. Pure neubrutalism — calculated chaos with consistent rhythm.',
     actions: (
       <>
-        <Button variant="primary" iconRight={<ArrowRight />}>Read the brief</Button>
+        <Button variant="primary" iconRight={<ArrowRight />}>
+          Read the brief
+        </Button>
       </>
     ),
   },

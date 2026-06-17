@@ -8,7 +8,9 @@ beforeEach(() => {
 });
 
 afterEach(() => {
-  try { vi.runOnlyPendingTimers(); } catch {}
+  try {
+    vi.runOnlyPendingTimers();
+  } catch {}
   vi.useRealTimers();
 });
 

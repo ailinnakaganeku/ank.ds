@@ -6,6 +6,7 @@ const meta = {
   component: Accordion,
   tags: ['autodocs'],
   parameters: { layout: 'centered' },
+  args: { children: 'Accordion items' },
 } satisfies Meta<typeof Accordion>;
 
 export default meta;
@@ -25,7 +26,8 @@ const items = [
   {
     value: 'tree-shake',
     question: 'Is the library tree-shakeable?',
-    answer: 'Yes. Each component lives in its own module and the package declares only CSS as a side effect.',
+    answer:
+      'Yes. Each component lives in its own module and the package declares only CSS as a side effect.',
   },
 ];
 

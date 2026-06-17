@@ -45,5 +45,9 @@
   color: var(--ank-gray-500);
 }
 
-.ank-select-wrapper--sm .ank-select-wrapper__arrow { right: 10px; }
-.ank-select-wrapper--lg .ank-select-wrapper__arrow { right: 18px; }
+.ank-select-wrapper--sm .ank-select-wrapper__arrow {
+  right: 10px;
+}
+.ank-select-wrapper--lg .ank-select-wrapper__arrow {
+  right: 18px;
+}

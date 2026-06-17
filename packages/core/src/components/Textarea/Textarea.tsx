@@ -32,8 +32,7 @@ const textareaVariants = cva('ank-input ank-textarea', {
 export type TextareaVariants = VariantProps<typeof textareaVariants>;
 
 export interface TextareaProps
-  extends TextareaHTMLAttributes<HTMLTextAreaElement>,
-    TextareaVariants {
+  extends TextareaHTMLAttributes<HTMLTextAreaElement>, TextareaVariants {
   invalid?: boolean;
 }
 
@@ -56,8 +55,7 @@ export const Textarea = forwardRef<HTMLTextAreaElement, TextareaProps>(function 
   const field = useContext(FieldContext);
   const generatedId = useId();
   const id = idProp ?? field?.id ?? generatedId;
-  const resolvedInvalid =
-    invalid ?? field?.invalid ?? (state === 'error') ?? false;
+  const resolvedInvalid = invalid ?? field?.invalid ?? state === 'error';
   const resolvedState = state ?? (resolvedInvalid ? 'error' : 'default');
   const resolvedDisabled = disabled ?? field?.disabled;
   const ariaDescribedBy = describedByProp ?? field?.describedBy;
@@ -71,10 +69,7 @@ export const Textarea = forwardRef<HTMLTextAreaElement, TextareaProps>(function 
       disabled={resolvedDisabled}
       aria-describedby={ariaDescribedBy}
       aria-invalid={ariaInvalid}
-      className={clsx(
-        textareaVariants({ size, state: resolvedState, fullWidth }),
-        className,
-      )}
+      className={clsx(textareaVariants({ size, state: resolvedState, fullWidth }), className)}
       {...rest}
     />
   );

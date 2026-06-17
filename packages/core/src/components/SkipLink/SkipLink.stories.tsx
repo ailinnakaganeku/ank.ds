@@ -15,9 +15,16 @@ export const Default: Story = {
   render: () => (
     <div style={{ position: 'relative', minHeight: 400, padding: 32 }}>
       <SkipLink targetId="main-demo" />
-      <p style={{ fontFamily: 'var(--ank-body)', fontSize: 14, color: 'var(--ank-gray-700)', marginTop: 0 }}>
-        Press Tab on this story preview to reveal the skip link. Activating it moves
-        focus to the element with id="main-demo".
+      <p
+        style={{
+          fontFamily: 'var(--ank-body)',
+          fontSize: 14,
+          color: 'var(--ank-gray-700)',
+          marginTop: 0,
+        }}
+      >
+        Press Tab on this story preview to reveal the skip link. Activating it moves focus to the
+        element with id="main-demo".
       </p>
       <div style={{ height: 200 }} />
       <main

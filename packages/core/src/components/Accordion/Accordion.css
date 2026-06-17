@@ -77,7 +77,7 @@
   height: 14px;
 }
 
-.ank-accordion__trigger[aria-expanded="true"] .ank-accordion__icon-line--vertical {
+.ank-accordion__trigger[aria-expanded='true'] .ank-accordion__icon-line--vertical {
   transform: scaleY(0);
 }
 
@@ -93,6 +93,10 @@
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .ank-accordion__icon-line--vertical { transition: none; }
-  .ank-accordion__trigger { transition: none; }
+  .ank-accordion__icon-line--vertical {
+    transition: none;
+  }
+  .ank-accordion__trigger {
+    transition: none;
+  }
 }

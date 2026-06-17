@@ -17,7 +17,8 @@ export const Default: Story = {};
 export const Combination: Story = {
   render: () => (
     <div style={{ fontFamily: 'var(--ank-body)', fontSize: 14 }}>
-      Press <Kbd>⌘</Kbd><Kbd>K</Kbd> to open the command palette.
+      Press <Kbd>⌘</Kbd>
+      <Kbd>K</Kbd> to open the command palette.
     </div>
   ),
 };
@@ -25,8 +26,9 @@ export const Combination: Story = {
 export const InlineWithText: Story = {
   render: () => (
     <p style={{ fontFamily: 'var(--ank-body)', fontSize: 15, maxWidth: 420 }}>
-      Move between fields with <Kbd>Tab</Kbd> or jump directly with
-      {' '}<Kbd>⌘</Kbd><Kbd>1</Kbd> through <Kbd>⌘</Kbd><Kbd>9</Kbd>.
+      Move between fields with <Kbd>Tab</Kbd> or jump directly with <Kbd>⌘</Kbd>
+      <Kbd>1</Kbd> through <Kbd>⌘</Kbd>
+      <Kbd>9</Kbd>.
     </p>
   ),
 };

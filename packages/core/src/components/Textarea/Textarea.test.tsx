@@ -18,11 +18,7 @@ describe('Textarea', () => {
     const Controlled = () => {
       const [value, setValue] = useState('');
       return (
-        <Textarea
-          aria-label="Message"
-          value={value}
-          onChange={(e) => setValue(e.target.value)}
-        />
+        <Textarea aria-label="Message" value={value} onChange={(e) => setValue(e.target.value)} />
       );
     };
     render(<Controlled />);

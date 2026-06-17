@@ -1,29 +1,15 @@
-import {
-  forwardRef,
-  useContext,
-  useId,
-  type InputHTMLAttributes,
-  type ReactNode,
-} from 'react';
+import { forwardRef, useContext, useId, type InputHTMLAttributes, type ReactNode } from 'react';
 import clsx from 'clsx';
 import { FieldContext } from '../FieldWrapper/FieldContext';
 import './Toggle.css';
 
-export interface ToggleProps
-  extends Omit<InputHTMLAttributes<HTMLInputElement>, 'size' | 'type'> {
+export interface ToggleProps extends Omit<InputHTMLAttributes<HTMLInputElement>, 'size' | 'type'> {
   size?: 'sm' | 'md' | 'lg';
   children?: ReactNode;
 }
 
 export const Toggle = forwardRef<HTMLInputElement, ToggleProps>(function Toggle(
-  {
-    size = 'md',
-    id: idProp,
-    className,
-    children,
-    disabled,
-    ...rest
-  },
+  { size = 'md', id: idProp, className, children, disabled, ...rest },
   ref,
 ) {
   const field = useContext(FieldContext);

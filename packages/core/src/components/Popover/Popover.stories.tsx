@@ -9,6 +9,7 @@ const meta = {
   component: Popover,
   tags: ['autodocs'],
   parameters: { layout: 'centered' },
+  args: { children: 'Popover' },
 } satisfies Meta<typeof Popover>;
 
 export default meta;
@@ -38,7 +39,8 @@ export const Default: Story = {
       <TriggerButton>Open</TriggerButton>
       <Popover.Content>
         <div style={{ fontFamily: 'var(--ank-body)', fontSize: 14 }}>
-          A popover holds quick actions or contextual info. Press Escape or click outside to dismiss.
+          A popover holds quick actions or contextual info. Press Escape or click outside to
+          dismiss.
         </div>
       </Popover.Content>
     </Popover>

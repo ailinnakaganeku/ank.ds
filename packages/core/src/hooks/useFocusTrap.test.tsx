@@ -1,11 +1,7 @@
 import { describe, expect, it, beforeEach, afterEach } from 'vitest';
 import { useRef } from 'react';
 import { act, render } from '@testing-library/react';
-import {
-  useFocusTrap,
-  getFocusableElements,
-  __resetBodyLockForTests,
-} from './useFocusTrap';
+import { useFocusTrap, getFocusableElements, __resetBodyLockForTests } from './useFocusTrap';
 
 const Trapped = ({
   active,

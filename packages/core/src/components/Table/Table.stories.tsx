@@ -10,8 +10,20 @@ const Frame = ({ children }: { children: React.ReactNode }) => (
 const rows = [
   { id: 1, name: 'Ada Lovelace', email: 'ada@example.com', seats: 5, status: 'active' as const },
   { id: 2, name: 'Grace Hopper', email: 'grace@example.com', seats: 12, status: 'active' as const },
-  { id: 3, name: 'Margaret Hamilton', email: 'margaret@example.com', seats: 3, status: 'pending' as const },
-  { id: 4, name: 'Katherine Johnson', email: 'kjohnson@example.com', seats: 8, status: 'active' as const },
+  {
+    id: 3,
+    name: 'Margaret Hamilton',
+    email: 'margaret@example.com',
+    seats: 3,
+    status: 'pending' as const,
+  },
+  {
+    id: 4,
+    name: 'Katherine Johnson',
+    email: 'kjohnson@example.com',
+    seats: 8,
+    status: 'active' as const,
+  },
   { id: 5, name: 'Hedy Lamarr', email: 'hedy@example.com', seats: 1, status: 'inactive' as const },
 ];
 

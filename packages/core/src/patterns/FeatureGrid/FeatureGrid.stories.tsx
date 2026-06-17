@@ -107,8 +107,7 @@ export const ProjectShowcase: Story = {
             <div
               style={{
                 height: 200,
-                background:
-                  'linear-gradient(135deg, var(--ank-primary), var(--ank-accent))',
+                background: 'linear-gradient(135deg, var(--ank-primary), var(--ank-accent))',
               }}
             />
           </Card.Media>
@@ -145,10 +144,18 @@ export const FourColumns: Story = {
   args: { children: null },
   render: () => (
     <FeatureGrid columns={4}>
-      <FeatureGrid.Item><Metric label="speed"   value="0.3s"  /></FeatureGrid.Item>
-      <FeatureGrid.Item><Metric label="bundle"  value="14kb" variant="secondary" /></FeatureGrid.Item>
-      <FeatureGrid.Item><Metric label="uptime"  value="99.9" variant="primary" /></FeatureGrid.Item>
-      <FeatureGrid.Item><Metric label="rating"  value="4.9"  variant="outlined" /></FeatureGrid.Item>
+      <FeatureGrid.Item>
+        <Metric label="speed" value="0.3s" />
+      </FeatureGrid.Item>
+      <FeatureGrid.Item>
+        <Metric label="bundle" value="14kb" variant="secondary" />
+      </FeatureGrid.Item>
+      <FeatureGrid.Item>
+        <Metric label="uptime" value="99.9" variant="primary" />
+      </FeatureGrid.Item>
+      <FeatureGrid.Item>
+        <Metric label="rating" value="4.9" variant="outlined" />
+      </FeatureGrid.Item>
     </FeatureGrid>
   ),
 };

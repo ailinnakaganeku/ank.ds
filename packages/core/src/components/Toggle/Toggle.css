@@ -45,7 +45,9 @@
   width: 14px;
   height: 14px;
   background: var(--ank-ink);
-  transition: transform var(--ank-transition-fast), background-color var(--ank-transition-fast);
+  transition:
+    transform var(--ank-transition-fast),
+    background-color var(--ank-transition-fast);
 }
 
 .ank-toggle__input:checked + .ank-toggle__track {
@@ -74,21 +76,41 @@
   background: var(--ank-gray-500);
 }
 
-.ank-toggle--sm .ank-toggle__track { width: 32px; height: 18px; }
-.ank-toggle--sm .ank-toggle__thumb { width: 10px; height: 10px; }
+.ank-toggle--sm .ank-toggle__track {
+  width: 32px;
+  height: 18px;
+}
+.ank-toggle--sm .ank-toggle__thumb {
+  width: 10px;
+  height: 10px;
+}
 .ank-toggle--sm .ank-toggle__input:checked + .ank-toggle__track .ank-toggle__thumb {
   transform: translateX(13px);
 }
-.ank-toggle--sm { font-size: 13px; gap: 10px; }
+.ank-toggle--sm {
+  font-size: 13px;
+  gap: 10px;
+}
 
-.ank-toggle--lg .ank-toggle__track { width: 48px; height: 26px; }
-.ank-toggle--lg .ank-toggle__thumb { width: 18px; height: 18px; }
+.ank-toggle--lg .ank-toggle__track {
+  width: 48px;
+  height: 26px;
+}
+.ank-toggle--lg .ank-toggle__thumb {
+  width: 18px;
+  height: 18px;
+}
 .ank-toggle--lg .ank-toggle__input:checked + .ank-toggle__track .ank-toggle__thumb {
   transform: translateX(21px);
 }
-.ank-toggle--lg { font-size: 17px; gap: 14px; }
+.ank-toggle--lg {
+  font-size: 17px;
+  gap: 14px;
+}
 
 @media (prefers-reduced-motion: reduce) {
   .ank-toggle__track,
-  .ank-toggle__thumb { transition: none; }
+  .ank-toggle__thumb {
+    transition: none;
+  }
 }

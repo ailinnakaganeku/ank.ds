@@ -6,6 +6,7 @@ const meta = {
   component: CodeDemo,
   tags: ['autodocs'],
   parameters: { layout: 'centered' },
+  args: { children: 'Code' },
 } satisfies Meta<typeof CodeDemo>;
 
 export default meta;

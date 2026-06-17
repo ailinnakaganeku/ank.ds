@@ -126,8 +126,8 @@
   flex-shrink: 0;
 }
 
-.ank-table th[aria-sort="ascending"] .ank-table__sort-icon,
-.ank-table th[aria-sort="descending"] .ank-table__sort-icon {
+.ank-table th[aria-sort='ascending'] .ank-table__sort-icon,
+.ank-table th[aria-sort='descending'] .ank-table__sort-icon {
   opacity: 1;
 }
 

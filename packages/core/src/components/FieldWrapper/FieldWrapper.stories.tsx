@@ -21,6 +21,7 @@ const meta = {
       </div>
     ),
   ],
+  args: { label: 'Label', children: 'Field' },
 } satisfies Meta<typeof FieldWrapper>;
 
 export default meta;
