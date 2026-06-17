@@ -7,13 +7,22 @@ const meta = {
   component: Tooltip,
   tags: ['autodocs'],
   parameters: { layout: 'centered' },
+  args: { content: 'Tip', children: <span>Hover</span> },
 } satisfies Meta<typeof Tooltip>;
 
 export default meta;
 type Story = StoryObj<typeof meta>;
 
 const CopyIcon = () => (
-  <svg width="14" height="14" viewBox="0 0 14 14" fill="none" stroke="currentColor" strokeWidth="2" aria-hidden>
+  <svg
+    width="14"
+    height="14"
+    viewBox="0 0 14 14"
+    fill="none"
+    stroke="currentColor"
+    strokeWidth="2"
+    aria-hidden
+  >
     <rect x="4" y="4" width="8" height="8" />
     <path d="M2 10V2h8" />
   </svg>

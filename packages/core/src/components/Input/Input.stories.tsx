@@ -22,7 +22,10 @@ const meta = {
   argTypes: {
     size: { control: 'inline-radio', options: ['sm', 'md', 'lg'] },
     state: { control: 'inline-radio', options: ['default', 'error', 'success'] },
-    type: { control: 'select', options: ['text', 'email', 'password', 'number', 'search', 'url', 'tel'] },
+    type: {
+      control: 'select',
+      options: ['text', 'email', 'password', 'number', 'search', 'url', 'tel'],
+    },
   },
   decorators: [
     (Story) => (

@@ -9,6 +9,7 @@ const meta = {
   argTypes: {
     size: { control: 'inline-radio', options: ['sm', 'md', 'lg', 'xl', 'full'] },
   },
+  args: { children: 'Container' },
 } satisfies Meta<typeof Container>;
 
 export default meta;

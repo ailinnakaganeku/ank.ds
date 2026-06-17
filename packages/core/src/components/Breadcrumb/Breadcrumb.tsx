@@ -1,9 +1,4 @@
-import {
-  forwardRef,
-  type HTMLAttributes,
-  type LiHTMLAttributes,
-  type ReactNode,
-} from 'react';
+import { forwardRef, type HTMLAttributes, type LiHTMLAttributes, type ReactNode } from 'react';
 import clsx from 'clsx';
 import './Breadcrumb.css';
 
@@ -16,12 +11,7 @@ const BreadcrumbRoot = forwardRef<HTMLElement, BreadcrumbProps>(function Breadcr
   ref,
 ) {
   return (
-    <nav
-      ref={ref}
-      aria-label={ariaLabel}
-      className={clsx('ank-breadcrumb', className)}
-      {...rest}
-    >
+    <nav ref={ref} aria-label={ariaLabel} className={clsx('ank-breadcrumb', className)} {...rest}>
       <ol className="ank-breadcrumb__list">{children}</ol>
     </nav>
   );

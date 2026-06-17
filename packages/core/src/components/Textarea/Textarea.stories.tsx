@@ -37,7 +37,9 @@ type Story = StoryObj<typeof meta>;
 
 export const Default: Story = {};
 export const Error: Story = { args: { state: 'error', defaultValue: 'Too short.' } };
-export const Disabled: Story = { args: { disabled: true, defaultValue: 'Cannot edit this message.' } };
+export const Disabled: Story = {
+  args: { disabled: true, defaultValue: 'Cannot edit this message.' },
+};
 
 export const Sizes: Story = {
   parameters: { layout: 'fullscreen' },

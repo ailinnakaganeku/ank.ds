@@ -3,9 +3,7 @@ import { useState } from 'react';
 import { Checkbox } from './Checkbox';
 
 const Stack = ({ children }: { children: React.ReactNode }) => (
-  <div style={{ display: 'flex', flexDirection: 'column', gap: 16, padding: 32 }}>
-    {children}
-  </div>
+  <div style={{ display: 'flex', flexDirection: 'column', gap: 16, padding: 32 }}>{children}</div>
 );
 
 const meta = {
@@ -54,7 +52,9 @@ export const Controlled: Story = {
           <Checkbox checked={checked} onChange={(e) => setChecked(e.target.checked)}>
             Subscribe to updates
           </Checkbox>
-          <div style={{ fontFamily: 'var(--ank-mono)', fontSize: 12, color: 'var(--ank-gray-500)' }}>
+          <div
+            style={{ fontFamily: 'var(--ank-mono)', fontSize: 12, color: 'var(--ank-gray-500)' }}
+          >
             checked: {String(checked)}
           </div>
         </Stack>

@@ -283,19 +283,18 @@ const Item = forwardRef<HTMLLIElement, DropdownItemProps>(function DropdownItem(
   );
 });
 
-const Separator = forwardRef<HTMLLIElement, LiHTMLAttributes<HTMLLIElement>>(function DropdownSeparator(
-  { className, ...rest },
-  ref,
-) {
-  return (
-    <li
-      ref={ref}
-      role="separator"
-      className={clsx('ank-dropdown__separator', className)}
-      {...rest}
-    />
-  );
-});
+const Separator = forwardRef<HTMLLIElement, LiHTMLAttributes<HTMLLIElement>>(
+  function DropdownSeparator({ className, ...rest }, ref) {
+    return (
+      <li
+        ref={ref}
+        role="separator"
+        className={clsx('ank-dropdown__separator', className)}
+        {...rest}
+      />
+    );
+  },
+);
 
 export interface DropdownLabelProps extends LiHTMLAttributes<HTMLLIElement> {
   children: ReactNode;
@@ -306,12 +305,7 @@ const Label = forwardRef<HTMLLIElement, DropdownLabelProps>(function DropdownLab
   ref,
 ) {
   return (
-    <li
-      ref={ref}
-      role="presentation"
-      className={clsx('ank-dropdown__label', className)}
-      {...rest}
-    >
+    <li ref={ref} role="presentation" className={clsx('ank-dropdown__label', className)} {...rest}>
       {children}
     </li>
   );

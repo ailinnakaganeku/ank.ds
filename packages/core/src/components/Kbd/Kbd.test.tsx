@@ -18,7 +18,8 @@ describe('Kbd', () => {
   it('has no axe violations', async () => {
     const { container } = render(
       <p>
-        Press <Kbd>⌘</Kbd><Kbd>K</Kbd> to open.
+        Press <Kbd>⌘</Kbd>
+        <Kbd>K</Kbd> to open.
       </p>,
     );
     expect(await axe(container)).toHaveNoViolations();

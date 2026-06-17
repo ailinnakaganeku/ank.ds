@@ -6,15 +6,15 @@ import './Badge.css';
 const badgeVariants = cva('ank-badge', {
   variants: {
     variant: {
-      primary:   'ank-badge--primary',
+      primary: 'ank-badge--primary',
       secondary: 'ank-badge--secondary',
-      accent:    'ank-badge--accent',
-      sand:      'ank-badge--sand',
-      success:   'ank-badge--success',
-      warning:   'ank-badge--warning',
-      error:     'ank-badge--error',
-      outline:   'ank-badge--outline',
-      dark:      'ank-badge--dark',
+      accent: 'ank-badge--accent',
+      sand: 'ank-badge--sand',
+      success: 'ank-badge--success',
+      warning: 'ank-badge--warning',
+      error: 'ank-badge--error',
+      outline: 'ank-badge--outline',
+      dark: 'ank-badge--dark',
     },
     size: {
       sm: 'ank-badge--sm',
@@ -31,9 +31,7 @@ export type BadgeVariants = VariantProps<typeof badgeVariants>;
 export type BadgeVariant = NonNullable<BadgeVariants['variant']>;
 export type BadgeSize = NonNullable<BadgeVariants['size']>;
 
-export interface BadgeProps
-  extends HTMLAttributes<HTMLSpanElement>,
-    BadgeVariants {
+export interface BadgeProps extends HTMLAttributes<HTMLSpanElement>, BadgeVariants {
   children?: ReactNode;
 }
 

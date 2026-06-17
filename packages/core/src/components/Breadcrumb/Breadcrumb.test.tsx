@@ -32,10 +32,7 @@ describe('Breadcrumb', () => {
       </Breadcrumb>,
     );
     expect(screen.getByRole('link', { name: 'Home' })).toHaveAttribute('href', '/');
-    expect(screen.getByRole('link', { name: 'Components' })).toHaveAttribute(
-      'href',
-      '/components',
-    );
+    expect(screen.getByRole('link', { name: 'Components' })).toHaveAttribute('href', '/components');
 
     const nav = screen.getByRole('navigation');
     const current = within(nav).getByText('Tooltip');

@@ -2,15 +2,11 @@ import type { Meta, StoryObj } from '@storybook/react';
 import { Badge } from './Badge';
 
 const Row = ({ children }: { children: React.ReactNode }) => (
-  <div style={{ display: 'flex', gap: 12, alignItems: 'center', flexWrap: 'wrap' }}>
-    {children}
-  </div>
+  <div style={{ display: 'flex', gap: 12, alignItems: 'center', flexWrap: 'wrap' }}>{children}</div>
 );
 
 const Stack = ({ children }: { children: React.ReactNode }) => (
-  <div style={{ display: 'flex', flexDirection: 'column', gap: 24, padding: 32 }}>
-    {children}
-  </div>
+  <div style={{ display: 'flex', flexDirection: 'column', gap: 24, padding: 32 }}>{children}</div>
 );
 
 const meta = {
@@ -26,7 +22,17 @@ const meta = {
   argTypes: {
     variant: {
       control: 'select',
-      options: ['primary', 'secondary', 'accent', 'sand', 'success', 'warning', 'error', 'outline', 'dark'],
+      options: [
+        'primary',
+        'secondary',
+        'accent',
+        'sand',
+        'success',
+        'warning',
+        'error',
+        'outline',
+        'dark',
+      ],
     },
     size: { control: 'inline-radio', options: ['sm', 'md'] },
   },
@@ -36,14 +42,14 @@ export default meta;
 type Story = StoryObj<typeof meta>;
 
 export const Default: Story = {};
-export const Primary: Story   = { args: { variant: 'primary',   children: 'Primary' } };
+export const Primary: Story = { args: { variant: 'primary', children: 'Primary' } };
 export const Secondary: Story = { args: { variant: 'secondary', children: 'New' } };
-export const Accent: Story    = { args: { variant: 'accent',    children: 'Live' } };
-export const Sand: Story      = { args: { variant: 'sand',      children: 'Beta' } };
-export const Success: Story   = { args: { variant: 'success',   children: 'Active' } };
-export const Warning: Story   = { args: { variant: 'warning',   children: 'Pending' } };
-export const Error: Story     = { args: { variant: 'error',     children: 'Failed' } };
-export const Dark: Story      = { args: { variant: 'dark',      children: 'v1.0' } };
+export const Accent: Story = { args: { variant: 'accent', children: 'Live' } };
+export const Sand: Story = { args: { variant: 'sand', children: 'Beta' } };
+export const Success: Story = { args: { variant: 'success', children: 'Active' } };
+export const Warning: Story = { args: { variant: 'warning', children: 'Pending' } };
+export const Error: Story = { args: { variant: 'error', children: 'Failed' } };
+export const Dark: Story = { args: { variant: 'dark', children: 'v1.0' } };
 
 export const AllVariants: Story = {
   parameters: { layout: 'fullscreen' },
@@ -71,12 +77,20 @@ export const Sizes: Story = {
   render: () => (
     <Stack>
       <Row>
-        <Badge size="sm" variant="primary">Small</Badge>
-        <Badge size="md" variant="primary">Medium</Badge>
+        <Badge size="sm" variant="primary">
+          Small
+        </Badge>
+        <Badge size="md" variant="primary">
+          Medium
+        </Badge>
       </Row>
       <Row>
-        <Badge size="sm" variant="dark">v0.1</Badge>
-        <Badge size="md" variant="dark">v0.1</Badge>
+        <Badge size="sm" variant="dark">
+          v0.1
+        </Badge>
+        <Badge size="md" variant="dark">
+          v0.1
+        </Badge>
       </Row>
     </Stack>
   ),

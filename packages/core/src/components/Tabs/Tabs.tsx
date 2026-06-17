@@ -44,15 +44,7 @@ export interface TabsProps extends Omit<HTMLAttributes<HTMLDivElement>, 'onChang
 }
 
 const TabsRoot = forwardRef<HTMLDivElement, TabsProps>(function Tabs(
-  {
-    value,
-    defaultValue,
-    onChange,
-    activationMode = 'automatic',
-    className,
-    children,
-    ...rest
-  },
+  { value, defaultValue, onChange, activationMode = 'automatic', className, children, ...rest },
   ref,
 ) {
   const [internal, setInternal] = useState<string>(defaultValue ?? '');
@@ -136,7 +128,7 @@ const TabsList = forwardRef<HTMLDivElement, TabsListProps>(function TabsList(
     const index = activeButton ? tabs.indexOf(activeButton) : -1;
     if (index === -1) return;
 
-    let next: number | null = null;
+    let next: number;
     switch (event.key) {
       case 'ArrowRight':
         next = (index + 1) % tabs.length;

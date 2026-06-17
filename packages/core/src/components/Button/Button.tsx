@@ -6,12 +6,12 @@ import './Button.css';
 const buttonVariants = cva('ank-button', {
   variants: {
     variant: {
-      primary:   'ank-button--primary',
+      primary: 'ank-button--primary',
       secondary: 'ank-button--secondary',
-      accent:    'ank-button--accent',
-      sand:      'ank-button--sand',
-      ghost:     'ank-button--ghost',
-      danger:    'ank-button--danger',
+      accent: 'ank-button--accent',
+      sand: 'ank-button--sand',
+      ghost: 'ank-button--ghost',
+      danger: 'ank-button--danger',
     },
     size: {
       sm: 'ank-button--sm',
@@ -34,8 +34,7 @@ const buttonVariants = cva('ank-button', {
 export type ButtonVariants = VariantProps<typeof buttonVariants>;
 
 export interface ButtonProps
-  extends Omit<ButtonHTMLAttributes<HTMLButtonElement>, 'children'>,
-    ButtonVariants {
+  extends Omit<ButtonHTMLAttributes<HTMLButtonElement>, 'children'>, ButtonVariants {
   children?: ReactNode;
   iconLeft?: ReactNode;
   iconRight?: ReactNode;
@@ -57,8 +56,7 @@ export const Button = forwardRef<HTMLButtonElement, ButtonProps>(function Button
   },
   ref,
 ) {
-  const inferredIconOnly =
-    iconOnly ?? (!children && (Boolean(iconLeft) || Boolean(iconRight)));
+  const inferredIconOnly = iconOnly ?? (!children && (Boolean(iconLeft) || Boolean(iconRight)));
 
   return (
     <button

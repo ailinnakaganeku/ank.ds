@@ -7,11 +7,21 @@
   max-width: var(--ank-container-max, 1200px);
 }
 
-.ank-container--sm   { --ank-container-max:  640px; }
-.ank-container--md   { --ank-container-max: 1024px; }
-.ank-container--lg   { --ank-container-max: 1280px; }
-.ank-container--xl   { --ank-container-max: 1440px; }
-.ank-container--full { --ank-container-max: none; }
+.ank-container--sm {
+  --ank-container-max: 640px;
+}
+.ank-container--md {
+  --ank-container-max: 1024px;
+}
+.ank-container--lg {
+  --ank-container-max: 1280px;
+}
+.ank-container--xl {
+  --ank-container-max: 1440px;
+}
+.ank-container--full {
+  --ank-container-max: none;
+}
 
 .ank-container--flush {
   --ank-container-pad: 0;

@@ -1,29 +1,15 @@
-import {
-  forwardRef,
-  useContext,
-  useId,
-  type InputHTMLAttributes,
-  type ReactNode,
-} from 'react';
+import { forwardRef, useContext, useId, type InputHTMLAttributes, type ReactNode } from 'react';
 import clsx from 'clsx';
 import { FieldContext } from '../FieldWrapper/FieldContext';
 import './Radio.css';
 
-export interface RadioProps
-  extends Omit<InputHTMLAttributes<HTMLInputElement>, 'size' | 'type'> {
+export interface RadioProps extends Omit<InputHTMLAttributes<HTMLInputElement>, 'size' | 'type'> {
   size?: 'sm' | 'md' | 'lg';
   children?: ReactNode;
 }
 
 export const Radio = forwardRef<HTMLInputElement, RadioProps>(function Radio(
-  {
-    size = 'md',
-    id: idProp,
-    className,
-    children,
-    disabled,
-    ...rest
-  },
+  { size = 'md', id: idProp, className, children, disabled, ...rest },
   ref,
 ) {
   const field = useContext(FieldContext);

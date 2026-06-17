@@ -27,7 +27,15 @@ export const Horizontal: Story = {
 
 export const Vertical: Story = {
   render: () => (
-    <div style={{ display: 'flex', alignItems: 'center', gap: 16, height: 60, fontFamily: 'var(--ank-body)' }}>
+    <div
+      style={{
+        display: 'flex',
+        alignItems: 'center',
+        gap: 16,
+        height: 60,
+        fontFamily: 'var(--ank-body)',
+      }}
+    >
       <span>Left</span>
       <Separator orientation="vertical" />
       <span>Middle</span>

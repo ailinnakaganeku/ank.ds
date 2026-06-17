@@ -67,7 +67,7 @@
   color: var(--ank-ink);
 }
 
-.ank-navbar__link[aria-current="page"] {
+.ank-navbar__link[aria-current='page'] {
   background: var(--ank-ink);
   color: var(--ank-white);
 }
@@ -222,7 +222,7 @@
   color: var(--ank-ink);
 }
 
-.ank-navbar-drawer__link[aria-current="page"] {
+.ank-navbar-drawer__link[aria-current='page'] {
   background: var(--ank-ink);
   color: var(--ank-white);
 }
@@ -241,13 +241,21 @@
 }
 
 @keyframes ank-navbar-overlay-in {
-  from { opacity: 0; }
-  to { opacity: 1; }
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
 }
 
 @keyframes ank-navbar-drawer-in {
-  from { transform: translateX(100%); }
-  to { transform: translateX(0); }
+  from {
+    transform: translateX(100%);
+  }
+  to {
+    transform: translateX(0);
+  }
 }
 
 @media (prefers-reduced-motion: reduce) {
@@ -257,5 +265,8 @@
   .ank-navbar-overlay,
   .ank-navbar-drawer,
   .ank-navbar-drawer__link,
-  .ank-navbar-drawer__close { transition: none; animation: none; }
+  .ank-navbar-drawer__close {
+    transition: none;
+    animation: none;
+  }
 }

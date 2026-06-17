@@ -47,8 +47,10 @@ const useItemContext = (component: string) => {
   return ctx;
 };
 
-export interface AccordionProps
-  extends Omit<HTMLAttributes<HTMLDivElement>, 'onChange' | 'defaultValue'> {
+export interface AccordionProps extends Omit<
+  HTMLAttributes<HTMLDivElement>,
+  'onChange' | 'defaultValue'
+> {
   type?: AccordionType;
   value?: string | string[];
   defaultValue?: string | string[];

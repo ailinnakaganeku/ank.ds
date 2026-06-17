@@ -24,5 +24,7 @@
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .ank-skip-link { transition: none; }
+  .ank-skip-link {
+    transition: none;
+  }
 }

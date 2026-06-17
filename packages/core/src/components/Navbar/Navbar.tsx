@@ -13,6 +13,7 @@ import { createPortal } from 'react-dom';
 import clsx from 'clsx';
 import { useFocusTrap } from '../../hooks/useFocusTrap';
 import './Navbar.css';
+import { MenuIcon, CloseIcon } from '../Icon';
 
 export interface NavbarLink {
   label: ReactNode;
@@ -32,18 +33,6 @@ export interface NavbarProps extends HTMLAttributes<HTMLElement> {
   menuCloseLabel?: string;
   'aria-label'?: string;
 }
-
-const HamburgerIcon = () => (
-  <svg width="20" height="20" viewBox="0 0 20 20" fill="none" stroke="currentColor" strokeWidth="2.5" aria-hidden>
-    <path d="M3 5h14M3 10h14M3 15h14" strokeLinecap="square" />
-  </svg>
-);
-
-const CloseIcon = () => (
-  <svg viewBox="0 0 14 14" width="14" height="14" fill="none" stroke="currentColor" strokeWidth="2.5" aria-hidden>
-    <path d="M3 3l8 8M11 3l-8 8" strokeLinecap="square" />
-  </svg>
-);
 
 const renderLink = (link: NavbarLink, className: string, onActivate?: () => void) => {
   const ariaCurrent = link.active ? ('page' as const) : undefined;
@@ -148,9 +137,7 @@ export const Navbar = forwardRef<HTMLElement, NavbarProps>(function Navbar(
         {links.length > 0 && (
           <ul className="ank-navbar__links" role="list">
             {links.map((link, index) => (
-              <li key={link.key ?? index}>
-                {renderLink(link, 'ank-navbar__link')}
-              </li>
+              <li key={link.key ?? index}>{renderLink(link, 'ank-navbar__link')}</li>
             ))}
           </ul>
         )}
@@ -166,11 +153,12 @@ export const Navbar = forwardRef<HTMLElement, NavbarProps>(function Navbar(
           onClick={() => setDrawerOpen((prev) => !prev)}
           className="ank-navbar__hamburger"
         >
-          <HamburgerIcon />
+          <MenuIcon size={20} />
         </button>
       </nav>
 
-      {mounted && drawerOpen &&
+      {mounted &&
+        drawerOpen &&
         createPortal(
           <div className="ank-navbar-overlay" onMouseDown={handleOverlayClick}>
             <div
@@ -190,7 +178,7 @@ export const Navbar = forwardRef<HTMLElement, NavbarProps>(function Navbar(
                   onClick={closeDrawer}
                   className="ank-navbar-drawer__close"
                 >
-                  <CloseIcon />
+                  <CloseIcon size={14} />
                 </button>
               </header>
               {links.length > 0 && (
@@ -202,9 +190,7 @@ export const Navbar = forwardRef<HTMLElement, NavbarProps>(function Navbar(
                   ))}
                 </ul>
               )}
-              {actions && (
-                <div className="ank-navbar-drawer__actions">{actions}</div>
-              )}
+              {actions && <div className="ank-navbar-drawer__actions">{actions}</div>}
             </div>
           </div>,
           document.body,

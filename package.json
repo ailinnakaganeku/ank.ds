@@ -3,6 +3,7 @@
   "version": "0.0.0",
   "private": true,
   "description": "ank.ds",
+  "license": "MIT",
   "workspaces": [
     "packages/*",
     "apps/*"
@@ -12,6 +13,10 @@
     "build-storybook": "npm run build-storybook -w @ankds/docs",
     "dev": "npm run storybook",
     "typecheck": "npm run typecheck -ws --if-present",
+    "lint": "eslint .",
+    "lint:fix": "eslint . --fix",
+    "format": "prettier --write .",
+    "format:check": "prettier --check .",
     "test": "npm run test -ws --if-present",
     "test:watch": "npm run test:watch -w @ankds/core",
     "test:coverage": "npm run test:coverage -w @ankds/core",
@@ -19,5 +24,15 @@
   },
   "engines": {
     "node": ">=18"
+  },
+  "devDependencies": {
+    "@eslint/js": "^10.0.1",
+    "eslint": "^10.5.0",
+    "eslint-config-prettier": "^10.1.8",
+    "eslint-plugin-react-hooks": "^7.1.1",
+    "eslint-plugin-storybook": "^0.12.0",
+    "globals": "^17.6.0",
+    "prettier": "^3.8.4",
+    "typescript-eslint": "^8.61.1"
   }
 }

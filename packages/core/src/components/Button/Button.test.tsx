@@ -53,7 +53,11 @@ describe('Button', () => {
   it('does not fire onClick when disabled', async () => {
     const user = userEvent.setup();
     const handleClick = vi.fn();
-    render(<Button disabled onClick={handleClick}>Save</Button>);
+    render(
+      <Button disabled onClick={handleClick}>
+        Save
+      </Button>,
+    );
 
     await user.click(screen.getByRole('button'));
     expect(handleClick).not.toHaveBeenCalled();
@@ -80,9 +84,7 @@ describe('Button', () => {
   });
 
   it('treats children-less icon button as icon-only and requires aria-label', () => {
-    render(
-      <Button iconLeft={<svg data-testid="icon" aria-hidden />} aria-label="Add" />,
-    );
+    render(<Button iconLeft={<svg data-testid="icon" aria-hidden />} aria-label="Add" />);
     const button = screen.getByRole('button', { name: 'Add' });
     expect(button).toBeInTheDocument();
     expect(screen.getByTestId('icon')).toBeInTheDocument();
@@ -99,9 +101,7 @@ describe('Button', () => {
   });
 
   it('has no axe violations when icon-only with aria-label', async () => {
-    const { container } = render(
-      <Button iconLeft={<svg aria-hidden />} aria-label="Add item" />,
-    );
+    const { container } = render(<Button iconLeft={<svg aria-hidden />} aria-label="Add item" />);
     expect(await axe(container)).toHaveNoViolations();
   });
 

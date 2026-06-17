@@ -3,9 +3,7 @@ import { useState } from 'react';
 import { Toggle } from './Toggle';
 
 const Stack = ({ children }: { children: React.ReactNode }) => (
-  <div style={{ display: 'flex', flexDirection: 'column', gap: 16, padding: 32 }}>
-    {children}
-  </div>
+  <div style={{ display: 'flex', flexDirection: 'column', gap: 16, padding: 32 }}>{children}</div>
 );
 
 const meta = {
@@ -35,9 +33,15 @@ export const Sizes: Story = {
   parameters: { layout: 'fullscreen' },
   render: () => (
     <Stack>
-      <Toggle size="sm" defaultChecked>Small</Toggle>
-      <Toggle size="md" defaultChecked>Medium</Toggle>
-      <Toggle size="lg" defaultChecked>Large</Toggle>
+      <Toggle size="sm" defaultChecked>
+        Small
+      </Toggle>
+      <Toggle size="md" defaultChecked>
+        Medium
+      </Toggle>
+      <Toggle size="lg" defaultChecked>
+        Large
+      </Toggle>
     </Stack>
   ),
 };

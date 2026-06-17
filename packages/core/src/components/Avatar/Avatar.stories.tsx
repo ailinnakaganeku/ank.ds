@@ -6,7 +6,7 @@ const meta = {
   component: Avatar,
   tags: ['autodocs'],
   parameters: { layout: 'centered' },
-  args: { size: 'md', tone: 'neutral' },
+  args: { size: 'md', tone: 'neutral', children: 'AB' },
   argTypes: {
     size: { control: 'inline-radio', options: ['sm', 'md', 'lg', 'xl'] },
     tone: { control: 'select', options: ['neutral', 'primary', 'secondary', 'accent', 'sand'] },
@@ -49,10 +49,18 @@ export const Sizes: Story = {
   parameters: { layout: 'fullscreen' },
   render: () => (
     <div style={{ display: 'flex', alignItems: 'center', gap: 20, padding: 32 }}>
-      <Avatar size="sm" tone="primary"><Avatar.Fallback>S</Avatar.Fallback></Avatar>
-      <Avatar size="md" tone="secondary"><Avatar.Fallback>M</Avatar.Fallback></Avatar>
-      <Avatar size="lg" tone="accent"><Avatar.Fallback>L</Avatar.Fallback></Avatar>
-      <Avatar size="xl" tone="sand"><Avatar.Fallback>XL</Avatar.Fallback></Avatar>
+      <Avatar size="sm" tone="primary">
+        <Avatar.Fallback>S</Avatar.Fallback>
+      </Avatar>
+      <Avatar size="md" tone="secondary">
+        <Avatar.Fallback>M</Avatar.Fallback>
+      </Avatar>
+      <Avatar size="lg" tone="accent">
+        <Avatar.Fallback>L</Avatar.Fallback>
+      </Avatar>
+      <Avatar size="xl" tone="sand">
+        <Avatar.Fallback>XL</Avatar.Fallback>
+      </Avatar>
     </div>
   ),
 };
@@ -62,7 +70,9 @@ export const Tones: Story = {
   render: () => (
     <div style={{ display: 'flex', gap: 16, padding: 32 }}>
       {(['neutral', 'primary', 'secondary', 'accent', 'sand'] as const).map((tone) => (
-        <Avatar key={tone} tone={tone}><Avatar.Fallback>{tone[0].toUpperCase()}</Avatar.Fallback></Avatar>
+        <Avatar key={tone} tone={tone}>
+          <Avatar.Fallback>{tone[0].toUpperCase()}</Avatar.Fallback>
+        </Avatar>
       ))}
     </div>
   ),

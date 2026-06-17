@@ -15,8 +15,7 @@ const links = [
   { label: 'Patterns', href: '#patterns' },
 ];
 
-const getHamburger = () =>
-  screen.getByRole('button', { name: 'Open menu', hidden: true });
+const getHamburger = () => screen.getByRole('button', { name: 'Open menu', hidden: true });
 
 describe('Navbar', () => {
   it('renders a navigation landmark with the given aria-label', () => {
@@ -32,13 +31,7 @@ describe('Navbar', () => {
   });
 
   it('renders external links with target and rel set', () => {
-    render(
-      <Navbar
-        links={[
-          { label: 'GitHub', href: 'https://github.com/x', external: true },
-        ]}
-      />,
-    );
+    render(<Navbar links={[{ label: 'GitHub', href: 'https://github.com/x', external: true }]} />);
     const link = screen.getByRole('link', { name: 'GitHub' });
     expect(link).toHaveAttribute('target', '_blank');
     expect(link).toHaveAttribute('rel', 'noopener noreferrer');

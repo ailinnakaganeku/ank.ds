@@ -34,11 +34,7 @@ export const AutoGrid = forwardRef<HTMLDivElement, AutoGridProps>(function AutoG
     <div
       ref={ref}
       data-align={align}
-      className={clsx(
-        'ank-autogrid',
-        flow === 'fill' && 'ank-autogrid--fill',
-        className,
-      )}
+      className={clsx('ank-autogrid', flow === 'fill' && 'ank-autogrid--fill', className)}
       style={merged}
       {...rest}
     >

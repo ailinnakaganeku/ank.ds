@@ -52,7 +52,9 @@ describe('FeatureGrid', () => {
   it('honors an explicit span over the size preset', () => {
     const { container } = render(
       <FeatureGrid>
-        <FeatureGrid.Item size="hero" span={2}>x</FeatureGrid.Item>
+        <FeatureGrid.Item size="hero" span={2}>
+          x
+        </FeatureGrid.Item>
       </FeatureGrid>,
     );
     const item = container.querySelector('.ank-feature-grid__item') as HTMLElement;

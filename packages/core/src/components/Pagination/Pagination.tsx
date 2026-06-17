@@ -1,6 +1,7 @@
 import { forwardRef, useMemo, type HTMLAttributes } from 'react';
 import clsx from 'clsx';
 import './Pagination.css';
+import { ChevronLeftIcon, ChevronRightIcon } from '../Icon';
 
 export interface PaginationProps extends Omit<HTMLAttributes<HTMLElement>, 'onChange'> {
   page: number;
@@ -14,18 +15,6 @@ export interface PaginationProps extends Omit<HTMLAttributes<HTMLElement>, 'onCh
 }
 
 const ELLIPSIS = '…' as const;
-
-const ChevronLeft = () => (
-  <svg width="14" height="14" viewBox="0 0 14 14" fill="none" stroke="currentColor" strokeWidth="2.5" aria-hidden>
-    <path d="M9 3L5 7l4 4" strokeLinecap="square" strokeLinejoin="miter" />
-  </svg>
-);
-
-const ChevronRight = () => (
-  <svg width="14" height="14" viewBox="0 0 14 14" fill="none" stroke="currentColor" strokeWidth="2.5" aria-hidden>
-    <path d="M5 3l4 4-4 4" strokeLinecap="square" strokeLinejoin="miter" />
-  </svg>
-);
 
 type PageEntry = number | typeof ELLIPSIS;
 
@@ -89,12 +78,7 @@ export const Pagination = forwardRef<HTMLElement, PaginationProps>(function Pagi
   };
 
   return (
-    <nav
-      ref={ref}
-      aria-label={ariaLabel}
-      className={clsx('ank-pagination', className)}
-      {...rest}
-    >
+    <nav ref={ref} aria-label={ariaLabel} className={clsx('ank-pagination', className)} {...rest}>
       <ol className="ank-pagination__list">
         <li className="ank-pagination__item">
           <button
@@ -104,14 +88,18 @@ export const Pagination = forwardRef<HTMLElement, PaginationProps>(function Pagi
             aria-label={previousLabel}
             className="ank-pagination__button"
           >
-            <span className="ank-pagination__icon"><ChevronLeft /></span>
+            <span className="ank-pagination__icon">
+              <ChevronLeftIcon size={14} />
+            </span>
           </button>
         </li>
 
         {pages.map((entry, index) =>
           entry === ELLIPSIS ? (
             <li key={`ellipsis-${index}`} className="ank-pagination__item">
-              <span aria-hidden className="ank-pagination__ellipsis">{ELLIPSIS}</span>
+              <span aria-hidden className="ank-pagination__ellipsis">
+                {ELLIPSIS}
+              </span>
             </li>
           ) : (
             <li key={entry} className="ank-pagination__item">
@@ -136,7 +124,9 @@ export const Pagination = forwardRef<HTMLElement, PaginationProps>(function Pagi
             aria-label={nextLabel}
             className="ank-pagination__button"
           >
-            <span className="ank-pagination__icon"><ChevronRight /></span>
+            <span className="ank-pagination__icon">
+              <ChevronRightIcon size={14} />
+            </span>
           </button>
         </li>
       </ol>

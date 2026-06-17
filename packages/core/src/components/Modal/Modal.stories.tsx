@@ -3,18 +3,9 @@ import { useRef, useState } from 'react';
 import { Modal } from './Modal';
 import { Button } from '../Button';
 import { Input } from '../Input';
-import { Label } from '../Label';
 import { FieldWrapper } from '../FieldWrapper';
 
-const Trigger = ({
-  label,
-  open,
-  onOpen,
-}: {
-  label: string;
-  open: boolean;
-  onOpen: () => void;
-}) => (
+const Trigger = ({ label, open, onOpen }: { label: string; open: boolean; onOpen: () => void }) => (
   <div style={{ padding: 32 }}>
     <Button onClick={onOpen} aria-haspopup="dialog" aria-expanded={open}>
       {label}
@@ -27,6 +18,7 @@ const meta = {
   component: Modal,
   tags: ['autodocs'],
   parameters: { layout: 'fullscreen' },
+  args: { open: false, onClose: () => {} },
 } satisfies Meta<typeof Modal>;
 
 export default meta;
@@ -46,7 +38,9 @@ export const Default: Story = {
               </p>
             </Modal.Body>
             <Modal.Footer>
-              <Button variant="ghost" onClick={() => setOpen(false)}>Cancel</Button>
+              <Button variant="ghost" onClick={() => setOpen(false)}>
+                Cancel
+              </Button>
               <Button onClick={() => setOpen(false)}>Continue</Button>
             </Modal.Footer>
           </Modal>
@@ -74,7 +68,8 @@ export const Sizes: Story = {
           >
             <Modal.Body>
               <p style={{ margin: 0 }}>
-                This modal is rendered at the {size} size. Available widths are 380, 500, and 720 pixels.
+                This modal is rendered at the {size} size. Available widths are 380, 500, and 720
+                pixels.
               </p>
             </Modal.Body>
             <Modal.Footer>
@@ -99,14 +94,16 @@ export const LongContent: Story = {
             <Modal.Body>
               {Array.from({ length: 12 }).map((_, i) => (
                 <p key={i} style={{ marginTop: i === 0 ? 0 : 16 }}>
-                  Section {i + 1}. The quick brown fox jumps over the lazy dog. The body
-                  scrolls when the content overflows the viewport. The header and footer
-                  stay pinned to the top and bottom of the modal frame.
+                  Section {i + 1}. The quick brown fox jumps over the lazy dog. The body scrolls
+                  when the content overflows the viewport. The header and footer stay pinned to the
+                  top and bottom of the modal frame.
                 </p>
               ))}
             </Modal.Body>
             <Modal.Footer>
-              <Button variant="ghost" onClick={() => setOpen(false)}>Decline</Button>
+              <Button variant="ghost" onClick={() => setOpen(false)}>
+                Decline
+              </Button>
               <Button onClick={() => setOpen(false)}>Accept</Button>
             </Modal.Footer>
           </Modal>
@@ -127,13 +124,17 @@ export const ConfirmDestructive: Story = {
           <Modal open={open} onClose={() => setOpen(false)} title="Delete your account?" size="sm">
             <Modal.Body>
               <p style={{ margin: 0 }}>
-                This will permanently remove your account and all associated data. This
-                action cannot be undone.
+                This will permanently remove your account and all associated data. This action
+                cannot be undone.
               </p>
             </Modal.Body>
             <Modal.Footer>
-              <Button variant="ghost" onClick={() => setOpen(false)}>Cancel</Button>
-              <Button variant="danger" onClick={() => setOpen(false)}>Delete account</Button>
+              <Button variant="ghost" onClick={() => setOpen(false)}>
+                Cancel
+              </Button>
+              <Button variant="danger" onClick={() => setOpen(false)}>
+                Delete account
+              </Button>
             </Modal.Footer>
           </Modal>
         </>
@@ -174,7 +175,9 @@ export const WithForm: Story = {
               </form>
             </Modal.Body>
             <Modal.Footer>
-              <Button variant="ghost" onClick={() => setOpen(false)}>Cancel</Button>
+              <Button variant="ghost" onClick={() => setOpen(false)}>
+                Cancel
+              </Button>
               <Button onClick={() => setOpen(false)}>Send invite</Button>
             </Modal.Footer>
           </Modal>
@@ -201,8 +204,8 @@ export const StaticOverlay: Story = {
           >
             <Modal.Body>
               <p style={{ margin: 0 }}>
-                Clicking outside or pressing Escape will not close this modal. Use one
-                of the buttons below.
+                Clicking outside or pressing Escape will not close this modal. Use one of the
+                buttons below.
               </p>
             </Modal.Body>
             <Modal.Footer>
@@ -223,11 +226,7 @@ export const WithoutTitle: Story = {
       return (
         <>
           <Trigger label="Open titleless modal" open={open} onOpen={() => setOpen(true)} />
-          <Modal
-            open={open}
-            onClose={() => setOpen(false)}
-            aria-label="Quick action"
-          >
+          <Modal open={open} onClose={() => setOpen(false)} aria-label="Quick action">
             <Modal.Body>
               <p style={{ margin: 0 }}>
                 A modal without a visible title. The aria-label keeps it accessible.

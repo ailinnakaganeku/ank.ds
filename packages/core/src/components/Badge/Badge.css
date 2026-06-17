@@ -12,8 +12,14 @@
   line-height: 1;
 }
 
-.ank-badge--sm { font-size: 10px; padding: 3px 6px; }
-.ank-badge--md { font-size: 11px; padding: 4px 8px; }
+.ank-badge--sm {
+  font-size: 10px;
+  padding: 3px 6px;
+}
+.ank-badge--md {
+  font-size: 11px;
+  padding: 4px 8px;
+}
 
 .ank-badge--primary {
   background: var(--ank-primary);

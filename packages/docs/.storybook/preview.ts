@@ -23,10 +23,7 @@ const preview: Preview = {
     layout: 'centered',
     options: {
       storySort: {
-        order: [
-          'ank.ds',
-          ['Welcome', 'Foundations', 'Components', 'Patterns'],
-        ],
+        order: ['ank.ds', ['Welcome', 'Foundations', 'Components', 'Patterns']],
       },
     },
   },

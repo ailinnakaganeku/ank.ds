@@ -40,12 +40,7 @@ const FeatureGridRoot = forwardRef<HTMLDivElement, FeatureGridProps>(function Fe
 
   return (
     <FeatureGridContext.Provider value={ctx}>
-      <div
-        ref={ref}
-        className={clsx('ank-feature-grid', className)}
-        style={mergedStyle}
-        {...rest}
-      >
+      <div ref={ref} className={clsx('ank-feature-grid', className)} style={mergedStyle} {...rest}>
         {children}
       </div>
     </FeatureGridContext.Provider>
@@ -97,28 +92,23 @@ export interface FeatureGridSpotlightProps extends HTMLAttributes<HTMLDivElement
   children: ReactNode;
 }
 
-const Spotlight = forwardRef<HTMLDivElement, FeatureGridSpotlightProps>(function FeatureGridSpotlight(
-  { className, children, style, ...rest },
-  ref,
-) {
-  const { columns } = useContext(FeatureGridContext);
-  const span = Math.min(sizeToSpan.hero, columns);
-  return (
-    <div
-      ref={ref}
-      data-size="hero"
-      data-span={span}
-      style={{ gridColumn: `span ${span}`, ...style }}
-      className={clsx(
-        'ank-feature-grid__item',
-        'ank-feature-grid__spotlight',
-        className,
-      )}
-      {...rest}
-    >
-      {children}
-    </div>
-  );
-});
+const Spotlight = forwardRef<HTMLDivElement, FeatureGridSpotlightProps>(
+  function FeatureGridSpotlight({ className, children, style, ...rest }, ref) {
+    const { columns } = useContext(FeatureGridContext);
+    const span = Math.min(sizeToSpan.hero, columns);
+    return (
+      <div
+        ref={ref}
+        data-size="hero"
+        data-span={span}
+        style={{ gridColumn: `span ${span}`, ...style }}
+        className={clsx('ank-feature-grid__item', 'ank-feature-grid__spotlight', className)}
+        {...rest}
+      >
+        {children}
+      </div>
+    );
+  },
+);
 
 export const FeatureGrid = Object.assign(FeatureGridRoot, { Item, Spotlight });

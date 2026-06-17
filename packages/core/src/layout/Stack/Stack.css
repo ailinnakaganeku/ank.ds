@@ -5,9 +5,15 @@
   gap: var(--ank-stack-gap, var(--ank-space-4));
 }
 
-.ank-stack[data-align="center"] { align-items: center; }
-.ank-stack[data-align="end"]    { align-items: flex-end; }
-.ank-stack[data-align="stretch"] { align-items: stretch; }
+.ank-stack[data-align='center'] {
+  align-items: center;
+}
+.ank-stack[data-align='end'] {
+  align-items: flex-end;
+}
+.ank-stack[data-align='stretch'] {
+  align-items: stretch;
+}
 
 .ank-stack--divided > * + * {
   border-top: 2px solid var(--ank-ink);

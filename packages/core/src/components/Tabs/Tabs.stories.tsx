@@ -29,6 +29,7 @@ const meta = {
   component: Tabs,
   tags: ['autodocs'],
   parameters: { layout: 'fullscreen' },
+  args: { children: 'Tabs' },
 } satisfies Meta<typeof Tabs>;
 
 export default meta;
@@ -44,9 +45,7 @@ export const Default: Story = {
           <Tabs.Tab value="team">Team</Tabs.Tab>
         </Tabs.List>
         <Tabs.Panel value="overview">
-          <PanelText>
-            Overview panel. Use arrow keys, Home, and End to move between tabs.
-          </PanelText>
+          <PanelText>Overview panel. Use arrow keys, Home, and End to move between tabs.</PanelText>
         </Tabs.Panel>
         <Tabs.Panel value="billing">
           <PanelText>
@@ -54,9 +53,7 @@ export const Default: Story = {
           </PanelText>
         </Tabs.Panel>
         <Tabs.Panel value="team">
-          <PanelText>
-            Team panel. Invite teammates and adjust their roles.
-          </PanelText>
+          <PanelText>Team panel. Invite teammates and adjust their roles.</PanelText>
         </Tabs.Panel>
       </Tabs>
     </Frame>
@@ -75,11 +72,24 @@ export const Controlled: Story = {
               <Tabs.Tab value="two">Two</Tabs.Tab>
               <Tabs.Tab value="three">Three</Tabs.Tab>
             </Tabs.List>
-            <Tabs.Panel value="one"><PanelText>Panel one.</PanelText></Tabs.Panel>
-            <Tabs.Panel value="two"><PanelText>Panel two.</PanelText></Tabs.Panel>
-            <Tabs.Panel value="three"><PanelText>Panel three.</PanelText></Tabs.Panel>
+            <Tabs.Panel value="one">
+              <PanelText>Panel one.</PanelText>
+            </Tabs.Panel>
+            <Tabs.Panel value="two">
+              <PanelText>Panel two.</PanelText>
+            </Tabs.Panel>
+            <Tabs.Panel value="three">
+              <PanelText>Panel three.</PanelText>
+            </Tabs.Panel>
           </Tabs>
-          <div style={{ fontFamily: 'var(--ank-mono)', fontSize: 12, color: 'var(--ank-gray-500)', marginTop: 16 }}>
+          <div
+            style={{
+              fontFamily: 'var(--ank-mono)',
+              fontSize: 12,
+              color: 'var(--ank-gray-500)',
+              marginTop: 16,
+            }}
+          >
             active: {tab}
           </div>
         </Frame>
@@ -96,13 +106,23 @@ export const WithDisabledTab: Story = {
         <Tabs.List aria-label="Docs sections">
           <Tabs.Tab value="docs">Docs</Tabs.Tab>
           <Tabs.Tab value="api">API</Tabs.Tab>
-          <Tabs.Tab value="changelog" disabled>Changelog</Tabs.Tab>
+          <Tabs.Tab value="changelog" disabled>
+            Changelog
+          </Tabs.Tab>
           <Tabs.Tab value="examples">Examples</Tabs.Tab>
         </Tabs.List>
-        <Tabs.Panel value="docs"><PanelText>Documentation panel.</PanelText></Tabs.Panel>
-        <Tabs.Panel value="api"><PanelText>API reference panel.</PanelText></Tabs.Panel>
-        <Tabs.Panel value="changelog"><PanelText>Changelog panel.</PanelText></Tabs.Panel>
-        <Tabs.Panel value="examples"><PanelText>Examples panel — arrow keys skip the disabled tab.</PanelText></Tabs.Panel>
+        <Tabs.Panel value="docs">
+          <PanelText>Documentation panel.</PanelText>
+        </Tabs.Panel>
+        <Tabs.Panel value="api">
+          <PanelText>API reference panel.</PanelText>
+        </Tabs.Panel>
+        <Tabs.Panel value="changelog">
+          <PanelText>Changelog panel.</PanelText>
+        </Tabs.Panel>
+        <Tabs.Panel value="examples">
+          <PanelText>Examples panel — arrow keys skip the disabled tab.</PanelText>
+        </Tabs.Panel>
       </Tabs>
     </Frame>
   ),
@@ -114,18 +134,32 @@ export const WithBadges: Story = {
       <Tabs defaultValue="inbox">
         <Tabs.List aria-label="Mail folders">
           <Tabs.Tab value="inbox">
-            Inbox <Badge variant="dark" size="sm">12</Badge>
+            Inbox{' '}
+            <Badge variant="dark" size="sm">
+              12
+            </Badge>
           </Tabs.Tab>
           <Tabs.Tab value="drafts">
-            Drafts <Badge variant="outline" size="sm">2</Badge>
+            Drafts{' '}
+            <Badge variant="outline" size="sm">
+              2
+            </Badge>
           </Tabs.Tab>
           <Tabs.Tab value="sent">Sent</Tabs.Tab>
           <Tabs.Tab value="archive">Archive</Tabs.Tab>
         </Tabs.List>
-        <Tabs.Panel value="inbox"><PanelText>12 unread messages in your inbox.</PanelText></Tabs.Panel>
-        <Tabs.Panel value="drafts"><PanelText>2 drafts waiting to be sent.</PanelText></Tabs.Panel>
-        <Tabs.Panel value="sent"><PanelText>Sent messages from the last 30 days.</PanelText></Tabs.Panel>
-        <Tabs.Panel value="archive"><PanelText>Archived conversations.</PanelText></Tabs.Panel>
+        <Tabs.Panel value="inbox">
+          <PanelText>12 unread messages in your inbox.</PanelText>
+        </Tabs.Panel>
+        <Tabs.Panel value="drafts">
+          <PanelText>2 drafts waiting to be sent.</PanelText>
+        </Tabs.Panel>
+        <Tabs.Panel value="sent">
+          <PanelText>Sent messages from the last 30 days.</PanelText>
+        </Tabs.Panel>
+        <Tabs.Panel value="archive">
+          <PanelText>Archived conversations.</PanelText>
+        </Tabs.Panel>
       </Tabs>
     </Frame>
   ),
@@ -137,7 +171,9 @@ export const ManyTabs: Story = {
       <Tabs defaultValue="t1">
         <Tabs.List aria-label="Many tabs">
           {Array.from({ length: 8 }).map((_, i) => (
-            <Tabs.Tab key={i} value={`t${i + 1}`}>Tab {i + 1}</Tabs.Tab>
+            <Tabs.Tab key={i} value={`t${i + 1}`}>
+              Tab {i + 1}
+            </Tabs.Tab>
           ))}
         </Tabs.List>
         {Array.from({ length: 8 }).map((_, i) => (

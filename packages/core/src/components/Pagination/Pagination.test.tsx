@@ -61,9 +61,7 @@ describe('Pagination', () => {
   });
 
   it('has no axe violations', async () => {
-    const { container } = render(
-      <Pagination page={3} pageCount={10} onPageChange={() => {}} />,
-    );
+    const { container } = render(<Pagination page={3} pageCount={10} onPageChange={() => {}} />);
     expect(await axe(container)).toHaveNoViolations();
   });
 });

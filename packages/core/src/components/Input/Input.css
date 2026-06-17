@@ -37,9 +37,21 @@
   color: var(--ank-gray-300);
 }
 
-.ank-input--sm { height: 32px; padding: 0 10px; font-size: 13px; }
-.ank-input--md { height: 42px; padding: 0 14px; font-size: 15px; }
-.ank-input--lg { height: 52px; padding: 0 18px; font-size: 17px; }
+.ank-input--sm {
+  height: 32px;
+  padding: 0 10px;
+  font-size: 13px;
+}
+.ank-input--md {
+  height: 42px;
+  padding: 0 14px;
+  font-size: 15px;
+}
+.ank-input--lg {
+  height: 52px;
+  padding: 0 18px;
+  font-size: 17px;
+}
 
 .ank-input--error {
   border-color: var(--ank-error);
@@ -64,5 +76,7 @@
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .ank-input { transition: none; }
+  .ank-input {
+    transition: none;
+  }
 }

@@ -1,9 +1,4 @@
-import {
-  forwardRef,
-  type HTMLAttributes,
-  type KeyboardEvent,
-  type ReactNode,
-} from 'react';
+import { forwardRef, type HTMLAttributes, type KeyboardEvent, type ReactNode } from 'react';
 import { cva, type VariantProps } from 'class-variance-authority';
 import clsx from 'clsx';
 import './Card.css';
@@ -11,11 +6,11 @@ import './Card.css';
 const cardVariants = cva('ank-card', {
   variants: {
     variant: {
-      default:   'ank-card--default',
-      primary:   'ank-card--primary',
+      default: 'ank-card--default',
+      primary: 'ank-card--primary',
       secondary: 'ank-card--secondary',
-      dark:      'ank-card--dark',
-      outlined:  'ank-card--outlined',
+      dark: 'ank-card--dark',
+      outlined: 'ank-card--outlined',
     },
     interactive: {
       true: 'ank-card--interactive',
@@ -26,9 +21,7 @@ const cardVariants = cva('ank-card', {
 
 export type CardVariants = VariantProps<typeof cardVariants>;
 
-export interface CardProps
-  extends HTMLAttributes<HTMLDivElement>,
-    CardVariants {
+export interface CardProps extends HTMLAttributes<HTMLDivElement>, CardVariants {
   children?: ReactNode;
 }
 

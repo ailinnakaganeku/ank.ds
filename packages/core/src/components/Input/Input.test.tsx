@@ -1,4 +1,4 @@
-import { describe, expect, it, vi } from 'vitest';
+import { describe, expect, it } from 'vitest';
 import { createRef, useState } from 'react';
 import { render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
@@ -23,13 +23,7 @@ describe('Input', () => {
     const user = userEvent.setup();
     const Controlled = () => {
       const [value, setValue] = useState('');
-      return (
-        <Input
-          aria-label="Name"
-          value={value}
-          onChange={(e) => setValue(e.target.value)}
-        />
-      );
+      return <Input aria-label="Name" value={value} onChange={(e) => setValue(e.target.value)} />;
     };
     render(<Controlled />);
     const input = screen.getByLabelText('Name');

@@ -6,6 +6,7 @@ const meta = {
   component: Dropdown,
   tags: ['autodocs'],
   parameters: { layout: 'centered' },
+  args: { children: 'Menu items' },
 } satisfies Meta<typeof Dropdown>;
 
 export default meta;

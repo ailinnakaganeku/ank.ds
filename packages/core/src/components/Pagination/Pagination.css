@@ -32,10 +32,12 @@
   background: var(--ank-white);
   border: 2.5px solid var(--ank-ink);
   cursor: pointer;
-  transition: background-color var(--ank-transition-fast), color var(--ank-transition-fast);
+  transition:
+    background-color var(--ank-transition-fast),
+    color var(--ank-transition-fast);
 }
 
-.ank-pagination__button:hover:not(:disabled):not([aria-current="page"]) {
+.ank-pagination__button:hover:not(:disabled):not([aria-current='page']) {
   background: var(--ank-surface);
 }
 
@@ -44,7 +46,7 @@
   outline-offset: 2px;
 }
 
-.ank-pagination__button[aria-current="page"] {
+.ank-pagination__button[aria-current='page'] {
   background: var(--ank-ink);
   color: var(--ank-white);
   cursor: default;

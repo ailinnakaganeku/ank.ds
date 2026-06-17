@@ -1,15 +1,10 @@
-import {
-  forwardRef,
-  useContext,
-  useId,
-  type SelectHTMLAttributes,
-  type ReactNode,
-} from 'react';
+import { forwardRef, useContext, useId, type SelectHTMLAttributes, type ReactNode } from 'react';
 import { cva, type VariantProps } from 'class-variance-authority';
 import clsx from 'clsx';
 import { FieldContext } from '../FieldWrapper/FieldContext';
 import '../Input/Input.css';
 import './Select.css';
+import { CaretDownIcon } from '../Icon';
 
 const selectVariants = cva('ank-input ank-select', {
   variants: {
@@ -38,17 +33,10 @@ const selectVariants = cva('ank-input ank-select', {
 export type SelectVariants = VariantProps<typeof selectVariants>;
 
 export interface SelectProps
-  extends Omit<SelectHTMLAttributes<HTMLSelectElement>, 'size'>,
-    SelectVariants {
+  extends Omit<SelectHTMLAttributes<HTMLSelectElement>, 'size'>, SelectVariants {
   invalid?: boolean;
   children?: ReactNode;
 }
-
-const ArrowDown = () => (
-  <svg width="10" height="6" viewBox="0 0 10 6" fill="currentColor" aria-hidden>
-    <path d="M0 0h10L5 6z" />
-  </svg>
-);
 
 export const Select = forwardRef<HTMLSelectElement, SelectProps>(function Select(
   {
@@ -69,8 +57,7 @@ export const Select = forwardRef<HTMLSelectElement, SelectProps>(function Select
   const field = useContext(FieldContext);
   const generatedId = useId();
   const id = idProp ?? field?.id ?? generatedId;
-  const resolvedInvalid =
-    invalid ?? field?.invalid ?? (state === 'error') ?? false;
+  const resolvedInvalid = invalid ?? field?.invalid ?? state === 'error';
   const resolvedState = state ?? (resolvedInvalid ? 'error' : 'default');
   const resolvedDisabled = disabled ?? field?.disabled;
   const ariaDescribedBy = describedByProp ?? field?.describedBy;
@@ -97,7 +84,7 @@ export const Select = forwardRef<HTMLSelectElement, SelectProps>(function Select
         {children}
       </select>
       <span className="ank-select-wrapper__arrow">
-        <ArrowDown />
+        <CaretDownIcon />
       </span>
     </span>
   );

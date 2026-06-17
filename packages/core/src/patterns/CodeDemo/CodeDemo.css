@@ -47,8 +47,12 @@
   background: var(--ank-secondary);
 }
 
-.ank-code-demo__dots > span:nth-child(2) { background: var(--ank-warning); }
-.ank-code-demo__dots > span:nth-child(3) { background: var(--ank-accent); }
+.ank-code-demo__dots > span:nth-child(2) {
+  background: var(--ank-warning);
+}
+.ank-code-demo__dots > span:nth-child(3) {
+  background: var(--ank-accent);
+}
 
 .ank-code-demo__title {
   flex: 1;
@@ -111,10 +115,19 @@
 }
 
 @keyframes ank-code-caret {
-  0%, 49%   { opacity: 1; }
-  50%, 100% { opacity: 0; }
+  0%,
+  49% {
+    opacity: 1;
+  }
+  50%,
+  100% {
+    opacity: 0;
+  }
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .ank-code-demo__caret { animation: none; opacity: 1; }
+  .ank-code-demo__caret {
+    animation: none;
+    opacity: 1;
+  }
 }

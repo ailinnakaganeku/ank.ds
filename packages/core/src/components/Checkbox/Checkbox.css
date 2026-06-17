@@ -74,14 +74,34 @@
   color: var(--ank-white);
 }
 
-.ank-checkbox--sm .ank-checkbox__box { width: 16px; height: 16px; }
-.ank-checkbox--sm .ank-checkbox__box svg { width: 10px; height: 10px; }
-.ank-checkbox--sm { font-size: 13px; gap: 8px; }
+.ank-checkbox--sm .ank-checkbox__box {
+  width: 16px;
+  height: 16px;
+}
+.ank-checkbox--sm .ank-checkbox__box svg {
+  width: 10px;
+  height: 10px;
+}
+.ank-checkbox--sm {
+  font-size: 13px;
+  gap: 8px;
+}
 
-.ank-checkbox--lg .ank-checkbox__box { width: 22px; height: 22px; }
-.ank-checkbox--lg .ank-checkbox__box svg { width: 14px; height: 14px; }
-.ank-checkbox--lg { font-size: 17px; gap: 12px; }
+.ank-checkbox--lg .ank-checkbox__box {
+  width: 22px;
+  height: 22px;
+}
+.ank-checkbox--lg .ank-checkbox__box svg {
+  width: 14px;
+  height: 14px;
+}
+.ank-checkbox--lg {
+  font-size: 17px;
+  gap: 12px;
+}
 
 @media (prefers-reduced-motion: reduce) {
-  .ank-checkbox__box { transition: none; }
+  .ank-checkbox__box {
+    transition: none;
+  }
 }

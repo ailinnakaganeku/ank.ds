@@ -44,10 +44,7 @@ const AvatarRoot = forwardRef<HTMLSpanElement, AvatarProps>(function Avatar(
   ref,
 ) {
   const [imageStatus, setImageStatus] = useState<ImageStatus>('idle');
-  const value = useMemo<AvatarContextValue>(
-    () => ({ imageStatus, setImageStatus }),
-    [imageStatus],
-  );
+  const value = useMemo<AvatarContextValue>(() => ({ imageStatus, setImageStatus }), [imageStatus]);
 
   return (
     <AvatarContext.Provider value={value}>

@@ -69,14 +69,34 @@
   background: var(--ank-gray-500);
 }
 
-.ank-radio--sm .ank-radio__box { width: 16px; height: 16px; }
-.ank-radio--sm .ank-radio__dot { width: 6px; height: 6px; }
-.ank-radio--sm { font-size: 13px; gap: 8px; }
+.ank-radio--sm .ank-radio__box {
+  width: 16px;
+  height: 16px;
+}
+.ank-radio--sm .ank-radio__dot {
+  width: 6px;
+  height: 6px;
+}
+.ank-radio--sm {
+  font-size: 13px;
+  gap: 8px;
+}
 
-.ank-radio--lg .ank-radio__box { width: 22px; height: 22px; }
-.ank-radio--lg .ank-radio__dot { width: 10px; height: 10px; }
-.ank-radio--lg { font-size: 17px; gap: 12px; }
+.ank-radio--lg .ank-radio__box {
+  width: 22px;
+  height: 22px;
+}
+.ank-radio--lg .ank-radio__dot {
+  width: 10px;
+  height: 10px;
+}
+.ank-radio--lg {
+  font-size: 17px;
+  gap: 12px;
+}
 
 @media (prefers-reduced-motion: reduce) {
-  .ank-radio__box { transition: none; }
+  .ank-radio__box {
+    transition: none;
+  }
 }

@@ -12,6 +12,7 @@ import { createPortal } from 'react-dom';
 import clsx from 'clsx';
 import { useFocusTrap } from '../../hooks/useFocusTrap';
 import './Modal.css';
+import { CloseIcon } from '../Icon';
 
 export type ModalSize = 'sm' | 'md' | 'lg';
 
@@ -29,12 +30,6 @@ export interface ModalProps {
   'aria-label'?: string;
   'aria-describedby'?: string;
 }
-
-const CloseIcon = () => (
-  <svg viewBox="0 0 14 14" width="14" height="14" fill="none" stroke="currentColor" strokeWidth="2.5" aria-hidden>
-    <path d="M3 3l8 8M11 3l-8 8" strokeLinecap="square" />
-  </svg>
-);
 
 const ModalRoot = ({
   open,
@@ -131,7 +126,7 @@ const ModalRoot = ({
               aria-label={closeLabel}
               className="ank-modal__close"
             >
-              <CloseIcon />
+              <CloseIcon size={14} />
             </button>
           </header>
         )}

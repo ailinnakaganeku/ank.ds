@@ -73,16 +73,16 @@ const ShadowsView: FC = () => (
     <SectionLabel>Default</SectionLabel>
     <Grid>
       <ShadowBox token="shadow-sm" shadow="3px 3px 0px var(--ank-shadow-color)" />
-      <ShadowBox token="shadow"    shadow="4px 4px 0px var(--ank-shadow-color)" />
+      <ShadowBox token="shadow" shadow="4px 4px 0px var(--ank-shadow-color)" />
       <ShadowBox token="shadow-lg" shadow="6px 6px 0px var(--ank-shadow-color)" />
       <ShadowBox token="shadow-xl" shadow="8px 8px 0px var(--ank-shadow-color)" />
     </Grid>
 
     <SectionLabel>Color</SectionLabel>
     <Grid>
-      <ShadowBox token="shadow-primary"   shadow="4px 4px 0px #1C3D4F" />
+      <ShadowBox token="shadow-primary" shadow="4px 4px 0px #1C3D4F" />
       <ShadowBox token="shadow-secondary" shadow="4px 4px 0px #C4714A" />
-      <ShadowBox token="shadow-accent"    shadow="4px 4px 0px #4A7A5C" />
+      <ShadowBox token="shadow-accent" shadow="4px 4px 0px #4A7A5C" />
     </Grid>
 
     <SectionLabel>Press</SectionLabel>

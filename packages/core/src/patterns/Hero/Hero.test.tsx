@@ -19,13 +19,7 @@ describe('Hero', () => {
   });
 
   it('renders description and actions when provided', () => {
-    render(
-      <Hero
-        title="Title"
-        description="some description"
-        actions={<button>cta</button>}
-      />,
-    );
+    render(<Hero title="Title" description="some description" actions={<button>cta</button>} />);
     expect(screen.getByText('some description')).toBeInTheDocument();
     expect(screen.getByRole('button', { name: 'cta' })).toBeInTheDocument();
   });
@@ -36,9 +30,7 @@ describe('Hero', () => {
   });
 
   it('switches to split layout when decoration is provided', () => {
-    const { container } = render(
-      <Hero title="t" decoration={<div data-testid="dec">d</div>} />,
-    );
+    const { container } = render(<Hero title="t" decoration={<div data-testid="dec">d</div>} />);
     expect(container.querySelector('.ank-hero--split')).not.toBeNull();
     expect(screen.getByTestId('dec')).toBeInTheDocument();
   });
@@ -50,11 +42,7 @@ describe('Hero', () => {
 
   it('has no axe violations', async () => {
     const { container } = render(
-      <Hero
-        title="default hero"
-        description="body"
-        actions={<button>cta</button>}
-      />,
+      <Hero title="default hero" description="body" actions={<button>cta</button>} />,
     );
     expect(await axe(container)).toHaveNoViolations();
   });

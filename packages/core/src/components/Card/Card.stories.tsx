@@ -79,7 +79,9 @@ export const WithMedia: Story = {
         </Card.Description>
         <Card.Footer>
           <Button size="sm">Read more</Button>
-          <Button size="sm" variant="ghost">Save</Button>
+          <Button size="sm" variant="ghost">
+            Save
+          </Button>
         </Card.Footer>
       </Card>
     </div>
@@ -94,9 +96,7 @@ export const AllVariants: Story = {
         <Card key={variant} variant={variant}>
           <Card.Eyebrow>{variant}</Card.Eyebrow>
           <Card.Title>Card title</Card.Title>
-          <Card.Description>
-            A short summary of what this card is about.
-          </Card.Description>
+          <Card.Description>A short summary of what this card is about.</Card.Description>
           <Card.Footer>
             <Button
               size="sm"
@@ -155,7 +155,9 @@ export const ProductCard: Story = {
         </Card.Media>
         <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
           <Card.Eyebrow>Featured</Card.Eyebrow>
-          <Badge variant="success" size="sm">In stock</Badge>
+          <Badge variant="success" size="sm">
+            In stock
+          </Badge>
         </div>
         <Card.Title>Cormorant Garamond</Card.Title>
         <Card.Description>
@@ -163,7 +165,9 @@ export const ProductCard: Story = {
         </Card.Description>
         <Card.Footer>
           <Button size="sm">Get the font</Button>
-          <Button size="sm" variant="ghost">Preview</Button>
+          <Button size="sm" variant="ghost">
+            Preview
+          </Button>
         </Card.Footer>
       </Card>
     </div>

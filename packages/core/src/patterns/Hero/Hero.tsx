@@ -42,7 +42,10 @@ export const Hero = forwardRef<HTMLElement, HeroProps>(function Hero(
       {...rest}
     >
       <div className="ank-hero__content">
-        <h1 id={titleId} className={clsx('ank-hero__title', titleBleed && 'ank-hero__title--bleed')}>
+        <h1
+          id={titleId}
+          className={clsx('ank-hero__title', titleBleed && 'ank-hero__title--bleed')}
+        >
           {title}
         </h1>
         {description && <p className="ank-hero__description">{description}</p>}

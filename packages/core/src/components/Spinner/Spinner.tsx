@@ -13,14 +13,7 @@ export interface SpinnerProps extends Omit<HTMLAttributes<HTMLSpanElement>, 'rol
 }
 
 export const Spinner = forwardRef<HTMLSpanElement, SpinnerProps>(function Spinner(
-  {
-    size = 'md',
-    variant = 'ink',
-    label = 'Loading',
-    showLabel = false,
-    className,
-    ...rest
-  },
+  { size = 'md', variant = 'ink', label = 'Loading', showLabel = false, className, ...rest },
   ref,
 ) {
   return (
@@ -28,12 +21,7 @@ export const Spinner = forwardRef<HTMLSpanElement, SpinnerProps>(function Spinne
       ref={ref}
       role="status"
       aria-live="polite"
-      className={clsx(
-        'ank-spinner',
-        `ank-spinner--${size}`,
-        `ank-spinner--${variant}`,
-        className,
-      )}
+      className={clsx('ank-spinner', `ank-spinner--${size}`, `ank-spinner--${variant}`, className)}
       {...rest}
     >
       <span className="ank-spinner__dots" aria-hidden>

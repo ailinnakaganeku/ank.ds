@@ -7,6 +7,7 @@ const meta = {
   component: ToastProvider,
   tags: ['autodocs'],
   parameters: { layout: 'fullscreen' },
+  args: { children: 'App' },
 } satisfies Meta<typeof ToastProvider>;
 
 export default meta;
@@ -19,23 +20,39 @@ const Demo = () => {
       <Button onClick={() => toast.success('Saved', { description: 'Your changes were saved.' })}>
         success
       </Button>
-      <Button variant="sand" onClick={() => toast.warning('Heads up', { description: 'Session expires in 5 minutes.' })}>
+      <Button
+        variant="sand"
+        onClick={() => toast.warning('Heads up', { description: 'Session expires in 5 minutes.' })}
+      >
         warning
       </Button>
-      <Button variant="danger" onClick={() => toast.error('Upload failed', { description: 'File exceeds the 10 MB limit.' })}>
+      <Button
+        variant="danger"
+        onClick={() =>
+          toast.error('Upload failed', { description: 'File exceeds the 10 MB limit.' })
+        }
+      >
         error
       </Button>
-      <Button variant="ghost" onClick={() => toast.info('Tip', { description: 'You can press ⌘K to open the command palette.' })}>
+      <Button
+        variant="ghost"
+        onClick={() =>
+          toast.info('Tip', { description: 'You can press ⌘K to open the command palette.' })
+        }
+      >
         info
       </Button>
-      <Button variant="secondary" onClick={() =>
-        toast.show({
-          title: 'Friend request',
-          description: 'Ada Lovelace wants to connect.',
-          action: { label: 'View', onClick: () => alert('viewed') },
-          duration: 0,
-        })
-      }>
+      <Button
+        variant="secondary"
+        onClick={() =>
+          toast.show({
+            title: 'Friend request',
+            description: 'Ada Lovelace wants to connect.',
+            action: { label: 'View', onClick: () => alert('viewed') },
+            duration: 0,
+          })
+        }
+      >
         with action (persistent)
       </Button>
       <Button onClick={() => toast.dismissAll()}>Dismiss all</Button>

@@ -151,7 +151,14 @@ const TypographyView: FC = () => (
         weight={700}
         font="display"
         sample={
-          <span style={{ fontFamily: 'var(--ank-display)', fontSize: 84, fontWeight: 700, lineHeight: 1 }}>
+          <span
+            style={{
+              fontFamily: 'var(--ank-display)',
+              fontSize: 84,
+              fontWeight: 700,
+              lineHeight: 1,
+            }}
+          >
             Aa
           </span>
         }
@@ -162,7 +169,14 @@ const TypographyView: FC = () => (
         weight={700}
         font="display"
         sample={
-          <span style={{ fontFamily: 'var(--ank-display)', fontSize: 60, fontWeight: 700, lineHeight: 1.05 }}>
+          <span
+            style={{
+              fontFamily: 'var(--ank-display)',
+              fontSize: 60,
+              fontWeight: 700,
+              lineHeight: 1.05,
+            }}
+          >
             The quick brown fox
           </span>
         }
@@ -173,7 +187,14 @@ const TypographyView: FC = () => (
         weight={700}
         font="display"
         sample={
-          <span style={{ fontFamily: 'var(--ank-display)', fontSize: 42, fontWeight: 700, lineHeight: 1.1 }}>
+          <span
+            style={{
+              fontFamily: 'var(--ank-display)',
+              fontSize: 42,
+              fontWeight: 700,
+              lineHeight: 1.1,
+            }}
+          >
             The quick brown fox
           </span>
         }
@@ -184,7 +205,14 @@ const TypographyView: FC = () => (
         weight={700}
         font="display"
         sample={
-          <span style={{ fontFamily: 'var(--ank-display)', fontSize: 30, fontWeight: 700, lineHeight: 1.2 }}>
+          <span
+            style={{
+              fontFamily: 'var(--ank-display)',
+              fontSize: 30,
+              fontWeight: 700,
+              lineHeight: 1.2,
+            }}
+          >
             The quick brown fox jumps
           </span>
         }
@@ -195,7 +223,14 @@ const TypographyView: FC = () => (
         weight={600}
         font="display"
         sample={
-          <span style={{ fontFamily: 'var(--ank-display)', fontSize: 22, fontWeight: 600, lineHeight: 1.4 }}>
+          <span
+            style={{
+              fontFamily: 'var(--ank-display)',
+              fontSize: 22,
+              fontWeight: 600,
+              lineHeight: 1.4,
+            }}
+          >
             The quick brown fox jumps over the lazy dog
           </span>
         }
@@ -206,7 +241,14 @@ const TypographyView: FC = () => (
         weight={500}
         font="body"
         sample={
-          <span style={{ fontFamily: 'var(--ank-body)', fontSize: 18, fontWeight: 500, lineHeight: 1.5 }}>
+          <span
+            style={{
+              fontFamily: 'var(--ank-body)',
+              fontSize: 18,
+              fontWeight: 500,
+              lineHeight: 1.5,
+            }}
+          >
             The quick brown fox jumps over the lazy dog
           </span>
         }
@@ -217,7 +259,14 @@ const TypographyView: FC = () => (
         weight={400}
         font="body"
         sample={
-          <span style={{ fontFamily: 'var(--ank-body)', fontSize: 15, fontWeight: 400, lineHeight: 1.6 }}>
+          <span
+            style={{
+              fontFamily: 'var(--ank-body)',
+              fontSize: 15,
+              fontWeight: 400,
+              lineHeight: 1.6,
+            }}
+          >
             The quick brown fox jumps over the lazy dog
           </span>
         }
@@ -228,7 +277,14 @@ const TypographyView: FC = () => (
         weight={400}
         font="body"
         sample={
-          <span style={{ fontFamily: 'var(--ank-body)', fontSize: 13, fontWeight: 400, lineHeight: 1.5 }}>
+          <span
+            style={{
+              fontFamily: 'var(--ank-body)',
+              fontSize: 13,
+              fontWeight: 400,
+              lineHeight: 1.5,
+            }}
+          >
             The quick brown fox jumps over the lazy dog
           </span>
         }

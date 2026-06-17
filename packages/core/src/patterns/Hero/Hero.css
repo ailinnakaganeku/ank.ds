@@ -86,6 +86,11 @@
     padding: 48px 20px;
     gap: 24px;
   }
-  .ank-hero--split .ank-hero__decoration { order: -1; }
-  .ank-hero__title--bleed { margin-left: 0; margin-right: 0; }
+  .ank-hero--split .ank-hero__decoration {
+    order: -1;
+  }
+  .ank-hero__title--bleed {
+    margin-left: 0;
+    margin-right: 0;
+  }
 }

@@ -75,13 +75,17 @@ export const States: Story = {
   render: () => (
     <Stack>
       <Select defaultValue="">
-        <option value="" disabled>Pick a country</option>
+        <option value="" disabled>
+          Pick a country
+        </option>
         <option value="us">United States</option>
         <option value="ar">Argentina</option>
         <option value="jp">Japan</option>
       </Select>
       <Select state="error" defaultValue="">
-        <option value="" disabled>Pick a country</option>
+        <option value="" disabled>
+          Pick a country
+        </option>
         <option value="us">United States</option>
       </Select>
       <Select state="success" defaultValue="us">
@@ -107,7 +111,9 @@ export const Controlled: Story = {
             <option value="pro">Pro</option>
             <option value="enterprise">Enterprise</option>
           </Select>
-          <div style={{ fontFamily: 'var(--ank-mono)', fontSize: 12, color: 'var(--ank-gray-500)' }}>
+          <div
+            style={{ fontFamily: 'var(--ank-mono)', fontSize: 12, color: 'var(--ank-gray-500)' }}
+          >
             value: {value}
           </div>
         </Stack>

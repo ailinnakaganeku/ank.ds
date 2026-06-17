@@ -35,7 +35,9 @@
 
 .ank-card--interactive {
   cursor: pointer;
-  transition: transform var(--ank-transition-fast), box-shadow var(--ank-transition-fast);
+  transition:
+    transform var(--ank-transition-fast),
+    box-shadow var(--ank-transition-fast);
 }
 
 .ank-card--interactive:hover {
@@ -105,5 +107,7 @@
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .ank-card--interactive { transition: none; }
+  .ank-card--interactive {
+    transition: none;
+  }
 }

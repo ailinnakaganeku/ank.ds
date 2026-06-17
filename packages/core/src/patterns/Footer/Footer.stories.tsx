@@ -18,10 +18,7 @@ export const Default: Story = {
       <Footer.Top>
         <Footer.Brand>
           ank.ds
-          <p>
-            A neubrutalist design system. Bold borders, refined palette,
-            real ARIA.
-          </p>
+          <p>A neubrutalist design system. Bold borders, refined palette, real ARIA.</p>
         </Footer.Brand>
         <Footer.Columns>
           <Footer.Column title="Product">
@@ -67,8 +64,12 @@ export const Light: Story = {
             <Footer.Link href="#contact">Contact</Footer.Link>
           </Footer.Column>
           <Footer.Column title="Connect">
-            <Footer.Link href="#x" external>X</Footer.Link>
-            <Footer.Link href="#mastodon" external>Mastodon</Footer.Link>
+            <Footer.Link href="#x" external>
+              X
+            </Footer.Link>
+            <Footer.Link href="#mastodon" external>
+              Mastodon
+            </Footer.Link>
             <Footer.Link href="#email">Email</Footer.Link>
           </Footer.Column>
         </Footer.Columns>

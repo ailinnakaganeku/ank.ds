@@ -11,5 +11,8 @@
   },
   "files": [
     "src"
-  ]
+  ],
+  "scripts": {
+    "generate": "node scripts/generate-tokens.mjs && prettier --write src/tokens.ts"
+  }
 }

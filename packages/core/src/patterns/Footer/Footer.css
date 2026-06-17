@@ -116,6 +116,12 @@
 }
 
 @media (max-width: 767px) {
-  .ank-footer { padding: 40px 20px 24px 20px; }
-  .ank-footer__top { grid-template-columns: 1fr; gap: 32px; padding-bottom: 32px; }
+  .ank-footer {
+    padding: 40px 20px 24px 20px;
+  }
+  .ank-footer__top {
+    grid-template-columns: 1fr;
+    gap: 32px;
+    padding-bottom: 32px;
+  }
 }

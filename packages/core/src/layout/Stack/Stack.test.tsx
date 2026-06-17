@@ -38,7 +38,11 @@ describe('Stack', () => {
   });
 
   it('has no axe violations', async () => {
-    const { container } = render(<Stack><p>hi</p></Stack>);
+    const { container } = render(
+      <Stack>
+        <p>hi</p>
+      </Stack>,
+    );
     expect(await axe(container)).toHaveNoViolations();
   });
 });

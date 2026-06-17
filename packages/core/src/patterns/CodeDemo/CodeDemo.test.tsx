@@ -28,21 +28,27 @@ describe('CodeDemo', () => {
 
   it('applies the light variant class', () => {
     const { container } = render(
-      <CodeDemo variant="light"><CodeDemo.Line>x</CodeDemo.Line></CodeDemo>,
+      <CodeDemo variant="light">
+        <CodeDemo.Line>x</CodeDemo.Line>
+      </CodeDemo>,
     );
     expect(container.firstElementChild).toHaveClass('ank-code-demo--light');
   });
 
   it('hides the dots when showDots is false', () => {
     const { container } = render(
-      <CodeDemo showDots={false}><CodeDemo.Line>x</CodeDemo.Line></CodeDemo>,
+      <CodeDemo showDots={false}>
+        <CodeDemo.Line>x</CodeDemo.Line>
+      </CodeDemo>,
     );
     expect(container.querySelector('.ank-code-demo__dots')).toBeNull();
   });
 
   it('marks an output line with the output class', () => {
     const { container } = render(
-      <CodeDemo><CodeDemo.Line output>done</CodeDemo.Line></CodeDemo>,
+      <CodeDemo>
+        <CodeDemo.Line output>done</CodeDemo.Line>
+      </CodeDemo>,
     );
     expect(container.querySelector('.ank-code-demo__line--output')).not.toBeNull();
   });

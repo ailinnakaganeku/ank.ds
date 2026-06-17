@@ -6,15 +6,18 @@ import { Metric, Tile } from './WelcomeBits';
 
 <Stack gap="8" style={{ maxWidth: 960, margin: '0 auto', padding: '64px 56px 72px' }}>
 
-  <div style={{
+<div
+  style={{
     display: 'flex',
     alignItems: 'baseline',
     justifyContent: 'space-between',
     gap: 24,
     paddingBottom: 24,
     borderBottom: '2.5px solid var(--ank-ink)',
-  }}>
-    <h1 style={{
+  }}
+>
+  <h1
+    style={{
       fontFamily: 'var(--ank-display)',
       fontSize: 'clamp(64px, 9vw, 112px)',
       fontWeight: 700,
@@ -22,70 +25,75 @@ import { Metric, Tile } from './WelcomeBits';
       letterSpacing: '-0.02em',
       margin: 0,
       color: 'var(--ank-ink)',
-    }}>
-      ank.ds
-    </h1>
-    <span style={{
+    }}
+  >
+    ank.ds
+  </h1>
+  <span
+    style={{
       fontFamily: 'var(--ank-mono)',
       fontSize: 13,
       fontWeight: 500,
       letterSpacing: '0.04em',
       color: 'var(--ank-gray-700)',
-    }}>
-      v0.0.0
-    </span>
-  </div>
+    }}
+  >
+    v0.0.0
+  </span>
+</div>
 
-  <AutoGrid min="140px" gap="4">
-    <Metric value="29"  label="components" />
-    <Metric value="4"   label="patterns" />
-    <Metric value="3"   label="primitives" />
-    <Metric value="260" label="tests" />
-  </AutoGrid>
+<AutoGrid min="140px" gap="4">
+  <Metric value="29" label="components" />
+  <Metric value="4" label="patterns" />
+  <Metric value="3" label="primitives" />
+  <Metric value="260" label="tests" />
+</AutoGrid>
 
-  <AutoGrid min="280px" gap="4">
-    <Tile
-      href="./?path=/story/ank-ds-foundations-colors--palette"
-      index="01"
-      title="Foundations"
-      hint="color, type, spacing, shadows"
-    />
-    <Tile
-      href="./?path=/docs/ank-ds-components-button--docs"
-      index="02"
-      title="Components"
-      hint="29 building blocks"
-    />
-    <Tile
-      href="./?path=/docs/ank-ds-patterns-hero--docs"
-      index="03"
-      title="Patterns"
-      hint="hero, feature grid, footer, code demo"
-    />
-    <Tile
-      href="./?path=/docs/ank-ds-layout-autogrid--docs"
-      index="04"
-      title="Layout"
-      hint="container, stack, autogrid"
-    />
-  </AutoGrid>
+<AutoGrid min="280px" gap="4">
+  <Tile
+    href="./?path=/story/ank-ds-foundations-colors--palette"
+    index="01"
+    title="Foundations"
+    hint="color, type, spacing, shadows"
+  />
+  <Tile
+    href="./?path=/docs/ank-ds-components-button--docs"
+    index="02"
+    title="Components"
+    hint="29 building blocks"
+  />
+  <Tile
+    href="./?path=/docs/ank-ds-patterns-hero--docs"
+    index="03"
+    title="Patterns"
+    hint="hero, feature grid, footer, code demo"
+  />
+  <Tile
+    href="./?path=/docs/ank-ds-layout-autogrid--docs"
+    index="04"
+    title="Layout"
+    hint="container, stack, autogrid"
+  />
+</AutoGrid>
 
-  <div style={{
+<div
+  style={{
     paddingTop: 24,
     borderTop: '2.5px solid var(--ank-ink)',
     fontFamily: 'var(--ank-mono)',
     fontSize: 12,
     letterSpacing: '0.04em',
     color: 'var(--ank-gray-700)',
-  }}>
-    <a
-      href="https://github.com/ailinnakaganeku/ank.ds"
-      target="_blank"
-      rel="noopener noreferrer"
-      style={{ color: 'var(--ank-ink)', textDecoration: 'none', fontWeight: 600 }}
-    >
-      github ↗
-    </a>
-  </div>
+  }}
+>
+  <a
+    href="https://github.com/ailinnakaganeku/ank.ds"
+    target="_blank"
+    rel="noopener noreferrer"
+    style={{ color: 'var(--ank-ink)', textDecoration: 'none', fontWeight: 600 }}
+  >
+    github ↗
+  </a>
+</div>
 
 </Stack>

@@ -12,12 +12,7 @@ export const SkipLink = forwardRef<HTMLAnchorElement, SkipLinkProps>(function Sk
   ref,
 ) {
   return (
-    <a
-      ref={ref}
-      href={`#${targetId}`}
-      className={clsx('ank-skip-link', className)}
-      {...rest}
-    >
+    <a ref={ref} href={`#${targetId}`} className={clsx('ank-skip-link', className)} {...rest}>
       {children}
     </a>
   );
