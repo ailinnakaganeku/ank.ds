@@ -12,6 +12,7 @@
     "storybook": "npm run storybook -w @ankds/docs",
     "build-storybook": "npm run build-storybook -w @ankds/docs",
     "dev": "npm run storybook",
+    "prepare": "husky",
     "typecheck": "npm run typecheck -ws --if-present",
     "lint": "eslint .",
     "lint:fix": "eslint . --fix",
@@ -32,6 +33,7 @@
     "eslint-plugin-react-hooks": "^7.1.1",
     "eslint-plugin-storybook": "^0.12.0",
     "globals": "^17.6.0",
+    "husky": "^9.1.7",
     "prettier": "^3.8.4",
     "typescript-eslint": "^8.61.1"
   }
