@@ -1,7 +1,5 @@
 # ank.ds
 
-A neo-brutalist, editorial React design system — hard offset shadows, thick ink borders, a warm earthen palette, and Cormorant Garamond / Space Grotesk / JetBrains Mono type.
-
 Monorepo · React 18 + TypeScript + Storybook 8. The published library ships as pure CSS (no Tailwind runtime); Tailwind is a Storybook-only authoring tool.
 
 ## Install
@@ -55,8 +53,8 @@ ank-ds/
 
 ```bash
 npm install
-npm run storybook        # docs + component playground
-npm run build            # tsup → dist (ESM + CJS + types + CSS)
+npm run storybook
+npm run build
 npm run lint
 npm run typecheck
 npm test
