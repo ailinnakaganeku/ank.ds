@@ -26,6 +26,7 @@
   --ank-bg: #f7f3ed;
   --ank-surface: #eee9e1;
   --ank-surface-raised: #f2ede5;
+  --ank-surface-hover: #e8d5b5;
   --ank-white: #fdfaf6;
 
   --ank-success: #3d6b4a;
@@ -99,6 +100,7 @@
   --ank-bg: #0f1412;
   --ank-surface: #1a1e1c;
   --ank-surface-raised: #222624;
+  --ank-surface-hover: #2a2622;
   --ank-white: #0f1412;
   --ank-ink: #f7f3ed;
   --ank-ink-soft: #eee9e1;

@@ -85,7 +85,7 @@
 }
 
 .ank-table tbody tr:hover > td {
-  background: var(--ank-sand-light);
+  background: var(--ank-surface-hover);
 }
 
 .ank-table__cell--numeric {
