@@ -63,7 +63,7 @@
   background: var(--ank-success);
 }
 .ank-progress--warning .ank-progress__fill {
-  background: var(--ank-warning);
+  background: var(--ank-warning-dark);
 }
 .ank-progress--error .ank-progress__fill {
   background: var(--ank-error-dark);

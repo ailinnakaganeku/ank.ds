@@ -30,6 +30,7 @@ export const tokens = {
   success: '#3d6b4a',
   successBg: '#ebf4ee',
   warning: '#c9973a',
+  warningDark: '#a67a2a',
   warningBg: '#fdf6e8',
   error: '#b85c3a',
   errorDark: '#9d4a2e',
