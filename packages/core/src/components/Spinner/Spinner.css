@@ -62,7 +62,7 @@
   color: var(--ank-ink);
 }
 .ank-spinner--white {
-  color: var(--ank-white);
+  color: var(--ank-on-brand);
 }
 
 .ank-spinner__label {

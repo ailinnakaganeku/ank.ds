@@ -16,12 +16,12 @@
 
 .ank-card--primary {
   background: var(--ank-primary);
-  color: var(--ank-white);
+  color: var(--ank-on-brand);
 }
 
 .ank-card--secondary {
   background: var(--ank-secondary);
-  color: var(--ank-ink);
+  color: var(--ank-on-brand-inverse);
 }
 
 .ank-card--dark {

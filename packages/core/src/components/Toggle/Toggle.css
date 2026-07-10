@@ -56,7 +56,7 @@
 
 .ank-toggle__input:checked + .ank-toggle__track .ank-toggle__thumb {
   transform: translateX(17px);
-  background: var(--ank-white);
+  background: var(--ank-on-brand);
 }
 
 .ank-toggle__input:focus-visible + .ank-toggle__track {

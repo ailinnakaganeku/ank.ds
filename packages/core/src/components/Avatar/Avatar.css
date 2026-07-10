@@ -58,17 +58,17 @@
 
 .ank-avatar--primary .ank-avatar__fallback {
   background: var(--ank-primary);
-  color: var(--ank-white);
+  color: var(--ank-on-brand);
 }
 .ank-avatar--secondary .ank-avatar__fallback {
   background: var(--ank-secondary);
-  color: var(--ank-ink);
+  color: var(--ank-on-brand-inverse);
 }
 .ank-avatar--accent .ank-avatar__fallback {
   background: var(--ank-accent);
-  color: var(--ank-white);
+  color: var(--ank-on-brand);
 }
 .ank-avatar--sand .ank-avatar__fallback {
   background: var(--ank-sand);
-  color: var(--ank-ink);
+  color: var(--ank-on-brand-inverse);
 }

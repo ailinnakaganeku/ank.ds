@@ -44,7 +44,7 @@
 .ank-radio__dot {
   width: 8px;
   height: 8px;
-  background: var(--ank-white);
+  background: var(--ank-on-brand);
   display: none;
 }
 

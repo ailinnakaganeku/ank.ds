@@ -50,7 +50,7 @@
 
 .ank-button--primary {
   background: var(--ank-primary);
-  color: var(--ank-white);
+  color: var(--ank-on-brand);
 }
 .ank-button--primary:not(:disabled):hover {
   background: var(--ank-primary-dark);
@@ -58,16 +58,16 @@
 
 .ank-button--secondary {
   background: var(--ank-secondary);
-  color: var(--ank-ink);
+  color: var(--ank-on-brand-inverse);
 }
 .ank-button--secondary:not(:disabled):hover {
   background: var(--ank-secondary-dark);
-  color: var(--ank-white);
+  color: var(--ank-on-brand);
 }
 
 .ank-button--accent {
   background: var(--ank-accent);
-  color: var(--ank-white);
+  color: var(--ank-on-brand);
 }
 .ank-button--accent:not(:disabled):hover {
   background: var(--ank-accent-dark);
@@ -75,7 +75,7 @@
 
 .ank-button--sand {
   background: var(--ank-sand);
-  color: var(--ank-ink);
+  color: var(--ank-on-brand-inverse);
 }
 .ank-button--sand:not(:disabled):hover {
   background: var(--ank-sand-dark);
@@ -83,7 +83,7 @@
 
 .ank-button--danger {
   background: var(--ank-error-dark);
-  color: var(--ank-white);
+  color: var(--ank-on-brand);
 }
 .ank-button--danger:not(:disabled):hover {
   background: var(--ank-error-darker);

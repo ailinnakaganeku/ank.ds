@@ -64,7 +64,7 @@
 }
 .ank-dropdown__item--destructive:focus {
   background: var(--ank-error-dark);
-  color: var(--ank-white);
+  color: var(--ank-on-brand);
 }
 
 .ank-dropdown__separator {
