@@ -1,6 +1,15 @@
 @import '@ankds/tokens/css';
 
 @layer base {
+  p {
+    margin: 0;
+  }
+
+  a {
+    color: inherit;
+    text-decoration: inherit;
+  }
+
   body {
     font-family: var(--ank-body);
     font-size: var(--ank-text-base);
