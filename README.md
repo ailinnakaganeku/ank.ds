@@ -1,6 +1,6 @@
 # ank.ds
 
-Monorepo · React 18 + TypeScript + Storybook 8. The published library ships as pure CSS (no Tailwind runtime); Tailwind is a Storybook-only authoring tool.
+Monorepo · React 18 + TypeScript + Storybook 8. The published library ships as pure CSS, with design tokens as custom properties.
 
 ## Install
 
@@ -31,9 +31,9 @@ Tokens flip on a `data-theme` attribute:
 
 ## What's inside
 
-- **31 components** — Button, Input, Select, Modal, Tabs, Toast, Table, Accordion, an `Icon` set, and more.
-- **3 layout primitives** — `Container`, `Stack`, `AutoGrid` (responsive without media queries).
-- **5 patterns** — `Hero`, `FeatureGrid`, `Footer`, `CodeDemo`, plus their subcomponents.
+- **31 components** — Button, Input, Select, Modal, Tabs, Toast, Table, Accordion, an Icon set, and more.
+- **3 layout primitives** — Container, Stack, AutoGrid (responsive without media queries).
+- **5 patterns** — Hero, FeatureGrid, Footer, CodeDemo, plus their subcomponents.
 - **Design tokens** — one source of truth in CSS custom properties; the TypeScript export is generated from it.
 - Accessibility tested with `jest-axe`, focus traps, and roving tabindex.
 
