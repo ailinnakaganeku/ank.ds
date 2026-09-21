@@ -21,6 +21,7 @@ export const tokens = {
   bg: '#f7f3ed',
   surface: '#eee9e1',
   surfaceRaised: '#f2ede5',
+  surfaceHover: '#e8d5b5',
   white: '#fdfaf6',
   success: '#3d6b4a',
   successBg: '#ebf4ee',
