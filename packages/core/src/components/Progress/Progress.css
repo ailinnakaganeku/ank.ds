@@ -28,7 +28,7 @@
   width: 100%;
   height: 14px;
   border: 2.5px solid var(--ank-ink);
-  background: var(--ank-white);
+  background: var(--ank-on-brand);
   overflow: hidden;
   position: relative;
 }
@@ -63,7 +63,7 @@
   background: var(--ank-success);
 }
 .ank-progress--warning .ank-progress__fill {
-  background: var(--ank-warning);
+  background: var(--ank-warning-dark);
 }
 .ank-progress--error .ank-progress__fill {
   background: var(--ank-error-dark);

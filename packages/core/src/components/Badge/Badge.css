@@ -23,37 +23,37 @@
 
 .ank-badge--primary {
   background: var(--ank-primary);
-  color: var(--ank-white);
+  color: var(--ank-on-brand);
 }
 
 .ank-badge--secondary {
   background: var(--ank-secondary);
-  color: var(--ank-ink);
+  color: var(--ank-on-brand-inverse);
 }
 
 .ank-badge--accent {
   background: var(--ank-accent);
-  color: var(--ank-white);
+  color: var(--ank-on-brand);
 }
 
 .ank-badge--sand {
   background: var(--ank-sand);
-  color: var(--ank-ink);
+  color: var(--ank-on-brand-inverse);
 }
 
 .ank-badge--success {
   background: var(--ank-success);
-  color: var(--ank-white);
+  color: var(--ank-on-brand);
 }
 
 .ank-badge--warning {
   background: var(--ank-warning);
-  color: var(--ank-ink);
+  color: var(--ank-on-brand-inverse);
 }
 
 .ank-badge--error {
   background: var(--ank-error-dark);
-  color: var(--ank-white);
+  color: var(--ank-on-brand);
 }
 
 .ank-badge--outline {

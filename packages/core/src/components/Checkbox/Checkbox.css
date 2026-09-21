@@ -35,7 +35,7 @@
   height: 18px;
   border: 2.5px solid var(--ank-ink);
   background: var(--ank-white);
-  color: var(--ank-white);
+  color: var(--ank-on-brand);
   flex-shrink: 0;
   transition:
     background-color var(--ank-transition-fast),
