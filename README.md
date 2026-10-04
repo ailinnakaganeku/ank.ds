@@ -33,7 +33,7 @@ Tokens flip on a `data-theme` attribute:
 
 - **30 components** — Button, Input, Select, Modal, Tabs, Toast, Table, Accordion, an Icon set, and more.
 - **3 layout primitives** — Container, Stack, AutoGrid (responsive without media queries).
-- **5 patterns** — Hero, FeatureGrid, Footer, CodeDemo, plus their subcomponents.
+- **1 pattern** — CodeDemo, for terminal and code snippets.
 - **Design tokens** — one source of truth in CSS custom properties; the TypeScript export is generated from it.
 - Accessibility tested with `jest-axe`, focus traps, and roving tabindex.
 

@@ -27,14 +27,12 @@ export const Terminal: Story = {
 export const ImportSnippet: Story = {
   render: () => (
     <div style={{ width: 520 }}>
-      <CodeDemo title="components/Hero.tsx">
-        <pre>{`import { Hero } from '@ankds/core';
+      <CodeDemo title="components/SaveButton.tsx">
+        <pre>{`import { Button } from '@ankds/core';
 
-<Hero
-  title="A neubrutalist DS."
-  description="Bold borders, hard shadows."
-  actions={<Button>Get started</Button>}
-/>`}</pre>
+<Button variant="primary" onClick={save}>
+  Save changes
+</Button>`}</pre>
       </CodeDemo>
     </div>
   ),
