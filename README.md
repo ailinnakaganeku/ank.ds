@@ -31,7 +31,7 @@ Tokens flip on a `data-theme` attribute:
 
 ## What's inside
 
-- **31 components** — Button, Input, Select, Modal, Tabs, Toast, Table, Accordion, an Icon set, and more.
+- **30 components** — Button, Input, Select, Modal, Tabs, Toast, Table, Accordion, an Icon set, and more.
 - **3 layout primitives** — Container, Stack, AutoGrid (responsive without media queries).
 - **5 patterns** — Hero, FeatureGrid, Footer, CodeDemo, plus their subcomponents.
 - **Design tokens** — one source of truth in CSS custom properties; the TypeScript export is generated from it.
@@ -54,7 +54,7 @@ ank-ds/
 ```bash
 npm install
 npm run storybook
-npm run build
+npm run build -w @ankds/core
 npm run lint
 npm run typecheck
 npm test

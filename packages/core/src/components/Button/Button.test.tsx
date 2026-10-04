@@ -3,7 +3,7 @@ import { createRef } from 'react';
 import { render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import { axe } from 'jest-axe';
-import { Button } from './Button';
+import { Button, buttonVariants } from './Button';
 
 describe('Button', () => {
   it('renders its children as the accessible name', () => {
@@ -108,5 +108,18 @@ describe('Button', () => {
   it('has no axe violations when disabled', async () => {
     const { container } = render(<Button disabled>Save</Button>);
     expect(await axe(container)).toHaveNoViolations();
+  });
+
+  it('styles a link with buttonVariants', () => {
+    render(
+      <a href="/docs" className={buttonVariants({ variant: 'secondary', size: 'sm' })}>
+        Docs
+      </a>,
+    );
+    expect(screen.getByRole('link', { name: 'Docs' })).toHaveClass(
+      'ank-button',
+      'ank-button--secondary',
+      'ank-button--sm',
+    );
   });
 });
