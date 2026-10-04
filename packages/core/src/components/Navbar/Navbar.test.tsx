@@ -1,5 +1,5 @@
 import { describe, expect, it, afterEach } from 'vitest';
-import { render, screen } from '@testing-library/react';
+import { fireEvent, render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import { axe } from 'jest-axe';
 import { Navbar } from './Navbar';
@@ -110,5 +110,16 @@ describe('Navbar', () => {
   it('has no axe violations in the resting state', async () => {
     const { container } = render(<Navbar links={links} />);
     expect(await axe(container)).toHaveNoViolations();
+  });
+
+  it('marks a sticky navbar as scrolled once the page scrolls', () => {
+    render(<Navbar sticky brand="ank.ds" />);
+    const nav = screen.getByRole('navigation', { name: 'Primary' });
+    expect(nav).not.toHaveClass('ank-navbar--scrolled');
+
+    fireEvent.scroll(window, { target: { scrollY: 120 } });
+
+    expect(nav).toHaveClass('ank-navbar--scrolled');
+    fireEvent.scroll(window, { target: { scrollY: 0 } });
   });
 });

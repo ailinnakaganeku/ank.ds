@@ -1,9 +1,9 @@
 import {
   forwardRef,
-  useEffect,
   useId,
   useRef,
   useState,
+  useSyncExternalStore,
   type AnchorHTMLAttributes,
   type HTMLAttributes,
   type MouseEvent,
@@ -12,6 +12,7 @@ import {
 import { createPortal } from 'react-dom';
 import clsx from 'clsx';
 import { useFocusTrap } from '../../hooks/useFocusTrap';
+import { useIsClient } from '../../hooks/useIsClient';
 import './Navbar.css';
 import { MenuIcon, CloseIcon } from '../Icon';
 
@@ -26,6 +27,14 @@ export type NavbarLink = NavbarLinkTarget & {
   active?: boolean;
   key?: string | number;
 };
+
+const subscribeToScroll = (onChange: () => void) => {
+  window.addEventListener('scroll', onChange, { passive: true });
+  return () => window.removeEventListener('scroll', onChange);
+};
+const subscribeToNothing = () => () => {};
+const isPageScrolled = () => window.scrollY > 0;
+const isPageScrolledOnServer = () => false;
 
 export interface NavbarProps extends HTMLAttributes<HTMLElement> {
   brand?: ReactNode;
@@ -93,27 +102,16 @@ export const Navbar = forwardRef<HTMLElement, NavbarProps>(function Navbar(
   },
   ref,
 ) {
-  const [scrolled, setScrolled] = useState(false);
+  const scrolled = useSyncExternalStore(
+    sticky ? subscribeToScroll : subscribeToNothing,
+    isPageScrolled,
+    isPageScrolledOnServer,
+  );
   const [drawerOpen, setDrawerOpen] = useState(false);
-  const [mounted, setMounted] = useState(false);
+  const mounted = useIsClient();
   const drawerRef = useRef<HTMLDivElement>(null);
   const hamburgerRef = useRef<HTMLButtonElement>(null);
   const drawerTitleId = useId();
-
-  useEffect(() => {
-    setMounted(true);
-  }, []);
-
-  useEffect(() => {
-    if (!sticky) {
-      setScrolled(false);
-      return;
-    }
-    const onScroll = () => setScrolled(window.scrollY > 0);
-    onScroll();
-    window.addEventListener('scroll', onScroll, { passive: true });
-    return () => window.removeEventListener('scroll', onScroll);
-  }, [sticky]);
 
   useFocusTrap({
     active: drawerOpen,
