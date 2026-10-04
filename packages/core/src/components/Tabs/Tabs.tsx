@@ -13,6 +13,7 @@ import {
 import clsx from 'clsx';
 import { useControllableState } from '../../hooks/useControllableState';
 import { mergeRefs } from '../../utils/mergeRefs';
+import { moveRovingFocus } from '../../utils/moveRovingFocus';
 import './Tabs.css';
 
 export type ActivationMode = 'automatic' | 'manual';
@@ -91,39 +92,11 @@ const TabsList = forwardRef<HTMLDivElement, TabsListProps>(function TabsList(
     const tabs = Array.from(
       list.querySelectorAll<HTMLButtonElement>('[role="tab"]:not([disabled])'),
     );
-    if (tabs.length === 0) return;
+    const target = moveRovingFocus(event, tabs, 'horizontal');
+    if (!target || ctx.activationMode !== 'automatic') return;
 
-    const active = document.activeElement;
-    const activeButton = active instanceof HTMLButtonElement ? active : null;
-    const index = activeButton ? tabs.indexOf(activeButton) : -1;
-    if (index === -1) return;
-
-    let next: number;
-    switch (event.key) {
-      case 'ArrowRight':
-        next = (index + 1) % tabs.length;
-        break;
-      case 'ArrowLeft':
-        next = (index - 1 + tabs.length) % tabs.length;
-        break;
-      case 'Home':
-        next = 0;
-        break;
-      case 'End':
-        next = tabs.length - 1;
-        break;
-      default:
-        return;
-    }
-
-    event.preventDefault();
-    const target = tabs[next];
-    target.focus();
-
-    if (ctx.activationMode === 'automatic') {
-      const value = target.dataset.value;
-      if (value) ctx.setValue(value);
-    }
+    const value = target.dataset.value;
+    if (value) ctx.setValue(value);
   };
 
   return (

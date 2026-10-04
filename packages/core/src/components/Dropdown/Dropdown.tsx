@@ -18,6 +18,7 @@ import { useControllableState } from '../../hooks/useControllableState';
 import { useEscapeKey } from '../../hooks/useEscapeKey';
 import { useOutsideClick } from '../../hooks/useOutsideClick';
 import { mergeRefs } from '../../utils/mergeRefs';
+import { moveRovingFocus } from '../../utils/moveRovingFocus';
 import './Dropdown.css';
 
 export type DropdownAlign = 'start' | 'end';
@@ -150,29 +151,17 @@ const Menu = forwardRef<HTMLUListElement, DropdownMenuProps>(function DropdownMe
   });
 
   const handleKeyDown = (event: KeyboardEvent<HTMLUListElement>) => {
-    const menu = ctx.menuRef.current;
+    if (event.key === 'Tab') {
+      event.preventDefault();
+      setOpen(false);
+      triggerRef.current?.focus();
+      return;
+    }
+
+    const menu = menuRef.current;
     if (!menu) return;
     const items = Array.from(menu.querySelectorAll<HTMLElement>(focusableItemSelector));
-    if (items.length === 0) return;
-    const index = items.findIndex((item) => item === document.activeElement);
-
-    if (event.key === 'ArrowDown') {
-      event.preventDefault();
-      items[(index + 1 + items.length) % items.length].focus();
-    } else if (event.key === 'ArrowUp') {
-      event.preventDefault();
-      items[(index - 1 + items.length) % items.length].focus();
-    } else if (event.key === 'Home') {
-      event.preventDefault();
-      items[0].focus();
-    } else if (event.key === 'End') {
-      event.preventDefault();
-      items[items.length - 1].focus();
-    } else if (event.key === 'Tab') {
-      event.preventDefault();
-      ctx.setOpen(false);
-      ctx.triggerRef.current?.focus();
-    }
+    moveRovingFocus(event, items, 'vertical');
   };
 
   const composedRef = useMemo(() => mergeRefs(ref, menuRef), [ref, menuRef]);
