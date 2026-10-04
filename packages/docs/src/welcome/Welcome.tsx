@@ -4,13 +4,16 @@ import './Welcome.css';
 const REPO_URL = 'https://github.com/ailinnakaganeku/ank.ds';
 
 const sections = [
-  { label: 'Foundations', path: '?path=/story/ank-ds-foundations-colors--palette' },
+  { label: 'Foundations', path: './?path=/story/ank-ds-foundations-colors--palette' },
   {
     label: `Components (${inventory.components})`,
-    path: '?path=/docs/ank-ds-components-button--docs',
+    path: './?path=/docs/ank-ds-components-button--docs',
   },
-  { label: `Patterns (${inventory.patterns})`, path: '?path=/docs/ank-ds-patterns-hero--docs' },
-  { label: `Layout (${inventory.layout})`, path: '?path=/docs/ank-ds-layout-autogrid--docs' },
+  {
+    label: `Patterns (${inventory.patterns})`,
+    path: './?path=/docs/ank-ds-patterns-codedemo--docs',
+  },
+  { label: `Layout (${inventory.layout})`, path: './?path=/docs/ank-ds-layout-autogrid--docs' },
 ];
 
 export const Welcome = () => (
