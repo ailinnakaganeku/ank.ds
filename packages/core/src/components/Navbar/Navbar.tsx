@@ -15,14 +15,17 @@ import { useFocusTrap } from '../../hooks/useFocusTrap';
 import './Navbar.css';
 import { MenuIcon, CloseIcon } from '../Icon';
 
-export interface NavbarLink {
+type NavbarLinkClick = (event: MouseEvent<HTMLAnchorElement | HTMLButtonElement>) => void;
+
+type NavbarLinkTarget =
+  | { href: string; external?: boolean; onClick?: NavbarLinkClick }
+  | { href?: undefined; external?: undefined; onClick: NavbarLinkClick };
+
+export type NavbarLink = NavbarLinkTarget & {
   label: ReactNode;
-  href?: string;
-  onClick?: (event: MouseEvent<HTMLAnchorElement | HTMLButtonElement>) => void;
   active?: boolean;
-  external?: boolean;
   key?: string | number;
-}
+};
 
 export interface NavbarProps extends HTMLAttributes<HTMLElement> {
   brand?: ReactNode;
@@ -31,10 +34,16 @@ export interface NavbarProps extends HTMLAttributes<HTMLElement> {
   sticky?: boolean;
   menuLabel?: string;
   menuCloseLabel?: string;
+  externalLabel?: string;
   'aria-label'?: string;
 }
 
-const renderLink = (link: NavbarLink, className: string, onActivate?: () => void) => {
+const renderLink = (
+  link: NavbarLink,
+  className: string,
+  externalLabel: string,
+  onActivate?: () => void,
+) => {
   const ariaCurrent = link.active ? ('page' as const) : undefined;
 
   const handleClick = (event: MouseEvent<HTMLAnchorElement | HTMLButtonElement>) => {
@@ -57,6 +66,7 @@ const renderLink = (link: NavbarLink, className: string, onActivate?: () => void
     return (
       <a href={link.href} {...externalAttrs} {...commonProps}>
         {link.label}
+        {link.external && <span className="ank-navbar__sr-only"> ({externalLabel})</span>}
       </a>
     );
   }
@@ -76,6 +86,7 @@ export const Navbar = forwardRef<HTMLElement, NavbarProps>(function Navbar(
     sticky = false,
     menuLabel = 'Open menu',
     menuCloseLabel = 'Close menu',
+    externalLabel = 'opens in a new tab',
     className,
     'aria-label': ariaLabel = 'Primary',
     ...rest
@@ -137,7 +148,7 @@ export const Navbar = forwardRef<HTMLElement, NavbarProps>(function Navbar(
         {links.length > 0 && (
           <ul className="ank-navbar__links" role="list">
             {links.map((link, index) => (
-              <li key={link.key ?? index}>{renderLink(link, 'ank-navbar__link')}</li>
+              <li key={link.key ?? index}>{renderLink(link, 'ank-navbar__link', externalLabel)}</li>
             ))}
           </ul>
         )}
@@ -185,7 +196,7 @@ export const Navbar = forwardRef<HTMLElement, NavbarProps>(function Navbar(
                 <ul className="ank-navbar-drawer__links" role="list">
                   {links.map((link, index) => (
                     <li key={link.key ?? index}>
-                      {renderLink(link, 'ank-navbar-drawer__link', closeDrawer)}
+                      {renderLink(link, 'ank-navbar-drawer__link', externalLabel, closeDrawer)}
                     </li>
                   ))}
                 </ul>
