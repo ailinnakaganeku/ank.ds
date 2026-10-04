@@ -33,12 +33,17 @@ export const buttonVariants = cva('ank-button', {
 
 export type ButtonVariants = VariantProps<typeof buttonVariants>;
 
-export interface ButtonProps
-  extends Omit<ButtonHTMLAttributes<HTMLButtonElement>, 'children'>, ButtonVariants {
-  children?: ReactNode;
-  iconLeft?: ReactNode;
-  iconRight?: ReactNode;
-}
+type ButtonName =
+  | { children: ReactNode }
+  | { children?: undefined; 'aria-label': string }
+  | { children?: undefined; 'aria-labelledby': string };
+
+export type ButtonProps = Omit<ButtonHTMLAttributes<HTMLButtonElement>, 'children'> &
+  ButtonVariants &
+  ButtonName & {
+    iconLeft?: ReactNode;
+    iconRight?: ReactNode;
+  };
 
 export const Button = forwardRef<HTMLButtonElement, ButtonProps>(function Button(
   {
