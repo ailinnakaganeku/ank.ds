@@ -49,6 +49,10 @@ export const __resetBodyLockForTests = () => {
   document.body.style.overflow = '';
 };
 
+const restoreFocus = (element: Element | null) => {
+  if (element instanceof HTMLElement || element instanceof SVGElement) element.focus();
+};
+
 export interface UseFocusTrapOptions {
   active: boolean;
   containerRef: RefObject<HTMLElement>;
@@ -123,7 +127,7 @@ export const useFocusTrap = ({
       if (lockScroll) {
         releaseBodyLock();
       }
-      if (previouslyFocused instanceof HTMLElement) previouslyFocused.focus();
+      restoreFocus(previouslyFocused);
     };
   }, [active, containerRef, initialFocus, latestOnEscape, lockScroll]);
 };
