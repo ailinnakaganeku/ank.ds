@@ -10,6 +10,7 @@ import {
 } from 'react';
 import { createPortal } from 'react-dom';
 import clsx from 'clsx';
+import { useIsClient } from '../../hooks/useIsClient';
 import './Toast.css';
 import { CheckIcon, WarningIcon, ErrorIcon, InfoIcon, CloseIcon } from '../Icon';
 
@@ -126,13 +127,9 @@ export const ToastProvider = ({
   viewportLabel = 'Notifications',
 }: ToastProviderProps) => {
   const [toasts, setToasts] = useState<ToastData[]>([]);
-  const [mounted, setMounted] = useState(false);
+  const mounted = useIsClient();
   const timers = useRef<Map<string, number>>(new Map());
   const counterRef = useRef(0);
-
-  useEffect(() => {
-    setMounted(true);
-  }, []);
 
   useEffect(() => {
     const map = timers.current;

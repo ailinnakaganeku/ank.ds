@@ -1,4 +1,4 @@
-import { describe, expect, it } from 'vitest';
+import { describe, expect, it, vi } from 'vitest';
 import { render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import { axe } from 'jest-axe';
@@ -39,6 +39,31 @@ describe('Tooltip', () => {
     expect(await screen.findByRole('tooltip')).toBeInTheDocument();
 
     await user.tab();
+    expect(screen.queryByRole('tooltip')).not.toBeInTheDocument();
+  });
+
+  it('keeps the trigger handlers working', async () => {
+    const user = userEvent.setup();
+    const onMouseEnter = vi.fn();
+    render(
+      <Tooltip content="Help" delayMs={0}>
+        <TriggerButton onMouseEnter={onMouseEnter}>x</TriggerButton>
+      </Tooltip>,
+    );
+    await user.hover(screen.getByRole('button', { name: 'x' }));
+    expect(onMouseEnter).toHaveBeenCalledTimes(1);
+    expect(await screen.findByRole('tooltip')).toBeInTheDocument();
+  });
+
+  it('stays closed when the trigger prevents the default', async () => {
+    const user = userEvent.setup();
+    render(
+      <Tooltip content="Help" delayMs={0}>
+        <TriggerButton onFocus={(event) => event.preventDefault()}>x</TriggerButton>
+      </Tooltip>,
+    );
+    await user.tab();
+    expect(screen.getByRole('button', { name: 'x' })).toHaveFocus();
     expect(screen.queryByRole('tooltip')).not.toBeInTheDocument();
   });
 

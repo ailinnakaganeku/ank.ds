@@ -6,10 +6,9 @@ import {
   useId,
   useRef,
   useState,
-  type FocusEventHandler,
-  type MouseEventHandler,
   type ReactElement,
   type ReactNode,
+  type SyntheticEvent,
 } from 'react';
 import clsx from 'clsx';
 import './Tooltip.css';
@@ -28,22 +27,8 @@ export interface TooltipProps {
 }
 
 interface TriggerProps {
-  onMouseEnter?: MouseEventHandler<Element>;
-  onMouseLeave?: MouseEventHandler<Element>;
-  onFocus?: FocusEventHandler<Element>;
-  onBlur?: FocusEventHandler<Element>;
   'aria-describedby'?: string;
 }
-
-const compose =
-  <E extends React.SyntheticEvent>(
-    userHandler: ((event: E) => void) | undefined,
-    ourHandler: (event: E) => void,
-  ) =>
-  (event: E) => {
-    userHandler?.(event);
-    if (!event.defaultPrevented) ourHandler(event);
-  };
 
 export const Tooltip = ({
   content,
@@ -87,10 +72,15 @@ export const Tooltip = ({
     update(false);
   };
 
+  const hideRef = useRef(hide);
+  useEffect(() => {
+    hideRef.current = hide;
+  });
+
   useEffect(() => {
     if (!open) return;
     const onKey = (event: KeyboardEvent) => {
-      if (event.key === 'Escape') hide();
+      if (event.key === 'Escape') hideRef.current();
     };
     document.addEventListener('keydown', onKey);
     return () => document.removeEventListener('keydown', onKey);
@@ -106,15 +96,25 @@ export const Tooltip = ({
   const triggerProps = child.props as TriggerProps;
 
   const cloned = cloneElement(child, {
-    onMouseEnter: compose(triggerProps.onMouseEnter, show),
-    onMouseLeave: compose(triggerProps.onMouseLeave, hide),
-    onFocus: compose(triggerProps.onFocus, show),
-    onBlur: compose(triggerProps.onBlur, hide),
     'aria-describedby': open ? tooltipId : triggerProps['aria-describedby'],
   } as TriggerProps);
 
+  const showUnlessPrevented = (event: SyntheticEvent) => {
+    if (!event.defaultPrevented) show();
+  };
+
+  const hideUnlessPrevented = (event: SyntheticEvent) => {
+    if (!event.defaultPrevented) hide();
+  };
+
   return (
-    <span className="ank-tooltip-wrapper">
+    <span
+      className="ank-tooltip-wrapper"
+      onMouseEnter={showUnlessPrevented}
+      onMouseLeave={hideUnlessPrevented}
+      onFocus={showUnlessPrevented}
+      onBlur={hideUnlessPrevented}
+    >
       {cloned}
       {open && (
         <span

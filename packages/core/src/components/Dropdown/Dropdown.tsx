@@ -159,27 +159,28 @@ const Menu = forwardRef<HTMLUListElement, DropdownMenuProps>(function DropdownMe
   ref,
 ) {
   const ctx = useDropdownContext('<Dropdown.Menu>');
+  const { open, setOpen, menuRef, triggerRef } = ctx;
 
   useEffect(() => {
-    if (!ctx.open) return;
-    const menu = ctx.menuRef.current;
+    if (!open) return;
+    const menu = menuRef.current;
     if (!menu) return;
     const first = menu.querySelector<HTMLElement>(focusableItemSelector);
     first?.focus();
-  }, [ctx.open, ctx.menuRef]);
+  }, [open, menuRef]);
 
   useEffect(() => {
-    if (!ctx.open) return;
+    if (!open) return;
     const handleKey = (event: globalThis.KeyboardEvent) => {
       if (event.key === 'Escape') {
         event.preventDefault();
-        ctx.setOpen(false);
-        ctx.triggerRef.current?.focus();
+        setOpen(false);
+        triggerRef.current?.focus();
       }
     };
     document.addEventListener('keydown', handleKey);
     return () => document.removeEventListener('keydown', handleKey);
-  }, [ctx.open, ctx.setOpen, ctx.triggerRef]);
+  }, [open, setOpen, triggerRef]);
 
   const handleKeyDown = (event: KeyboardEvent<HTMLUListElement>) => {
     const menu = ctx.menuRef.current;
