@@ -5,10 +5,12 @@ import {
   useEffect,
   useMemo,
   useState,
+  type Dispatch,
   type HTMLAttributes,
   type ImgHTMLAttributes,
   type ReactEventHandler,
   type ReactNode,
+  type SetStateAction,
 } from 'react';
 import clsx from 'clsx';
 import './Avatar.css';
@@ -23,7 +25,7 @@ interface SettledImage {
 
 interface AvatarContextValue {
   settled: SettledImage | null;
-  settle: (next: SettledImage | null) => void;
+  settle: Dispatch<SetStateAction<SettledImage | null>>;
 }
 
 const AvatarContext = createContext<AvatarContextValue | null>(null);
@@ -79,7 +81,10 @@ const Image = forwardRef<HTMLImageElement, AvatarImageProps>(function AvatarImag
   const { settled, settle } = useAvatarContext('<Avatar.Image>');
   const status = settled?.src === src ? settled.status : undefined;
 
-  useEffect(() => () => settle(null), [src, settle]);
+  useEffect(
+    () => () => settle((current) => (current?.src === src ? null : current)),
+    [src, settle],
+  );
 
   if (!src || status === 'error') return null;
 
