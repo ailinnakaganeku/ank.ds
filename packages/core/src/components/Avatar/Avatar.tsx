@@ -23,7 +23,7 @@ interface SettledImage {
 
 interface AvatarContextValue {
   settled: SettledImage | null;
-  settle: (next: SettledImage) => void;
+  settle: (next: SettledImage | null) => void;
 }
 
 const AvatarContext = createContext<AvatarContextValue | null>(null);
@@ -77,13 +77,11 @@ const Image = forwardRef<HTMLImageElement, AvatarImageProps>(function AvatarImag
   ref,
 ) {
   const { settled, settle } = useAvatarContext('<Avatar.Image>');
-  const failed = settled?.status === 'error' && settled.src === src;
+  const status = settled?.src === src ? settled.status : undefined;
 
-  useEffect(() => {
-    if (!src) settle({ src, status: 'error' });
-  }, [src, settle]);
+  useEffect(() => () => settle(null), [src, settle]);
 
-  if (!src || failed) return null;
+  if (!src || status === 'error') return null;
 
   const handleLoad: ReactEventHandler<HTMLImageElement> = (event) => {
     onLoad?.(event);
@@ -95,7 +93,7 @@ const Image = forwardRef<HTMLImageElement, AvatarImageProps>(function AvatarImag
     settle({ src, status: 'error' });
   };
 
-  const isHidden = settled?.status !== 'loaded';
+  const isHidden = status !== 'loaded';
 
   return (
     <img

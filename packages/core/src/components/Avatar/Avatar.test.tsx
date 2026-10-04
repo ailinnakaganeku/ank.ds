@@ -73,6 +73,26 @@ describe('Avatar', () => {
     expect(screen.queryByText('AL')).not.toBeInTheDocument();
   });
 
+  it('shows the fallback while a new src loads after the previous image loaded', async () => {
+    const { rerender } = render(
+      <Avatar>
+        <Avatar.Image src="/ada.jpg" alt="Ada Lovelace" />
+        <Avatar.Fallback>AL</Avatar.Fallback>
+      </Avatar>,
+    );
+    fireEvent.load(screen.getByAltText('Ada Lovelace'));
+
+    rerender(
+      <Avatar>
+        <Avatar.Image src="/ada-2.jpg" alt="Ada Lovelace" />
+        <Avatar.Fallback>AL</Avatar.Fallback>
+      </Avatar>,
+    );
+
+    expect(await screen.findByText('AL')).toBeInTheDocument();
+    expect(screen.queryByRole('img', { name: 'Ada Lovelace' })).not.toBeInTheDocument();
+  });
+
   it('shows the fallback again when the src is removed after a load', async () => {
     const { rerender } = render(
       <Avatar>
