@@ -3,7 +3,7 @@ import { cva, type VariantProps } from 'class-variance-authority';
 import clsx from 'clsx';
 import './Button.css';
 
-const buttonVariants = cva('ank-button', {
+export const buttonVariants = cva('ank-button', {
   variants: {
     variant: {
       primary: 'ank-button--primary',

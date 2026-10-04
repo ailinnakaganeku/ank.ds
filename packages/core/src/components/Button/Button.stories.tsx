@@ -1,5 +1,5 @@
 import type { Meta, StoryObj } from '@storybook/react';
-import { Button } from './Button';
+import { Button, buttonVariants } from './Button';
 
 const ArrowRight = () => (
   <svg
@@ -229,5 +229,13 @@ export const FullWidth: Story = {
         </Button>
       </Stack>
     </div>
+  ),
+};
+
+export const AsLink: Story = {
+  render: () => (
+    <a href="#docs" className={buttonVariants({ variant: 'secondary' })}>
+      Read the docs
+    </a>
   ),
 };
