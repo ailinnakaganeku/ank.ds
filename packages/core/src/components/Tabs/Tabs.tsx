@@ -1,18 +1,18 @@
 import {
   createContext,
   forwardRef,
-  useCallback,
   useContext,
   useId,
   useMemo,
   useRef,
-  useState,
   type ButtonHTMLAttributes,
   type HTMLAttributes,
   type KeyboardEvent,
   type ReactNode,
 } from 'react';
 import clsx from 'clsx';
+import { useControllableState } from '../../hooks/useControllableState';
+import { mergeRefs } from '../../utils/mergeRefs';
 import './Tabs.css';
 
 export type ActivationMode = 'automatic' | 'manual';
@@ -49,18 +49,12 @@ const TabsRoot = forwardRef<HTMLDivElement, TabsProps>(function Tabs(
   { value, defaultValue, onChange, activationMode = 'automatic', className, children, ...rest },
   ref,
 ) {
-  const [internal, setInternal] = useState(defaultValue);
-  const isControlled = value !== undefined;
-  const current = value ?? internal ?? '';
+  const [current, setValue] = useControllableState({
+    value,
+    defaultValue: defaultValue ?? '',
+    onChange,
+  });
   const baseId = useId();
-
-  const setValue = useCallback(
-    (next: string) => {
-      if (!isControlled) setInternal(next);
-      onChange?.(next);
-    },
-    [isControlled, onChange],
-  );
 
   const contextValue = useMemo<TabsContextValue>(
     () => ({ value: current, setValue, baseId, activationMode }),
@@ -86,12 +80,6 @@ const TabsList = forwardRef<HTMLDivElement, TabsListProps>(function TabsList(
 ) {
   const ctx = useTabsContext('<Tabs.List>');
   const listRef = useRef<HTMLDivElement | null>(null);
-
-  const setRefs = (node: HTMLDivElement | null) => {
-    listRef.current = node;
-    if (typeof ref === 'function') ref(node);
-    else if (ref) (ref as React.MutableRefObject<HTMLDivElement | null>).current = node;
-  };
 
   const handleKeyDown = (event: KeyboardEvent<HTMLDivElement>) => {
     onKeyDown?.(event);
@@ -140,7 +128,7 @@ const TabsList = forwardRef<HTMLDivElement, TabsListProps>(function TabsList(
 
   return (
     <div
-      ref={setRefs}
+      ref={mergeRefs(ref, listRef)}
       role="tablist"
       onKeyDown={handleKeyDown}
       className={clsx('ank-tabs__list', className)}

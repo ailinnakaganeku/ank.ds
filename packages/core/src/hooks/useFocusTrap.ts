@@ -69,7 +69,7 @@ export const useFocusTrap = ({
   useEffect(() => {
     if (!active) return;
 
-    const previouslyFocused = document.activeElement as HTMLElement | null;
+    const previouslyFocused = document.activeElement;
 
     if (lockScroll) {
       acquireBodyLock();
@@ -102,7 +102,7 @@ export const useFocusTrap = ({
 
       const first = focusable[0];
       const last = focusable[focusable.length - 1];
-      const activeEl = document.activeElement as HTMLElement | null;
+      const activeEl = document.activeElement;
 
       if (event.shiftKey) {
         if (activeEl === first || !node.contains(activeEl)) {
@@ -123,7 +123,7 @@ export const useFocusTrap = ({
       if (lockScroll) {
         releaseBodyLock();
       }
-      previouslyFocused?.focus?.();
+      if (previouslyFocused instanceof HTMLElement) previouslyFocused.focus();
     };
   }, [active, containerRef, initialFocus, latestOnEscape, lockScroll]);
 };

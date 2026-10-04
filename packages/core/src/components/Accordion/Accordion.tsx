@@ -5,11 +5,11 @@ import {
   useContext,
   useId,
   useMemo,
-  useState,
   type HTMLAttributes,
   type ReactNode,
 } from 'react';
 import clsx from 'clsx';
+import { useControllableState } from '../../hooks/useControllableState';
 import './Accordion.css';
 
 type AccordionType = 'single' | 'multiple';
@@ -72,22 +72,12 @@ const AccordionRoot = forwardRef<HTMLDivElement, AccordionProps>(function Accord
   },
   ref,
 ) {
-  const isControlled = value !== undefined;
-  const [internalValue, setInternalValue] = useState<string | string[]>(() => {
-    if (defaultValue !== undefined) return defaultValue;
-    return type === 'multiple' ? [] : '';
+  const [current, update] = useControllableState<string | string[]>({
+    value,
+    defaultValue: () => defaultValue ?? (type === 'multiple' ? [] : ''),
+    onChange,
   });
   const baseId = useId();
-
-  const current = isControlled ? value : internalValue;
-
-  const update = useCallback(
-    (next: string | string[]) => {
-      if (!isControlled) setInternalValue(next);
-      onChange?.(next);
-    },
-    [isControlled, onChange],
-  );
 
   const isOpen = useCallback(
     (itemValue: string) => {

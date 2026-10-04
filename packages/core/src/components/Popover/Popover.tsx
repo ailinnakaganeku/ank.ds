@@ -3,17 +3,18 @@ import {
   forwardRef,
   useCallback,
   useContext,
-  useEffect,
   useId,
   useMemo,
   useRef,
-  useState,
   type ButtonHTMLAttributes,
   type HTMLAttributes,
   type ReactNode,
 } from 'react';
 import clsx from 'clsx';
+import { useControllableState } from '../../hooks/useControllableState';
 import { useFocusTrap } from '../../hooks/useFocusTrap';
+import { useOutsideClick } from '../../hooks/useOutsideClick';
+import { mergeRefs } from '../../utils/mergeRefs';
 import './Popover.css';
 
 export type PopoverSide = 'top' | 'right' | 'bottom' | 'left';
@@ -50,36 +51,19 @@ const PopoverRoot = forwardRef<HTMLDivElement, PopoverProps>(function Popover(
   { open: openProp, defaultOpen = false, onOpenChange, className, children, ...rest },
   ref,
 ) {
-  const [internalOpen, setInternalOpen] = useState(defaultOpen);
-  const isControlled = openProp !== undefined;
-  const open = isControlled ? openProp : internalOpen;
+  const [open, setOpen] = useControllableState({
+    value: openProp,
+    defaultValue: defaultOpen,
+    onChange: onOpenChange,
+  });
   const triggerRef = useRef<HTMLButtonElement | null>(null);
   const contentRef = useRef<HTMLDivElement | null>(null);
   const contentId = useId();
   const triggerId = useId();
 
-  const setOpen = useCallback(
-    (next: boolean) => {
-      if (!isControlled) setInternalOpen(next);
-      onOpenChange?.(next);
-    },
-    [isControlled, onOpenChange],
-  );
-
   const toggle = useCallback(() => setOpen(!open), [open, setOpen]);
 
-  useEffect(() => {
-    if (!open) return;
-    const handleMouseDown = (event: MouseEvent) => {
-      const target = event.target as Node | null;
-      if (!target) return;
-      if (contentRef.current?.contains(target)) return;
-      if (triggerRef.current?.contains(target)) return;
-      setOpen(false);
-    };
-    document.addEventListener('mousedown', handleMouseDown);
-    return () => document.removeEventListener('mousedown', handleMouseDown);
-  }, [open, setOpen]);
+  useOutsideClick(open, [contentRef, triggerRef], () => setOpen(false));
 
   const value = useMemo<PopoverContextValue>(
     () => ({ open, setOpen, toggle, triggerRef, contentRef, contentId, triggerId }),
@@ -99,18 +83,6 @@ export interface PopoverTriggerProps extends ButtonHTMLAttributes<HTMLButtonElem
   children: ReactNode;
 }
 
-const setComposedRef = <T,>(
-  externalRef: React.Ref<T> | undefined,
-  internalRef: React.MutableRefObject<T | null>,
-  node: T | null,
-) => {
-  internalRef.current = node;
-  if (typeof externalRef === 'function') externalRef(node);
-  else if (externalRef && 'current' in externalRef) {
-    (externalRef as React.MutableRefObject<T | null>).current = node;
-  }
-};
-
 const Trigger = forwardRef<HTMLButtonElement, PopoverTriggerProps>(function PopoverTrigger(
   { children, className, onClick, ...rest },
   ref,
@@ -119,7 +91,7 @@ const Trigger = forwardRef<HTMLButtonElement, PopoverTriggerProps>(function Popo
 
   return (
     <button
-      ref={(node) => setComposedRef(ref, ctx.triggerRef, node)}
+      ref={mergeRefs(ref, ctx.triggerRef)}
       type="button"
       id={ctx.triggerId}
       aria-haspopup="dialog"
@@ -160,7 +132,7 @@ const Content = forwardRef<HTMLDivElement, PopoverContentProps>(function Popover
 
   return (
     <div
-      ref={(node) => setComposedRef(ref, ctx.contentRef, node)}
+      ref={mergeRefs(ref, ctx.contentRef)}
       id={ctx.contentId}
       role="dialog"
       aria-labelledby={ctx.triggerId}

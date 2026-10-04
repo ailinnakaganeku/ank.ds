@@ -5,12 +5,13 @@ import {
   useEffect,
   useId,
   useRef,
-  useState,
   type ReactElement,
   type ReactNode,
   type SyntheticEvent,
 } from 'react';
 import clsx from 'clsx';
+import { useControllableState } from '../../hooks/useControllableState';
+import { useEscapeKey } from '../../hooks/useEscapeKey';
 import './Tooltip.css';
 
 export type TooltipSide = 'top' | 'right' | 'bottom' | 'left';
@@ -23,7 +24,7 @@ export interface TooltipProps {
   open?: boolean;
   onOpenChange?: (open: boolean) => void;
   className?: string;
-  children: ReactElement;
+  children: ReactElement<TriggerProps>;
 }
 
 interface TriggerProps {
@@ -44,24 +45,21 @@ export const Tooltip = ({
   if (!isValidElement(child)) {
     throw new Error('<Tooltip> requires a single React element child.');
   }
-  const isControlled = openProp !== undefined;
-  const [internalOpen, setInternalOpen] = useState(defaultOpen);
-  const open = isControlled ? openProp : internalOpen;
+  const [open, setOpen] = useControllableState({
+    value: openProp,
+    defaultValue: defaultOpen,
+    onChange: onOpenChange,
+  });
   const tooltipId = useId();
   const timerRef = useRef<number | null>(null);
-
-  const update = (next: boolean) => {
-    if (!isControlled) setInternalOpen(next);
-    onOpenChange?.(next);
-  };
 
   const show = () => {
     if (timerRef.current !== null) window.clearTimeout(timerRef.current);
     if (delayMs === 0) {
-      update(true);
+      setOpen(true);
       return;
     }
-    timerRef.current = window.setTimeout(() => update(true), delayMs);
+    timerRef.current = window.setTimeout(() => setOpen(true), delayMs);
   };
 
   const hide = () => {
@@ -69,22 +67,10 @@ export const Tooltip = ({
       window.clearTimeout(timerRef.current);
       timerRef.current = null;
     }
-    update(false);
+    setOpen(false);
   };
 
-  const hideRef = useRef(hide);
-  useEffect(() => {
-    hideRef.current = hide;
-  });
-
-  useEffect(() => {
-    if (!open) return;
-    const onKey = (event: KeyboardEvent) => {
-      if (event.key === 'Escape') hideRef.current();
-    };
-    document.addEventListener('keydown', onKey);
-    return () => document.removeEventListener('keydown', onKey);
-  }, [open]);
+  useEscapeKey(open, hide);
 
   useEffect(
     () => () => {
@@ -93,11 +79,9 @@ export const Tooltip = ({
     [],
   );
 
-  const triggerProps = child.props as TriggerProps;
-
   const cloned = cloneElement(child, {
-    'aria-describedby': open ? tooltipId : triggerProps['aria-describedby'],
-  } as TriggerProps);
+    'aria-describedby': open ? tooltipId : child.props['aria-describedby'],
+  });
 
   const showUnlessPrevented = (event: SyntheticEvent) => {
     if (!event.defaultPrevented) show();

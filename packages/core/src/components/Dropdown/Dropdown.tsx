@@ -7,7 +7,6 @@ import {
   useId,
   useMemo,
   useRef,
-  useState,
   type ButtonHTMLAttributes,
   type HTMLAttributes,
   type KeyboardEvent,
@@ -15,6 +14,10 @@ import {
   type ReactNode,
 } from 'react';
 import clsx from 'clsx';
+import { useControllableState } from '../../hooks/useControllableState';
+import { useEscapeKey } from '../../hooks/useEscapeKey';
+import { useOutsideClick } from '../../hooks/useOutsideClick';
+import { mergeRefs } from '../../utils/mergeRefs';
 import './Dropdown.css';
 
 export type DropdownAlign = 'start' | 'end';
@@ -39,18 +42,6 @@ const useDropdownContext = (component: string) => {
   return ctx;
 };
 
-const setComposedRef = <T,>(
-  externalRef: React.Ref<T> | undefined,
-  internalRef: React.MutableRefObject<T | null>,
-  node: T | null,
-) => {
-  internalRef.current = node;
-  if (typeof externalRef === 'function') externalRef(node);
-  else if (externalRef && 'current' in externalRef) {
-    (externalRef as React.MutableRefObject<T | null>).current = node;
-  }
-};
-
 export interface DropdownProps extends Omit<HTMLAttributes<HTMLDivElement>, 'onChange'> {
   open?: boolean;
   defaultOpen?: boolean;
@@ -62,36 +53,19 @@ const DropdownRoot = forwardRef<HTMLDivElement, DropdownProps>(function Dropdown
   { open: openProp, defaultOpen = false, onOpenChange, className, children, ...rest },
   ref,
 ) {
-  const [internalOpen, setInternalOpen] = useState(defaultOpen);
-  const isControlled = openProp !== undefined;
-  const open = isControlled ? openProp : internalOpen;
+  const [open, setOpen] = useControllableState({
+    value: openProp,
+    defaultValue: defaultOpen,
+    onChange: onOpenChange,
+  });
   const triggerRef = useRef<HTMLButtonElement | null>(null);
   const menuRef = useRef<HTMLUListElement | null>(null);
   const triggerId = useId();
   const menuId = useId();
 
-  const setOpen = useCallback(
-    (next: boolean) => {
-      if (!isControlled) setInternalOpen(next);
-      onOpenChange?.(next);
-    },
-    [isControlled, onOpenChange],
-  );
-
   const toggle = useCallback(() => setOpen(!open), [open, setOpen]);
 
-  useEffect(() => {
-    if (!open) return;
-    const handleMouseDown = (event: MouseEvent) => {
-      const target = event.target as Node | null;
-      if (!target) return;
-      if (menuRef.current?.contains(target)) return;
-      if (triggerRef.current?.contains(target)) return;
-      setOpen(false);
-    };
-    document.addEventListener('mousedown', handleMouseDown);
-    return () => document.removeEventListener('mousedown', handleMouseDown);
-  }, [open, setOpen]);
+  useOutsideClick(open, [menuRef, triggerRef], () => setOpen(false));
 
   const value = useMemo<DropdownContextValue>(
     () => ({ open, setOpen, toggle, triggerRef, menuRef, triggerId, menuId }),
@@ -128,7 +102,7 @@ const Trigger = forwardRef<HTMLButtonElement, DropdownTriggerProps>(function Dro
 
   return (
     <button
-      ref={(node) => setComposedRef(ref, ctx.triggerRef, node)}
+      ref={mergeRefs(ref, ctx.triggerRef)}
       type="button"
       id={ctx.triggerId}
       aria-haspopup="menu"
@@ -169,26 +143,18 @@ const Menu = forwardRef<HTMLUListElement, DropdownMenuProps>(function DropdownMe
     first?.focus();
   }, [open, menuRef]);
 
-  useEffect(() => {
-    if (!open) return;
-    const handleKey = (event: globalThis.KeyboardEvent) => {
-      if (event.key === 'Escape') {
-        event.preventDefault();
-        setOpen(false);
-        triggerRef.current?.focus();
-      }
-    };
-    document.addEventListener('keydown', handleKey);
-    return () => document.removeEventListener('keydown', handleKey);
-  }, [open, setOpen, triggerRef]);
+  useEscapeKey(open, (event) => {
+    event.preventDefault();
+    setOpen(false);
+    triggerRef.current?.focus();
+  });
 
   const handleKeyDown = (event: KeyboardEvent<HTMLUListElement>) => {
     const menu = ctx.menuRef.current;
     if (!menu) return;
     const items = Array.from(menu.querySelectorAll<HTMLElement>(focusableItemSelector));
     if (items.length === 0) return;
-    const active = document.activeElement as HTMLElement | null;
-    const index = active ? items.indexOf(active) : -1;
+    const index = items.findIndex((item) => item === document.activeElement);
 
     if (event.key === 'ArrowDown') {
       event.preventDefault();
@@ -209,10 +175,7 @@ const Menu = forwardRef<HTMLUListElement, DropdownMenuProps>(function DropdownMe
     }
   };
 
-  const composedRef = useCallback(
-    (node: HTMLUListElement | null) => setComposedRef(ref, ctx.menuRef, node),
-    [ref, ctx.menuRef],
-  );
+  const composedRef = useMemo(() => mergeRefs(ref, menuRef), [ref, menuRef]);
 
   if (!ctx.open) return null;
 
