@@ -1,19 +1,19 @@
 import {
   createContext,
   forwardRef,
-  useCallback,
   useContext,
-  useEffect,
   useId,
   useMemo,
   useRef,
-  useState,
   type ButtonHTMLAttributes,
   type HTMLAttributes,
   type KeyboardEvent,
   type ReactNode,
 } from 'react';
 import clsx from 'clsx';
+import { useControllableState } from '../../hooks/useControllableState';
+import { mergeRefs } from '../../utils/mergeRefs';
+import { moveRovingFocus } from '../../utils/moveRovingFocus';
 import './Tabs.css';
 
 export type ActivationMode = 'automatic' | 'manual';
@@ -35,50 +35,27 @@ const useTabsContext = (component: string) => {
   return ctx;
 };
 
-export interface TabsProps extends Omit<HTMLAttributes<HTMLDivElement>, 'onChange'> {
-  value?: string;
-  defaultValue?: string;
-  onChange?: (value: string) => void;
-  activationMode?: ActivationMode;
-  children: ReactNode;
-}
+type TabsSelection =
+  | { value: string; defaultValue?: undefined }
+  | { value?: undefined; defaultValue: string };
+
+export type TabsProps = Omit<HTMLAttributes<HTMLDivElement>, 'onChange' | 'defaultValue'> &
+  TabsSelection & {
+    onChange?: (value: string) => void;
+    activationMode?: ActivationMode;
+    children: ReactNode;
+  };
 
 const TabsRoot = forwardRef<HTMLDivElement, TabsProps>(function Tabs(
   { value, defaultValue, onChange, activationMode = 'automatic', className, children, ...rest },
   ref,
 ) {
-  const [internal, setInternal] = useState<string>(defaultValue ?? '');
-  const isControlled = value !== undefined;
-  const current = isControlled ? value : internal;
+  const [current, setValue] = useControllableState({
+    value,
+    defaultValue: defaultValue ?? '',
+    onChange,
+  });
   const baseId = useId();
-  const rootRef = useRef<HTMLDivElement | null>(null);
-
-  const setRefs = useCallback(
-    (node: HTMLDivElement | null) => {
-      rootRef.current = node;
-      if (typeof ref === 'function') ref(node);
-      else if (ref) (ref as React.MutableRefObject<HTMLDivElement | null>).current = node;
-    },
-    [ref],
-  );
-
-  useEffect(() => {
-    if (isControlled) return;
-    if (internal !== '') return;
-    const root = rootRef.current;
-    if (!root) return;
-    const firstTab = root.querySelector<HTMLButtonElement>('[role="tab"]:not([disabled])');
-    const firstValue = firstTab?.dataset.value;
-    if (firstValue) setInternal(firstValue);
-  }, [isControlled, internal]);
-
-  const setValue = useCallback(
-    (next: string) => {
-      if (!isControlled) setInternal(next);
-      onChange?.(next);
-    },
-    [isControlled, onChange],
-  );
 
   const contextValue = useMemo<TabsContextValue>(
     () => ({ value: current, setValue, baseId, activationMode }),
@@ -87,7 +64,7 @@ const TabsRoot = forwardRef<HTMLDivElement, TabsProps>(function Tabs(
 
   return (
     <TabsContext.Provider value={contextValue}>
-      <div ref={setRefs} className={clsx('ank-tabs', className)} {...rest}>
+      <div ref={ref} className={clsx('ank-tabs', className)} {...rest}>
         {children}
       </div>
     </TabsContext.Provider>
@@ -105,12 +82,6 @@ const TabsList = forwardRef<HTMLDivElement, TabsListProps>(function TabsList(
   const ctx = useTabsContext('<Tabs.List>');
   const listRef = useRef<HTMLDivElement | null>(null);
 
-  const setRefs = (node: HTMLDivElement | null) => {
-    listRef.current = node;
-    if (typeof ref === 'function') ref(node);
-    else if (ref) (ref as React.MutableRefObject<HTMLDivElement | null>).current = node;
-  };
-
   const handleKeyDown = (event: KeyboardEvent<HTMLDivElement>) => {
     onKeyDown?.(event);
     if (event.defaultPrevented) return;
@@ -121,44 +92,16 @@ const TabsList = forwardRef<HTMLDivElement, TabsListProps>(function TabsList(
     const tabs = Array.from(
       list.querySelectorAll<HTMLButtonElement>('[role="tab"]:not([disabled])'),
     );
-    if (tabs.length === 0) return;
+    const target = moveRovingFocus(event, tabs, 'horizontal');
+    if (!target || ctx.activationMode !== 'automatic') return;
 
-    const active = document.activeElement;
-    const activeButton = active instanceof HTMLButtonElement ? active : null;
-    const index = activeButton ? tabs.indexOf(activeButton) : -1;
-    if (index === -1) return;
-
-    let next: number;
-    switch (event.key) {
-      case 'ArrowRight':
-        next = (index + 1) % tabs.length;
-        break;
-      case 'ArrowLeft':
-        next = (index - 1 + tabs.length) % tabs.length;
-        break;
-      case 'Home':
-        next = 0;
-        break;
-      case 'End':
-        next = tabs.length - 1;
-        break;
-      default:
-        return;
-    }
-
-    event.preventDefault();
-    const target = tabs[next];
-    target.focus();
-
-    if (ctx.activationMode === 'automatic') {
-      const value = target.dataset.value;
-      if (value) ctx.setValue(value);
-    }
+    const value = target.dataset.value;
+    if (value) ctx.setValue(value);
   };
 
   return (
     <div
-      ref={setRefs}
+      ref={mergeRefs(ref, listRef)}
       role="tablist"
       onKeyDown={handleKeyDown}
       className={clsx('ank-tabs__list', className)}

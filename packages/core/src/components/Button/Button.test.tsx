@@ -100,6 +100,12 @@ describe('Button', () => {
     expect(await axe(container)).toHaveNoViolations();
   });
 
+  it('does not compile as icon-only without an accessible name', () => {
+    // @ts-expect-error a button without children needs aria-label or aria-labelledby
+    const button = <Button iconLeft={<svg aria-hidden />} />;
+    expect(button).toBeDefined();
+  });
+
   it('has no axe violations when icon-only with aria-label', async () => {
     const { container } = render(<Button iconLeft={<svg aria-hidden />} aria-label="Add item" />);
     expect(await axe(container)).toHaveNoViolations();

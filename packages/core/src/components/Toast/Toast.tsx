@@ -10,6 +10,7 @@ import {
 } from 'react';
 import { createPortal } from 'react-dom';
 import clsx from 'clsx';
+import { useIsClient } from '../../hooks/useIsClient';
 import './Toast.css';
 import { CheckIcon, WarningIcon, ErrorIcon, InfoIcon, CloseIcon } from '../Icon';
 
@@ -83,7 +84,7 @@ const ToastItem = ({ toast, onDismiss }: { toast: ToastData; onDismiss: () => vo
 
   return (
     <div
-      role={variant === 'error' ? 'alert' : 'status'}
+      role={variant === 'error' ? 'alert' : undefined}
       className={clsx('ank-toast', `ank-toast--${variant}`)}
     >
       {icon && (
@@ -126,13 +127,9 @@ export const ToastProvider = ({
   viewportLabel = 'Notifications',
 }: ToastProviderProps) => {
   const [toasts, setToasts] = useState<ToastData[]>([]);
-  const [mounted, setMounted] = useState(false);
+  const mounted = useIsClient();
   const timers = useRef<Map<string, number>>(new Map());
   const counterRef = useRef(0);
-
-  useEffect(() => {
-    setMounted(true);
-  }, []);
 
   useEffect(() => {
     const map = timers.current;
@@ -212,11 +209,11 @@ export const ToastProvider = ({
     <ToastContext.Provider value={value}>
       {children}
       {mounted &&
-        toasts.length > 0 &&
         createPortal(
           <div
             role="region"
             aria-label={viewportLabel}
+            aria-live="polite"
             data-placement={placement}
             className="ank-toast-viewport"
           >

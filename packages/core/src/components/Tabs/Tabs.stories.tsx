@@ -29,7 +29,7 @@ const meta = {
   component: Tabs,
   tags: ['autodocs'],
   parameters: { layout: 'fullscreen' },
-  args: { children: 'Tabs' },
+  args: { children: 'Tabs', defaultValue: 'overview' },
 } satisfies Meta<typeof Tabs>;
 
 export default meta;

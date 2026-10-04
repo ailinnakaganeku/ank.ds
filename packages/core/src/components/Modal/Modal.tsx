@@ -2,7 +2,6 @@ import {
   useEffect,
   useId,
   useRef,
-  useState,
   type HTMLAttributes,
   type MouseEvent,
   type ReactNode,
@@ -11,6 +10,7 @@ import {
 import { createPortal } from 'react-dom';
 import clsx from 'clsx';
 import { useFocusTrap } from '../../hooks/useFocusTrap';
+import { useIsClient } from '../../hooks/useIsClient';
 import './Modal.css';
 import { CloseIcon } from '../Icon';
 
@@ -49,11 +49,7 @@ const ModalRoot = ({
   const containerRef = useRef<HTMLDivElement>(null);
   const overlayRef = useRef<HTMLDivElement>(null);
   const mouseDownTargetRef = useRef<EventTarget | null>(null);
-  const [mounted, setMounted] = useState(false);
-
-  useEffect(() => {
-    setMounted(true);
-  }, []);
+  const mounted = useIsClient();
 
   useFocusTrap({
     active: open,

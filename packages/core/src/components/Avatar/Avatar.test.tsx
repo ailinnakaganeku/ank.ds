@@ -49,6 +49,69 @@ describe('Avatar', () => {
     });
   });
 
+  it('tries a new src after the previous image failed', async () => {
+    const { rerender } = render(
+      <Avatar>
+        <Avatar.Image src="/bad.jpg" alt="Ada Lovelace" />
+        <Avatar.Fallback>AL</Avatar.Fallback>
+      </Avatar>,
+    );
+    fireEvent.error(screen.getByAltText('Ada Lovelace'));
+
+    rerender(
+      <Avatar>
+        <Avatar.Image src="/ada.jpg" alt="Ada Lovelace" />
+        <Avatar.Fallback>AL</Avatar.Fallback>
+      </Avatar>,
+    );
+    fireEvent.load(await screen.findByAltText('Ada Lovelace'));
+
+    expect(await screen.findByRole('img', { name: 'Ada Lovelace' })).toHaveAttribute(
+      'src',
+      '/ada.jpg',
+    );
+    expect(screen.queryByText('AL')).not.toBeInTheDocument();
+  });
+
+  it('shows the fallback while a new src loads after the previous image loaded', async () => {
+    const { rerender } = render(
+      <Avatar>
+        <Avatar.Image src="/ada.jpg" alt="Ada Lovelace" />
+        <Avatar.Fallback>AL</Avatar.Fallback>
+      </Avatar>,
+    );
+    fireEvent.load(screen.getByAltText('Ada Lovelace'));
+
+    rerender(
+      <Avatar>
+        <Avatar.Image src="/ada-2.jpg" alt="Ada Lovelace" />
+        <Avatar.Fallback>AL</Avatar.Fallback>
+      </Avatar>,
+    );
+
+    expect(await screen.findByText('AL')).toBeInTheDocument();
+    expect(screen.queryByRole('img', { name: 'Ada Lovelace' })).not.toBeInTheDocument();
+  });
+
+  it('shows the fallback again when the src is removed after a load', async () => {
+    const { rerender } = render(
+      <Avatar>
+        <Avatar.Image src="/ada.jpg" alt="Ada Lovelace" />
+        <Avatar.Fallback>AL</Avatar.Fallback>
+      </Avatar>,
+    );
+    fireEvent.load(screen.getByAltText('Ada Lovelace'));
+
+    rerender(
+      <Avatar>
+        <Avatar.Image src="" alt="Ada Lovelace" />
+        <Avatar.Fallback>AL</Avatar.Fallback>
+      </Avatar>,
+    );
+
+    expect(await screen.findByText('AL')).toBeInTheDocument();
+  });
+
   it('hides the image from the accessibility tree while it is loading', () => {
     render(
       <Avatar>

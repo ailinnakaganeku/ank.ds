@@ -31,8 +31,6 @@ export default tseslint.config(
 
   {
     rules: {
-      'react-hooks/set-state-in-effect': 'warn',
-      'react-hooks/refs': 'warn',
       'no-empty': ['error', { allowEmptyCatch: true }],
     },
   },

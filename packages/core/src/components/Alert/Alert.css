@@ -93,7 +93,7 @@
   background: var(--ank-warning-bg);
 }
 .ank-alert--warning .ank-alert__icon {
-  color: var(--ank-warning);
+  color: var(--ank-warning-dark);
 }
 
 .ank-alert--error {

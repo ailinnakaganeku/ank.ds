@@ -1,4 +1,5 @@
 import { useEffect, type RefObject } from 'react';
+import { useLatestRef } from './useLatestRef';
 
 const FOCUSABLE_SELECTOR = [
   'a[href]',
@@ -48,6 +49,10 @@ export const __resetBodyLockForTests = () => {
   document.body.style.overflow = '';
 };
 
+const restoreFocus = (element: Element | null) => {
+  if (element instanceof HTMLElement || element instanceof SVGElement) element.focus();
+};
+
 export interface UseFocusTrapOptions {
   active: boolean;
   containerRef: RefObject<HTMLElement>;
@@ -63,10 +68,12 @@ export const useFocusTrap = ({
   onEscape,
   lockScroll = true,
 }: UseFocusTrapOptions) => {
+  const latestOnEscape = useLatestRef(onEscape);
+
   useEffect(() => {
     if (!active) return;
 
-    const previouslyFocused = document.activeElement as HTMLElement | null;
+    const previouslyFocused = document.activeElement;
 
     if (lockScroll) {
       acquireBodyLock();
@@ -80,9 +87,9 @@ export const useFocusTrap = ({
     });
 
     const handleKeyDown = (event: KeyboardEvent) => {
-      if (event.key === 'Escape' && onEscape) {
+      if (event.key === 'Escape' && latestOnEscape.current) {
         event.preventDefault();
-        onEscape();
+        latestOnEscape.current();
         return;
       }
       if (event.key !== 'Tab') return;
@@ -99,7 +106,7 @@ export const useFocusTrap = ({
 
       const first = focusable[0];
       const last = focusable[focusable.length - 1];
-      const activeEl = document.activeElement as HTMLElement | null;
+      const activeEl = document.activeElement;
 
       if (event.shiftKey) {
         if (activeEl === first || !node.contains(activeEl)) {
@@ -120,7 +127,7 @@ export const useFocusTrap = ({
       if (lockScroll) {
         releaseBodyLock();
       }
-      previouslyFocused?.focus?.();
+      restoreFocus(previouslyFocused);
     };
-  }, [active, containerRef, initialFocus, onEscape, lockScroll]);
+  }, [active, containerRef, initialFocus, latestOnEscape, lockScroll]);
 };

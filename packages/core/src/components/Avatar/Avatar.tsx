@@ -5,10 +5,12 @@ import {
   useEffect,
   useMemo,
   useState,
+  type Dispatch,
   type HTMLAttributes,
   type ImgHTMLAttributes,
   type ReactEventHandler,
   type ReactNode,
+  type SetStateAction,
 } from 'react';
 import clsx from 'clsx';
 import './Avatar.css';
@@ -16,11 +18,14 @@ import './Avatar.css';
 export type AvatarSize = 'sm' | 'md' | 'lg' | 'xl';
 export type AvatarTone = 'neutral' | 'primary' | 'secondary' | 'accent' | 'sand';
 
-type ImageStatus = 'idle' | 'loaded' | 'error';
+interface SettledImage {
+  src: string;
+  status: 'loaded' | 'error';
+}
 
 interface AvatarContextValue {
-  imageStatus: ImageStatus;
-  setImageStatus: (next: ImageStatus) => void;
+  settled: SettledImage | null;
+  settle: Dispatch<SetStateAction<SettledImage | null>>;
 }
 
 const AvatarContext = createContext<AvatarContextValue | null>(null);
@@ -43,8 +48,8 @@ const AvatarRoot = forwardRef<HTMLSpanElement, AvatarProps>(function Avatar(
   { size = 'md', tone = 'neutral', className, children, ...rest },
   ref,
 ) {
-  const [imageStatus, setImageStatus] = useState<ImageStatus>('idle');
-  const value = useMemo<AvatarContextValue>(() => ({ imageStatus, setImageStatus }), [imageStatus]);
+  const [settled, settle] = useState<SettledImage | null>(null);
+  const value = useMemo<AvatarContextValue>(() => ({ settled, settle }), [settled]);
 
   return (
     <AvatarContext.Provider value={value}>
@@ -73,25 +78,27 @@ const Image = forwardRef<HTMLImageElement, AvatarImageProps>(function AvatarImag
   { src, alt, className, onLoad, onError, style, ...rest },
   ref,
 ) {
-  const ctx = useAvatarContext('<Avatar.Image>');
+  const { settled, settle } = useAvatarContext('<Avatar.Image>');
+  const status = settled?.src === src ? settled.status : undefined;
 
-  useEffect(() => {
-    if (!src) ctx.setImageStatus('error');
-  }, [src, ctx]);
+  useEffect(
+    () => () => settle((current) => (current?.src === src ? null : current)),
+    [src, settle],
+  );
 
-  if (!src || ctx.imageStatus === 'error') return null;
+  if (!src || status === 'error') return null;
 
   const handleLoad: ReactEventHandler<HTMLImageElement> = (event) => {
     onLoad?.(event);
-    ctx.setImageStatus('loaded');
+    settle({ src, status: 'loaded' });
   };
 
   const handleError: ReactEventHandler<HTMLImageElement> = (event) => {
     onError?.(event);
-    ctx.setImageStatus('error');
+    settle({ src, status: 'error' });
   };
 
-  const isHidden = ctx.imageStatus !== 'loaded';
+  const isHidden = status !== 'loaded';
 
   return (
     <img
@@ -126,7 +133,7 @@ const Fallback = forwardRef<HTMLSpanElement, AvatarFallbackProps>(function Avata
     return () => window.clearTimeout(timer);
   }, [delayMs]);
 
-  if (ctx.imageStatus === 'loaded') return null;
+  if (ctx.settled?.status === 'loaded') return null;
   if (!show) return null;
 
   return (

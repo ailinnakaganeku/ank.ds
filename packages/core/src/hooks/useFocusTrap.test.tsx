@@ -1,6 +1,6 @@
 import { describe, expect, it, beforeEach, afterEach } from 'vitest';
 import { useRef } from 'react';
-import { act, render } from '@testing-library/react';
+import { act, render, screen } from '@testing-library/react';
 import { useFocusTrap, getFocusableElements, __resetBodyLockForTests } from './useFocusTrap';
 
 const Trapped = ({
@@ -62,6 +62,27 @@ describe('useFocusTrap', () => {
     document.body.style.overflow = '';
     render(<Trapped active lockScroll={false} />);
     expect(document.body.style.overflow).toBe('');
+  });
+
+  it('returns focus to the SVG element that had it before the trap', async () => {
+    const Chart = ({ active }: { active: boolean }) => (
+      <>
+        <svg>
+          <a href="#series" aria-label="Open series" />
+        </svg>
+        <Trapped active={active} lockScroll={false} />
+      </>
+    );
+    const { rerender } = render(<Chart active={false} />);
+    const link = screen.getByRole('link', { name: 'Open series' });
+    act(() => link.focus());
+
+    rerender(<Chart active />);
+    await act(() => new Promise((resolve) => requestAnimationFrame(resolve)));
+    expect(screen.getByRole('button', { name: 'one' })).toHaveFocus();
+
+    rerender(<Chart active={false} />);
+    expect(link).toHaveFocus();
   });
 
   it('calls onEscape when Escape is pressed', () => {

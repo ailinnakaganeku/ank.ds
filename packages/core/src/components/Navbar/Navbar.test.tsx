@@ -1,5 +1,5 @@
 import { describe, expect, it, afterEach } from 'vitest';
-import { render, screen } from '@testing-library/react';
+import { fireEvent, render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import { axe } from 'jest-axe';
 import { Navbar } from './Navbar';
@@ -30,11 +30,29 @@ describe('Navbar', () => {
     expect(screen.getByRole('link', { name: 'Foundations' })).not.toHaveAttribute('aria-current');
   });
 
-  it('renders external links with target and rel set', () => {
+  it('opens external links in a new tab and says so in their name', () => {
     render(<Navbar links={[{ label: 'GitHub', href: 'https://github.com/x', external: true }]} />);
-    const link = screen.getByRole('link', { name: 'GitHub' });
+    const link = screen.getByRole('link', { name: 'GitHub (opens in a new tab)' });
     expect(link).toHaveAttribute('target', '_blank');
     expect(link).toHaveAttribute('rel', 'noopener noreferrer');
+  });
+
+  it('announces external links with the given label', () => {
+    render(
+      <Navbar
+        externalLabel="se abre en una pestaña nueva"
+        links={[{ label: 'GitHub', href: 'https://github.com/x', external: true }]}
+      />,
+    );
+    expect(
+      screen.getByRole('link', { name: 'GitHub (se abre en una pestaña nueva)' }),
+    ).toBeInTheDocument();
+  });
+
+  it('does not compile a link with neither href nor onClick', () => {
+    // @ts-expect-error a link needs somewhere to go or something to do
+    const navbar = <Navbar links={[{ label: 'Home' }]} />;
+    expect(navbar).toBeDefined();
   });
 
   it('renders links without href as buttons', () => {
@@ -92,5 +110,16 @@ describe('Navbar', () => {
   it('has no axe violations in the resting state', async () => {
     const { container } = render(<Navbar links={links} />);
     expect(await axe(container)).toHaveNoViolations();
+  });
+
+  it('marks a sticky navbar as scrolled once the page scrolls', () => {
+    render(<Navbar sticky brand="ank.ds" />);
+    const nav = screen.getByRole('navigation', { name: 'Primary' });
+    expect(nav).not.toHaveClass('ank-navbar--scrolled');
+
+    fireEvent.scroll(window, { target: { scrollY: 120 } });
+
+    expect(nav).toHaveClass('ank-navbar--scrolled');
+    fireEvent.scroll(window, { target: { scrollY: 0 } });
   });
 });

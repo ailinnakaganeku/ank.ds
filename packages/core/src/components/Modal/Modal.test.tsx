@@ -151,6 +151,37 @@ describe('Modal', () => {
     expect(trigger).toHaveFocus();
   });
 
+  it('keeps focus in the field being typed in when the parent re-renders', async () => {
+    const user = userEvent.setup();
+    const Form = () => {
+      const [email, setEmail] = useState('');
+      return (
+        <Modal open onClose={() => {}} title="Invite">
+          <label>
+            Name
+            <input />
+          </label>
+          <label>
+            Email
+            <input value={email} onChange={(event) => setEmail(event.target.value)} />
+          </label>
+        </Modal>
+      );
+    };
+    const nextFrame = () => act(() => new Promise((resolve) => requestAnimationFrame(resolve)));
+    render(<Form />);
+    await nextFrame();
+    const email = screen.getByLabelText('Email');
+
+    await user.click(email);
+    await user.keyboard('a');
+    await nextFrame();
+    await user.keyboard('da');
+
+    expect(email).toHaveValue('ada');
+    expect(email).toHaveFocus();
+  });
+
   it('has no axe violations when open', async () => {
     const user = userEvent.setup();
     const { baseElement } = render(<Harness />);
