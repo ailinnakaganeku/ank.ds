@@ -9,7 +9,7 @@ const Basic = ({
   defaultValue,
   activationMode,
 }: {
-  defaultValue?: string;
+  defaultValue: string;
   activationMode?: 'automatic' | 'manual';
 }) => (
   <Tabs defaultValue={defaultValue} activationMode={activationMode}>
@@ -33,24 +33,10 @@ describe('Tabs', () => {
     expect(screen.queryByText('Overview panel')).not.toBeInTheDocument();
   });
 
-  it('auto-selects the first non-disabled tab when uncontrolled with no defaultValue', async () => {
-    render(
-      <Tabs>
-        <Tabs.List aria-label="No default">
-          <Tabs.Tab value="a" disabled>
-            Alpha
-          </Tabs.Tab>
-          <Tabs.Tab value="b">Beta</Tabs.Tab>
-          <Tabs.Tab value="c">Gamma</Tabs.Tab>
-        </Tabs.List>
-        <Tabs.Panel value="a">A</Tabs.Panel>
-        <Tabs.Panel value="b">B</Tabs.Panel>
-        <Tabs.Panel value="c">C</Tabs.Panel>
-      </Tabs>,
-    );
-
-    expect(await screen.findByRole('tab', { name: 'Beta', selected: true })).toBeInTheDocument();
-    expect(screen.getByRole('tabpanel', { name: 'Beta' })).toBeInTheDocument();
+  it('does not compile without a value or a defaultValue', () => {
+    // @ts-expect-error an uncontrolled Tabs needs a defaultValue
+    const tabs = <Tabs>{null}</Tabs>;
+    expect(tabs).toBeDefined();
   });
 
   it('applies roving tabindex so Tab key exits the tablist after the active tab', () => {

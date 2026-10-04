@@ -3,7 +3,6 @@ import {
   forwardRef,
   useCallback,
   useContext,
-  useEffect,
   useId,
   useMemo,
   useRef,
@@ -35,42 +34,25 @@ const useTabsContext = (component: string) => {
   return ctx;
 };
 
-export interface TabsProps extends Omit<HTMLAttributes<HTMLDivElement>, 'onChange'> {
-  value?: string;
-  defaultValue?: string;
-  onChange?: (value: string) => void;
-  activationMode?: ActivationMode;
-  children: ReactNode;
-}
+type TabsSelection =
+  | { value: string; defaultValue?: undefined }
+  | { value?: undefined; defaultValue: string };
+
+export type TabsProps = Omit<HTMLAttributes<HTMLDivElement>, 'onChange' | 'defaultValue'> &
+  TabsSelection & {
+    onChange?: (value: string) => void;
+    activationMode?: ActivationMode;
+    children: ReactNode;
+  };
 
 const TabsRoot = forwardRef<HTMLDivElement, TabsProps>(function Tabs(
   { value, defaultValue, onChange, activationMode = 'automatic', className, children, ...rest },
   ref,
 ) {
-  const [internal, setInternal] = useState<string>(defaultValue ?? '');
+  const [internal, setInternal] = useState(defaultValue);
   const isControlled = value !== undefined;
-  const current = isControlled ? value : internal;
+  const current = value ?? internal ?? '';
   const baseId = useId();
-  const rootRef = useRef<HTMLDivElement | null>(null);
-
-  const setRefs = useCallback(
-    (node: HTMLDivElement | null) => {
-      rootRef.current = node;
-      if (typeof ref === 'function') ref(node);
-      else if (ref) (ref as React.MutableRefObject<HTMLDivElement | null>).current = node;
-    },
-    [ref],
-  );
-
-  useEffect(() => {
-    if (isControlled) return;
-    if (internal !== '') return;
-    const root = rootRef.current;
-    if (!root) return;
-    const firstTab = root.querySelector<HTMLButtonElement>('[role="tab"]:not([disabled])');
-    const firstValue = firstTab?.dataset.value;
-    if (firstValue) setInternal(firstValue);
-  }, [isControlled, internal]);
 
   const setValue = useCallback(
     (next: string) => {
@@ -87,7 +69,7 @@ const TabsRoot = forwardRef<HTMLDivElement, TabsProps>(function Tabs(
 
   return (
     <TabsContext.Provider value={contextValue}>
-      <div ref={setRefs} className={clsx('ank-tabs', className)} {...rest}>
+      <div ref={ref} className={clsx('ank-tabs', className)} {...rest}>
         {children}
       </div>
     </TabsContext.Provider>
