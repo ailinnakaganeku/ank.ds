@@ -1,4 +1,5 @@
 import { useEffect, type RefObject } from 'react';
+import { useLatestRef } from './useLatestRef';
 
 const FOCUSABLE_SELECTOR = [
   'a[href]',
@@ -63,6 +64,8 @@ export const useFocusTrap = ({
   onEscape,
   lockScroll = true,
 }: UseFocusTrapOptions) => {
+  const latestOnEscape = useLatestRef(onEscape);
+
   useEffect(() => {
     if (!active) return;
 
@@ -80,9 +83,9 @@ export const useFocusTrap = ({
     });
 
     const handleKeyDown = (event: KeyboardEvent) => {
-      if (event.key === 'Escape' && onEscape) {
+      if (event.key === 'Escape' && latestOnEscape.current) {
         event.preventDefault();
-        onEscape();
+        latestOnEscape.current();
         return;
       }
       if (event.key !== 'Tab') return;
@@ -122,5 +125,5 @@ export const useFocusTrap = ({
       }
       previouslyFocused?.focus?.();
     };
-  }, [active, containerRef, initialFocus, onEscape, lockScroll]);
+  }, [active, containerRef, initialFocus, latestOnEscape, lockScroll]);
 };
