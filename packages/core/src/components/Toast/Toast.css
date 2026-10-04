@@ -167,7 +167,7 @@
   border-left-color: var(--ank-warning);
 }
 .ank-toast--warning .ank-toast__icon {
-  color: var(--ank-warning);
+  color: var(--ank-warning-dark);
 }
 
 .ank-toast--error {
