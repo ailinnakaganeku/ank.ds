@@ -1,5 +1,5 @@
 import { describe, expect, it, vi, beforeEach, afterEach } from 'vitest';
-import { act, fireEvent, render, screen } from '@testing-library/react';
+import { act, fireEvent, render, screen, within } from '@testing-library/react';
 import { axe } from 'jest-axe';
 import { ToastProvider, useToast } from './Toast';
 
@@ -45,24 +45,30 @@ const click = (name: string) => {
 };
 
 describe('Toast', () => {
-  it('renders the notification region only when a toast is active', () => {
+  it('keeps an empty polite live region in the document before any toast', () => {
     renderHarness();
-    expect(screen.queryByRole('region', { name: 'Notifications' })).not.toBeInTheDocument();
+
+    const region = screen.getByRole('region', { name: 'Notifications' });
+    expect(region).toHaveAttribute('aria-live', 'polite');
+    expect(region).toBeEmptyDOMElement();
+  });
+
+  it('adds a toast inside the live region that was already there', () => {
+    renderHarness();
+    const region = screen.getByRole('region', { name: 'Notifications' });
 
     click('show');
 
-    const region = screen.getByRole('region', { name: 'Notifications' });
-    expect(region).not.toHaveAttribute('aria-live');
-    expect(screen.getByText('Saved')).toBeInTheDocument();
-    expect(screen.getByText('All good')).toBeInTheDocument();
+    expect(within(region).getByText('Saved')).toBeInTheDocument();
+    expect(within(region).getByText('All good')).toBeInTheDocument();
   });
 
-  it('uses role="alert" for the error variant and role="status" for the rest', () => {
+  it('interrupts with role="alert" only for the error variant', () => {
     renderHarness();
     click('show');
     click('error');
-    expect(screen.getByRole('status')).toHaveTextContent('Saved');
     expect(screen.getByRole('alert')).toHaveTextContent('Oops');
+    expect(screen.queryByRole('status')).not.toBeInTheDocument();
   });
 
   it('auto-dismisses after the default duration', () => {
@@ -102,7 +108,7 @@ describe('Toast', () => {
     click('show');
     click('error');
     click('dismiss all');
-    expect(screen.queryByRole('region', { name: 'Notifications' })).not.toBeInTheDocument();
+    expect(screen.getByRole('region', { name: 'Notifications' })).toBeEmptyDOMElement();
   });
 
   it('throws when useToast is used outside ToastProvider', () => {

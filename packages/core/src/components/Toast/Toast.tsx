@@ -84,7 +84,7 @@ const ToastItem = ({ toast, onDismiss }: { toast: ToastData; onDismiss: () => vo
 
   return (
     <div
-      role={variant === 'error' ? 'alert' : 'status'}
+      role={variant === 'error' ? 'alert' : undefined}
       className={clsx('ank-toast', `ank-toast--${variant}`)}
     >
       {icon && (
@@ -209,11 +209,11 @@ export const ToastProvider = ({
     <ToastContext.Provider value={value}>
       {children}
       {mounted &&
-        toasts.length > 0 &&
         createPortal(
           <div
             role="region"
             aria-label={viewportLabel}
+            aria-live="polite"
             data-placement={placement}
             className="ank-toast-viewport"
           >
