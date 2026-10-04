@@ -54,7 +54,7 @@ ank-ds/
 ```bash
 npm install
 npm run storybook
-npm run build
+npm run build -w @ankds/core
 npm run lint
 npm run typecheck
 npm test
