@@ -8,9 +8,11 @@ beforeEach(() => {
 });
 
 afterEach(() => {
-  try {
-    vi.runOnlyPendingTimers();
-  } catch {}
+  if (vi.isFakeTimers()) {
+    act(() => {
+      vi.runOnlyPendingTimers();
+    });
+  }
   vi.useRealTimers();
 });
 
