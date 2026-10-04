@@ -1,0 +1,42 @@
+.welcome {
+  display: flex;
+  flex-direction: column;
+  gap: var(--ank-space-5);
+  max-width: 640px;
+  margin: 0 auto;
+  padding: var(--ank-space-9) var(--ank-space-6);
+  font-family: var(--ank-body);
+  color: var(--ank-ink-soft);
+}
+
+.welcome__title {
+  margin: 0;
+  font-family: var(--ank-display);
+  font-size: var(--ank-text-hero);
+  font-weight: 700;
+  line-height: 1;
+  letter-spacing: -0.02em;
+  color: var(--ank-ink);
+}
+
+.welcome__install {
+  align-self: flex-start;
+  font-family: var(--ank-mono);
+  font-size: var(--ank-text-sm);
+  color: var(--ank-ink);
+}
+
+.welcome__links {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--ank-space-2) var(--ank-space-5);
+  padding-top: var(--ank-space-5);
+  border-top: var(--ank-border-thin);
+  font-size: var(--ank-text-sm);
+}
+
+.welcome__links a {
+  color: var(--ank-ink);
+  text-decoration: underline;
+  text-underline-offset: 4px;
+}
