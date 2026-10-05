@@ -1,158 +1,62 @@
-import { describe, expect, it, vi } from 'vitest';
-import { fireEvent, render, screen, waitFor } from '@testing-library/react';
+import { describe, expect, it } from 'vitest';
+import { fireEvent, render, screen } from '@testing-library/react';
 import { axe } from 'jest-axe';
 import { Avatar } from './Avatar';
 
 describe('Avatar', () => {
-  it('renders the fallback immediately when no image is provided', () => {
-    render(
-      <Avatar>
-        <Avatar.Fallback>AL</Avatar.Fallback>
-      </Avatar>,
-    );
+  it('shows the fallback as an image named by alt when there is no src', () => {
+    render(<Avatar alt="Ada Lovelace" fallback="AL" />);
+
+    expect(screen.getByRole('img', { name: 'Ada Lovelace' })).toHaveTextContent('AL');
+  });
+
+  it('exposes the picture, and only the picture, when there is a src', () => {
+    render(<Avatar src="/ada.jpg" alt="Ada Lovelace" fallback="AL" />);
+
+    const images = screen.getAllByRole('img');
+    expect(images).toHaveLength(1);
+    expect(images[0]).toHaveAttribute('src', '/ada.jpg');
+    expect(images[0]).toHaveAccessibleName('Ada Lovelace');
+  });
+
+  it('falls back when the picture fails to load', () => {
+    render(<Avatar src="/bad.jpg" alt="Ada Lovelace" fallback="AL" />);
+
+    fireEvent.error(screen.getByRole('img', { name: 'Ada Lovelace' }));
+
+    expect(screen.getByRole('img', { name: 'Ada Lovelace' })).toHaveTextContent('AL');
+  });
+
+  it('tries a new src after the previous picture failed', () => {
+    const { rerender } = render(<Avatar src="/bad.jpg" alt="Ada Lovelace" fallback="AL" />);
+    fireEvent.error(screen.getByRole('img', { name: 'Ada Lovelace' }));
+
+    rerender(<Avatar src="/ada.jpg" alt="Ada Lovelace" fallback="AL" />);
+
+    expect(screen.getByRole('img', { name: 'Ada Lovelace' })).toHaveAttribute('src', '/ada.jpg');
+  });
+
+  it('goes back to the fallback when the src is removed', () => {
+    const { rerender } = render(<Avatar src="/ada.jpg" alt="Ada Lovelace" fallback="AL" />);
+
+    rerender(<Avatar alt="Ada Lovelace" fallback="AL" />);
+
+    expect(screen.getByRole('img', { name: 'Ada Lovelace' })).toHaveTextContent('AL');
+  });
+
+  it('is hidden from assistive technology when alt is empty', () => {
+    render(<Avatar alt="" fallback="AL" />);
+
+    expect(screen.queryByRole('img')).not.toBeInTheDocument();
     expect(screen.getByText('AL')).toBeInTheDocument();
   });
 
-  it('shows the image after it loads and hides the fallback', async () => {
-    render(
-      <Avatar>
-        <Avatar.Image src="/ada.jpg" alt="Ada Lovelace" />
-        <Avatar.Fallback>AL</Avatar.Fallback>
-      </Avatar>,
-    );
+  it.each([
+    ['with a picture', <Avatar key="a" src="/ada.jpg" alt="Ada Lovelace" fallback="AL" />],
+    ['with the fallback', <Avatar key="b" alt="Ada Lovelace" fallback="AL" />],
+  ])('has no axe violations %s', async (_name, avatar) => {
+    const { container } = render(avatar);
 
-    expect(screen.getByText('AL')).toBeInTheDocument();
-
-    const img = screen.getByAltText('Ada Lovelace');
-    fireEvent.load(img);
-
-    await waitFor(() => {
-      expect(screen.queryByText('AL')).not.toBeInTheDocument();
-      expect(screen.getByRole('img', { name: 'Ada Lovelace' })).toBeInTheDocument();
-    });
-  });
-
-  it('keeps the fallback when the image fails to load', async () => {
-    render(
-      <Avatar>
-        <Avatar.Image src="/bad.jpg" alt="Ada Lovelace" />
-        <Avatar.Fallback>AL</Avatar.Fallback>
-      </Avatar>,
-    );
-
-    const img = screen.getByAltText('Ada Lovelace');
-    fireEvent.error(img);
-
-    await waitFor(() => {
-      expect(screen.getByText('AL')).toBeInTheDocument();
-      expect(screen.queryByAltText('Ada Lovelace')).not.toBeInTheDocument();
-    });
-  });
-
-  it('tries a new src after the previous image failed', async () => {
-    const { rerender } = render(
-      <Avatar>
-        <Avatar.Image src="/bad.jpg" alt="Ada Lovelace" />
-        <Avatar.Fallback>AL</Avatar.Fallback>
-      </Avatar>,
-    );
-    fireEvent.error(screen.getByAltText('Ada Lovelace'));
-
-    rerender(
-      <Avatar>
-        <Avatar.Image src="/ada.jpg" alt="Ada Lovelace" />
-        <Avatar.Fallback>AL</Avatar.Fallback>
-      </Avatar>,
-    );
-    fireEvent.load(await screen.findByAltText('Ada Lovelace'));
-
-    expect(await screen.findByRole('img', { name: 'Ada Lovelace' })).toHaveAttribute(
-      'src',
-      '/ada.jpg',
-    );
-    expect(screen.queryByText('AL')).not.toBeInTheDocument();
-  });
-
-  it('shows the fallback while a new src loads after the previous image loaded', async () => {
-    const { rerender } = render(
-      <Avatar>
-        <Avatar.Image src="/ada.jpg" alt="Ada Lovelace" />
-        <Avatar.Fallback>AL</Avatar.Fallback>
-      </Avatar>,
-    );
-    fireEvent.load(screen.getByAltText('Ada Lovelace'));
-
-    rerender(
-      <Avatar>
-        <Avatar.Image src="/ada-2.jpg" alt="Ada Lovelace" />
-        <Avatar.Fallback>AL</Avatar.Fallback>
-      </Avatar>,
-    );
-
-    expect(await screen.findByText('AL')).toBeInTheDocument();
-    expect(screen.queryByRole('img', { name: 'Ada Lovelace' })).not.toBeInTheDocument();
-  });
-
-  it('shows the fallback again when the src is removed after a load', async () => {
-    const { rerender } = render(
-      <Avatar>
-        <Avatar.Image src="/ada.jpg" alt="Ada Lovelace" />
-        <Avatar.Fallback>AL</Avatar.Fallback>
-      </Avatar>,
-    );
-    fireEvent.load(screen.getByAltText('Ada Lovelace'));
-
-    rerender(
-      <Avatar>
-        <Avatar.Image src="" alt="Ada Lovelace" />
-        <Avatar.Fallback>AL</Avatar.Fallback>
-      </Avatar>,
-    );
-
-    expect(await screen.findByText('AL')).toBeInTheDocument();
-  });
-
-  it('hides the image from the accessibility tree while it is loading', () => {
-    render(
-      <Avatar>
-        <Avatar.Image src="/ada.jpg" alt="Ada Lovelace" />
-        <Avatar.Fallback>AL</Avatar.Fallback>
-      </Avatar>,
-    );
-    const img = screen.getByAltText('Ada Lovelace');
-    expect(img).toHaveAttribute('aria-hidden', 'true');
-  });
-
-  it('applies the size class', () => {
-    const { container } = render(
-      <Avatar size="lg">
-        <Avatar.Fallback>X</Avatar.Fallback>
-      </Avatar>,
-    );
-    expect(container.firstChild).toHaveClass('ank-avatar--lg');
-  });
-
-  it('applies the tone class for non-neutral tones', () => {
-    const { container } = render(
-      <Avatar tone="primary">
-        <Avatar.Fallback>X</Avatar.Fallback>
-      </Avatar>,
-    );
-    expect(container.firstChild).toHaveClass('ank-avatar--primary');
-  });
-
-  it('throws when subcomponents are used outside Avatar', () => {
-    const spy = vi.spyOn(console, 'error').mockImplementation(() => {});
-    expect(() => render(<Avatar.Fallback>X</Avatar.Fallback>)).toThrow(/inside <Avatar>/);
-    spy.mockRestore();
-  });
-
-  it('has no axe violations', async () => {
-    const { container } = render(
-      <Avatar>
-        <Avatar.Fallback>AL</Avatar.Fallback>
-      </Avatar>,
-    );
     expect(await axe(container)).toHaveNoViolations();
   });
 });

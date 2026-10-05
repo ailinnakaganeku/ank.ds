@@ -1,146 +1,56 @@
-import {
-  createContext,
-  forwardRef,
-  useContext,
-  useEffect,
-  useMemo,
-  useState,
-  type Dispatch,
-  type HTMLAttributes,
-  type ImgHTMLAttributes,
-  type ReactEventHandler,
-  type ReactNode,
-  type SetStateAction,
-} from 'react';
+import { forwardRef, useState, type HTMLAttributes, type ReactNode } from 'react';
 import clsx from 'clsx';
 import './Avatar.css';
 
 export type AvatarSize = 'sm' | 'md' | 'lg' | 'xl';
 export type AvatarTone = 'neutral' | 'primary' | 'secondary' | 'accent' | 'sand';
 
-interface SettledImage {
-  src: string;
-  status: 'loaded' | 'error';
-}
-
-interface AvatarContextValue {
-  settled: SettledImage | null;
-  settle: Dispatch<SetStateAction<SettledImage | null>>;
-}
-
-const AvatarContext = createContext<AvatarContextValue | null>(null);
-
-const useAvatarContext = (component: string) => {
-  const ctx = useContext(AvatarContext);
-  if (!ctx) {
-    throw new Error(`${component} must be rendered inside <Avatar>`);
-  }
-  return ctx;
-};
-
-export interface AvatarProps extends HTMLAttributes<HTMLSpanElement> {
+export interface AvatarProps extends Omit<HTMLAttributes<HTMLSpanElement>, 'children'> {
+  src?: string;
+  alt: string;
+  fallback: ReactNode;
   size?: AvatarSize;
   tone?: AvatarTone;
-  children: ReactNode;
 }
 
-const AvatarRoot = forwardRef<HTMLSpanElement, AvatarProps>(function Avatar(
-  { size = 'md', tone = 'neutral', className, children, ...rest },
-  ref,
-) {
-  const [settled, settle] = useState<SettledImage | null>(null);
-  const value = useMemo<AvatarContextValue>(() => ({ settled, settle }), [settled]);
+const AvatarFace = ({ src, alt, fallback }: Pick<AvatarProps, 'src' | 'alt' | 'fallback'>) => {
+  const [failed, setFailed] = useState(false);
+  const showsPicture = Boolean(src) && !failed;
+  const fallbackIsTheImage = !showsPicture && alt !== '';
 
   return (
-    <AvatarContext.Provider value={value}>
+    <>
       <span
-        ref={ref}
-        className={clsx(
-          'ank-avatar',
-          `ank-avatar--${size}`,
-          tone !== 'neutral' && `ank-avatar--${tone}`,
-          className,
-        )}
-        {...rest}
+        className="ank-avatar__fallback"
+        role={fallbackIsTheImage ? 'img' : undefined}
+        aria-label={fallbackIsTheImage ? alt : undefined}
+        aria-hidden={fallbackIsTheImage ? undefined : true}
       >
-        {children}
+        {fallback}
       </span>
-    </AvatarContext.Provider>
+      {showsPicture && (
+        <img className="ank-avatar__image" src={src} alt={alt} onError={() => setFailed(true)} />
+      )}
+    </>
   );
-});
+};
 
-export interface AvatarImageProps extends ImgHTMLAttributes<HTMLImageElement> {
-  src: string;
-  alt: string;
-}
-
-const Image = forwardRef<HTMLImageElement, AvatarImageProps>(function AvatarImage(
-  { src, alt, className, onLoad, onError, style, ...rest },
+export const Avatar = forwardRef<HTMLSpanElement, AvatarProps>(function Avatar(
+  { src, alt, fallback, size = 'md', tone = 'neutral', className, ...rest },
   ref,
 ) {
-  const { settled, settle } = useAvatarContext('<Avatar.Image>');
-  const status = settled?.src === src ? settled.status : undefined;
-
-  useEffect(
-    () => () => settle((current) => (current?.src === src ? null : current)),
-    [src, settle],
-  );
-
-  if (!src || status === 'error') return null;
-
-  const handleLoad: ReactEventHandler<HTMLImageElement> = (event) => {
-    onLoad?.(event);
-    settle({ src, status: 'loaded' });
-  };
-
-  const handleError: ReactEventHandler<HTMLImageElement> = (event) => {
-    onError?.(event);
-    settle({ src, status: 'error' });
-  };
-
-  const isHidden = status !== 'loaded';
-
   return (
-    <img
+    <span
       ref={ref}
-      src={src}
-      alt={alt}
-      className={clsx('ank-avatar__image', className)}
-      onLoad={handleLoad}
-      onError={handleError}
-      aria-hidden={isHidden || undefined}
-      style={isHidden ? { position: 'absolute', width: 0, height: 0, opacity: 0 } : style}
+      className={clsx(
+        'ank-avatar',
+        `ank-avatar--${size}`,
+        tone !== 'neutral' && `ank-avatar--${tone}`,
+        className,
+      )}
       {...rest}
-    />
-  );
-});
-
-export interface AvatarFallbackProps extends HTMLAttributes<HTMLSpanElement> {
-  delayMs?: number;
-  children: ReactNode;
-}
-
-const Fallback = forwardRef<HTMLSpanElement, AvatarFallbackProps>(function AvatarFallback(
-  { className, children, delayMs = 0, ...rest },
-  ref,
-) {
-  const ctx = useAvatarContext('<Avatar.Fallback>');
-  const [show, setShow] = useState(delayMs === 0);
-
-  useEffect(() => {
-    if (delayMs === 0) return;
-    const timer = window.setTimeout(() => setShow(true), delayMs);
-    return () => window.clearTimeout(timer);
-  }, [delayMs]);
-
-  if (ctx.settled?.status === 'loaded') return null;
-  if (!show) return null;
-
-  return (
-    <span ref={ref} className={clsx('ank-avatar__fallback', className)} {...rest}>
-      {children}
+    >
+      <AvatarFace key={src} src={src} alt={alt} fallback={fallback} />
     </span>
   );
 });
-
-export const Avatar = Object.assign(AvatarRoot, { Image, Fallback });

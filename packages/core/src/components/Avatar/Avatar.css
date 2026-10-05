@@ -41,10 +41,12 @@
 }
 
 .ank-avatar__image {
-  display: block;
+  position: absolute;
+  inset: 0;
   width: 100%;
   height: 100%;
   object-fit: cover;
+  background: var(--ank-surface);
 }
 
 .ank-avatar__fallback {
