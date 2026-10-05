@@ -56,7 +56,6 @@ const restoreFocus = (element: Element | null) => {
 export interface UseFocusTrapOptions {
   active: boolean;
   containerRef: RefObject<HTMLElement>;
-  initialFocus?: RefObject<HTMLElement>;
   onEscape?: () => void;
   lockScroll?: boolean;
 }
@@ -64,7 +63,6 @@ export interface UseFocusTrapOptions {
 export const useFocusTrap = ({
   active,
   containerRef,
-  initialFocus,
   onEscape,
   lockScroll = true,
 }: UseFocusTrapOptions) => {
@@ -82,7 +80,7 @@ export const useFocusTrap = ({
     const rafId = requestAnimationFrame(() => {
       const node = containerRef.current;
       if (!node) return;
-      const target = initialFocus?.current ?? getFocusableElements(node)[0] ?? node;
+      const target = getFocusableElements(node)[0] ?? node;
       target.focus();
     });
 
@@ -129,5 +127,5 @@ export const useFocusTrap = ({
       }
       restoreFocus(previouslyFocused);
     };
-  }, [active, containerRef, initialFocus, latestOnEscape, lockScroll]);
+  }, [active, containerRef, latestOnEscape, lockScroll]);
 };
