@@ -1,5 +1,4 @@
 import { useEffect, type RefObject } from 'react';
-import { lockBodyScroll, unlockBodyScroll } from '../utils/bodyScrollLock';
 import { useLatestRef } from './useLatestRef';
 
 const FOCUSABLE_SELECTOR = [
@@ -33,25 +32,15 @@ export interface UseFocusTrapOptions {
   active: boolean;
   containerRef: RefObject<HTMLElement>;
   onEscape?: () => void;
-  lockScroll?: boolean;
 }
 
-export const useFocusTrap = ({
-  active,
-  containerRef,
-  onEscape,
-  lockScroll = true,
-}: UseFocusTrapOptions) => {
+export const useFocusTrap = ({ active, containerRef, onEscape }: UseFocusTrapOptions) => {
   const latestOnEscape = useLatestRef(onEscape);
 
   useEffect(() => {
     if (!active) return;
 
     const previouslyFocused = document.activeElement;
-
-    if (lockScroll) {
-      lockBodyScroll();
-    }
 
     const rafId = requestAnimationFrame(() => {
       const node = containerRef.current;
@@ -98,10 +87,7 @@ export const useFocusTrap = ({
     return () => {
       cancelAnimationFrame(rafId);
       document.removeEventListener('keydown', handleKeyDown);
-      if (lockScroll) {
-        unlockBodyScroll();
-      }
       restoreFocus(previouslyFocused);
     };
-  }, [active, containerRef, latestOnEscape, lockScroll]);
+  }, [active, containerRef, latestOnEscape]);
 };

@@ -1,15 +1,7 @@
-import {
-  useEffect,
-  useId,
-  useRef,
-  type HTMLAttributes,
-  type MouseEvent,
-  type ReactNode,
-  type RefObject,
-} from 'react';
+import { useId, type HTMLAttributes, type ReactNode, type RefObject } from 'react';
 import clsx from 'clsx';
 import './Modal.css';
-import { lockBodyScroll, unlockBodyScroll } from '../../utils/bodyScrollLock';
+import { useModalDialog } from '../../hooks/useModalDialog';
 import { CloseIcon } from '../Icon';
 
 export type ModalSize = 'sm' | 'md' | 'lg';
@@ -29,17 +21,6 @@ export interface ModalProps {
   'aria-describedby'?: string;
 }
 
-const isOnBackdrop = (event: MouseEvent<HTMLDialogElement>) => {
-  if (event.target !== event.currentTarget) return false;
-  const box = event.currentTarget.getBoundingClientRect();
-  return (
-    event.clientX < box.left ||
-    event.clientX > box.right ||
-    event.clientY < box.top ||
-    event.clientY > box.bottom
-  );
-};
-
 const ModalRoot = ({
   open,
   onClose,
@@ -55,22 +36,13 @@ const ModalRoot = ({
   'aria-describedby': ariaDescribedBy,
 }: ModalProps) => {
   const titleId = useId();
-  const dialogRef = useRef<HTMLDialogElement>(null);
-  const pressStartedOnBackdrop = useRef(false);
-
-  useEffect(() => {
-    const dialog = dialogRef.current;
-    if (!dialog || !open) return;
-
-    dialog.showModal();
-    initialFocus?.current?.focus();
-    lockBodyScroll();
-
-    return () => {
-      dialog.close();
-      unlockBodyScroll();
-    };
-  }, [open, initialFocus]);
+  const { dialogRef, backdropHandlers } = useModalDialog({
+    open,
+    initialFocus,
+    onBackdropPress: () => {
+      if (closeOnOverlay) onClose();
+    },
+  });
 
   return (
     <dialog
@@ -87,14 +59,7 @@ const ModalRoot = ({
       onClose={(event) => {
         if (event.target === event.currentTarget && open) onClose();
       }}
-      onMouseDown={(event) => {
-        pressStartedOnBackdrop.current = isOnBackdrop(event);
-      }}
-      onClick={(event) => {
-        const startedOnBackdrop = pressStartedOnBackdrop.current;
-        pressStartedOnBackdrop.current = false;
-        if (closeOnOverlay && startedOnBackdrop && isOnBackdrop(event)) onClose();
-      }}
+      {...backdropHandlers}
     >
       {open && (
         <>

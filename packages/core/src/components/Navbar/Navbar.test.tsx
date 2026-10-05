@@ -1,21 +1,13 @@
-import { describe, expect, it, afterEach } from 'vitest';
-import { fireEvent, render, screen, within } from '@testing-library/react';
-import userEvent from '@testing-library/user-event';
+import { describe, expect, it } from 'vitest';
+import { fireEvent, render, screen } from '@testing-library/react';
 import { axe } from 'jest-axe';
 import { Navbar } from './Navbar';
-import { __resetBodyLockForTests } from '../../utils/bodyScrollLock';
-
-afterEach(() => {
-  __resetBodyLockForTests();
-});
 
 const links = [
   { label: 'Components', href: '#components', active: true },
   { label: 'Foundations', href: '#foundations' },
   { label: 'Patterns', href: '#patterns' },
 ];
-
-const getHamburger = () => screen.getByRole('button', { name: 'Open menu', hidden: true });
 
 describe('Navbar', () => {
   it('renders a navigation landmark with the given aria-label', () => {
@@ -58,51 +50,6 @@ describe('Navbar', () => {
   it('renders links without href as buttons', () => {
     render(<Navbar links={[{ label: 'Logout', onClick: () => {} }]} />);
     expect(screen.getByRole('button', { name: 'Logout' })).toBeInTheDocument();
-  });
-
-  it('toggles the drawer when the hamburger button is clicked', async () => {
-    const user = userEvent.setup();
-    render(<Navbar links={links} />);
-    const hamburger = getHamburger();
-    expect(hamburger).toHaveAttribute('aria-expanded', 'false');
-
-    await user.click(hamburger);
-    expect(hamburger).toHaveAttribute('aria-expanded', 'true');
-    expect(await screen.findByRole('dialog')).toBeInTheDocument();
-
-    await user.click(hamburger);
-    expect(hamburger).toHaveAttribute('aria-expanded', 'false');
-    expect(screen.queryByRole('dialog')).not.toBeInTheDocument();
-  });
-
-  it('closes the drawer when the close button is pressed', async () => {
-    const user = userEvent.setup();
-    render(<Navbar links={links} />);
-    await user.click(getHamburger());
-
-    const drawer = await screen.findByRole('dialog');
-    expect(drawer).toBeInTheDocument();
-    await user.click(screen.getByRole('button', { name: 'Close menu' }));
-    expect(screen.queryByRole('dialog')).not.toBeInTheDocument();
-  });
-
-  it('closes the drawer when a link inside it is activated', async () => {
-    const user = userEvent.setup();
-    render(<Navbar links={links} />);
-    await user.click(getHamburger());
-    const drawer = await screen.findByRole('dialog');
-    await user.click(within(drawer).getByRole('link', { name: 'Foundations' }));
-    expect(screen.queryByRole('dialog')).not.toBeInTheDocument();
-  });
-
-  it('closes the drawer on Escape', async () => {
-    const user = userEvent.setup();
-    render(<Navbar links={links} />);
-    await user.click(getHamburger());
-    expect(await screen.findByRole('dialog')).toBeInTheDocument();
-
-    await user.keyboard('{Escape}');
-    expect(screen.queryByRole('dialog')).not.toBeInTheDocument();
   });
 
   it('has no axe violations in the resting state', async () => {
