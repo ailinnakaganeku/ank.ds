@@ -1,4 +1,5 @@
 import { useEffect, type RefObject } from 'react';
+import { lockBodyScroll, unlockBodyScroll } from '../utils/bodyScrollLock';
 import { useLatestRef } from './useLatestRef';
 
 const FOCUSABLE_SELECTOR = [
@@ -22,31 +23,6 @@ const isFocusable = (el: HTMLElement): boolean => {
 export const getFocusableElements = (root: HTMLElement): HTMLElement[] => {
   const nodes = root.querySelectorAll<HTMLElement>(FOCUSABLE_SELECTOR);
   return Array.from(nodes).filter(isFocusable);
-};
-
-let bodyLockCount = 0;
-let savedBodyOverflow: string | null = null;
-
-const acquireBodyLock = () => {
-  if (bodyLockCount === 0) {
-    savedBodyOverflow = document.body.style.overflow;
-    document.body.style.overflow = 'hidden';
-  }
-  bodyLockCount += 1;
-};
-
-const releaseBodyLock = () => {
-  bodyLockCount = Math.max(0, bodyLockCount - 1);
-  if (bodyLockCount === 0 && savedBodyOverflow !== null) {
-    document.body.style.overflow = savedBodyOverflow;
-    savedBodyOverflow = null;
-  }
-};
-
-export const __resetBodyLockForTests = () => {
-  bodyLockCount = 0;
-  savedBodyOverflow = null;
-  document.body.style.overflow = '';
 };
 
 const restoreFocus = (element: Element | null) => {
@@ -74,7 +50,7 @@ export const useFocusTrap = ({
     const previouslyFocused = document.activeElement;
 
     if (lockScroll) {
-      acquireBodyLock();
+      lockBodyScroll();
     }
 
     const rafId = requestAnimationFrame(() => {
@@ -123,7 +99,7 @@ export const useFocusTrap = ({
       cancelAnimationFrame(rafId);
       document.removeEventListener('keydown', handleKeyDown);
       if (lockScroll) {
-        releaseBodyLock();
+        unlockBodyScroll();
       }
       restoreFocus(previouslyFocused);
     };

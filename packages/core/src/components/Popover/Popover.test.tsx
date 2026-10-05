@@ -3,7 +3,7 @@ import { render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import { axe } from 'jest-axe';
 import { Popover } from './Popover';
-import { __resetBodyLockForTests } from '../../hooks/useFocusTrap';
+import { __resetBodyLockForTests } from '../../utils/bodyScrollLock';
 
 afterEach(() => {
   __resetBodyLockForTests();

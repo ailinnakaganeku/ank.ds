@@ -3,7 +3,7 @@ import { fireEvent, render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import { axe } from 'jest-axe';
 import { Navbar } from './Navbar';
-import { __resetBodyLockForTests } from '../../hooks/useFocusTrap';
+import { __resetBodyLockForTests } from '../../utils/bodyScrollLock';
 
 afterEach(() => {
   __resetBodyLockForTests();
