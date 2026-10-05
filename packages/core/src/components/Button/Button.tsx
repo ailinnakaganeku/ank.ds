@@ -39,7 +39,7 @@ type ButtonName =
   | { children?: undefined; 'aria-labelledby': string };
 
 export type ButtonProps = Omit<ButtonHTMLAttributes<HTMLButtonElement>, 'children'> &
-  ButtonVariants &
+  Omit<ButtonVariants, 'iconOnly'> &
   ButtonName & {
     iconLeft?: ReactNode;
     iconRight?: ReactNode;
@@ -50,7 +50,6 @@ export const Button = forwardRef<HTMLButtonElement, ButtonProps>(function Button
     variant,
     size,
     fullWidth,
-    iconOnly,
     iconLeft,
     iconRight,
     disabled = false,
@@ -61,17 +60,14 @@ export const Button = forwardRef<HTMLButtonElement, ButtonProps>(function Button
   },
   ref,
 ) {
-  const inferredIconOnly = iconOnly ?? (!children && (Boolean(iconLeft) || Boolean(iconRight)));
+  const iconOnly = !children && (Boolean(iconLeft) || Boolean(iconRight));
 
   return (
     <button
       ref={ref}
       type={type}
       disabled={disabled}
-      className={clsx(
-        buttonVariants({ variant, size, fullWidth, iconOnly: inferredIconOnly }),
-        className,
-      )}
+      className={clsx(buttonVariants({ variant, size, fullWidth, iconOnly }), className)}
       {...rest}
     >
       {iconLeft && <span className="ank-button__icon">{iconLeft}</span>}
