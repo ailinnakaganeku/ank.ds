@@ -72,7 +72,7 @@
 
 .ank-card__eyebrow {
   font-family: var(--ank-body);
-  font-size: 11px;
+  font-size: var(--ank-text-xs);
   font-weight: 700;
   letter-spacing: 0.1em;
   text-transform: uppercase;
@@ -82,7 +82,7 @@
 
 .ank-card__title {
   font-family: var(--ank-display);
-  font-size: 24px;
+  font-size: 1.5rem;
   font-weight: 700;
   line-height: 1.2;
   color: currentcolor;
@@ -91,7 +91,7 @@
 
 .ank-card__description {
   font-family: var(--ank-body);
-  font-size: 15px;
+  font-size: var(--ank-text-base);
   line-height: 1.55;
   color: currentcolor;
   opacity: 0.85;

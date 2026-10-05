@@ -3,7 +3,7 @@
   align-items: center;
   gap: 12px;
   font-family: var(--ank-body);
-  font-size: 15px;
+  font-size: var(--ank-text-base);
   color: var(--ank-ink);
   cursor: pointer;
   user-select: none;
@@ -91,7 +91,7 @@
 }
 
 .ank-toggle--sm {
-  font-size: 13px;
+  font-size: var(--ank-text-sm);
   gap: 10px;
 }
 
@@ -110,7 +110,7 @@
 }
 
 .ank-toggle--lg {
-  font-size: 17px;
+  font-size: 1.0625rem;
   gap: 14px;
 }
 

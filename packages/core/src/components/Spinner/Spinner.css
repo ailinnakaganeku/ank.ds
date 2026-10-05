@@ -75,7 +75,7 @@
 }
 
 .ank-spinner__label {
-  font-size: 14px;
+  font-size: 0.875rem;
   font-weight: 500;
   color: var(--ank-ink-soft);
 }

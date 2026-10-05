@@ -90,14 +90,14 @@
 }
 
 .ank-toast__title {
-  font-size: 14px;
+  font-size: 0.875rem;
   font-weight: 700;
   margin: 0;
   line-height: 1.4;
 }
 
 .ank-toast__description {
-  font-size: 13px;
+  font-size: var(--ank-text-sm);
   color: var(--ank-gray-700);
   margin: 2px 0 0;
 }
@@ -108,7 +108,7 @@
   margin-top: 8px;
   padding: 4px 10px;
   font-family: var(--ank-body);
-  font-size: 12px;
+  font-size: 0.75rem;
   font-weight: 700;
   letter-spacing: 0.04em;
   color: var(--ank-ink);

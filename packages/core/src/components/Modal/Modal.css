@@ -45,7 +45,7 @@
 
 .ank-modal__title {
   font-family: var(--ank-display);
-  font-size: 24px;
+  font-size: 1.5rem;
   font-weight: 700;
   line-height: 1.2;
   margin: 0;
@@ -84,7 +84,7 @@
   padding: 20px 24px;
   overflow-y: auto;
   font-family: var(--ank-body);
-  font-size: 15px;
+  font-size: var(--ank-text-base);
   line-height: 1.6;
   color: var(--ank-ink-soft);
   flex: 1 1 auto;

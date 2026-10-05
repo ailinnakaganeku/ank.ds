@@ -26,7 +26,7 @@
   height: 36px;
   padding: 0 10px;
   font-family: var(--ank-body);
-  font-size: 13px;
+  font-size: var(--ank-text-sm);
   font-weight: 700;
   color: var(--ank-ink);
   background: var(--ank-white);
@@ -65,7 +65,7 @@
   height: 36px;
   color: var(--ank-gray-500);
   font-family: var(--ank-mono);
-  font-size: 14px;
+  font-size: 0.875rem;
   user-select: none;
 }
 

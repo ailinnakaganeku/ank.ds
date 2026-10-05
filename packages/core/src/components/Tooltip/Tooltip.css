@@ -8,7 +8,7 @@
   z-index: var(--ank-z-toast);
   padding: 6px 10px;
   font-family: var(--ank-body);
-  font-size: 12px;
+  font-size: 0.75rem;
   font-weight: 500;
   line-height: 1.4;
   color: var(--ank-white);

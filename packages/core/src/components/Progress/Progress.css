@@ -13,14 +13,14 @@
 }
 
 .ank-progress__label {
-  font-size: 13px;
+  font-size: var(--ank-text-sm);
   font-weight: 700;
   color: var(--ank-ink);
 }
 
 .ank-progress__value {
   font-family: var(--ank-mono);
-  font-size: 12px;
+  font-size: 0.75rem;
   color: var(--ank-gray-700);
 }
 

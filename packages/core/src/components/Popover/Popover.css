@@ -17,7 +17,7 @@
   box-shadow: 4px 4px 0 var(--ank-shadow-color);
   outline: none;
   font-family: var(--ank-body);
-  font-size: 14px;
+  font-size: 0.875rem;
   animation: ank-popover-in 120ms ease-out;
 }
 

@@ -2,7 +2,7 @@
   display: block;
   width: 100%;
   font-family: var(--ank-body);
-  font-size: 15px;
+  font-size: var(--ank-text-base);
   font-weight: 400;
   color: var(--ank-ink);
   background: var(--ank-white);
@@ -40,19 +40,19 @@
 .ank-input--sm {
   height: 32px;
   padding: 0 10px;
-  font-size: 13px;
+  font-size: var(--ank-text-sm);
 }
 
 .ank-input--md {
   height: 42px;
   padding: 0 14px;
-  font-size: 15px;
+  font-size: var(--ank-text-base);
 }
 
 .ank-input--lg {
   height: 52px;
   padding: 0 18px;
-  font-size: 17px;
+  font-size: 1.0625rem;
 }
 
 .ank-input--error {

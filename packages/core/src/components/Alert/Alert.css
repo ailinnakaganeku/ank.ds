@@ -33,14 +33,14 @@
 }
 
 .ank-alert__title {
-  font-size: 15px;
+  font-size: var(--ank-text-base);
   font-weight: 700;
   margin: 0;
   line-height: 1.4;
 }
 
 .ank-alert__description {
-  font-size: 14px;
+  font-size: 0.875rem;
   color: var(--ank-gray-700);
   margin: 4px 0 0;
   line-height: 1.55;

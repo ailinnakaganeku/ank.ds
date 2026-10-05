@@ -3,7 +3,7 @@
   align-items: center;
   gap: 4px;
   font-family: var(--ank-body);
-  font-size: 11px;
+  font-size: var(--ank-text-xs);
   font-weight: 700;
   letter-spacing: 0.1em;
   text-transform: uppercase;

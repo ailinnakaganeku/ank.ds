@@ -13,12 +13,12 @@
 }
 
 .ank-badge--sm {
-  font-size: 10px;
+  font-size: 0.625rem;
   padding: 3px 6px;
 }
 
 .ank-badge--md {
-  font-size: 11px;
+  font-size: var(--ank-text-xs);
   padding: 4px 8px;
 }
 

@@ -6,7 +6,6 @@
 
 html {
   font-family: var(--ank-body);
-  font-size: var(--ank-text-base);
   color: var(--ank-ink-soft);
   background-color: var(--ank-bg);
   -webkit-font-smoothing: antialiased;
@@ -15,6 +14,7 @@ html {
 
 body {
   margin: 0;
+  font-size: var(--ank-text-base);
   line-height: 1.6;
 }
 
