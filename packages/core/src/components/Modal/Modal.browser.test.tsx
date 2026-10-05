@@ -73,7 +73,7 @@ describe('Modal', () => {
 
     const dialog = await openDialog();
 
-    expect(dialog).toContainElement(document.activeElement as HTMLElement);
+    expect(dialog.contains(document.activeElement)).toBe(true);
   });
 
   it('focuses the element it is told to focus first', async () => {
