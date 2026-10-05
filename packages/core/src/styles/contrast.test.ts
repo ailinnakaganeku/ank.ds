@@ -43,7 +43,10 @@ const declarations = (css: string, selector: string) => {
   const start = css.indexOf(`${selector} {`);
   const block = css.slice(start, css.indexOf('}', start));
   return new Map(
-    [...block.matchAll(/--ank-([a-z0-9-]+):\s*([^;]+);/g)].map(([, name, value]) => [name, value]),
+    [...block.matchAll(/--ank-([a-z0-9-]+):\s*([^;]+);/g)].map(([, name = '', value = '']) => [
+      name,
+      value,
+    ]),
   );
 };
 
@@ -54,21 +57,21 @@ const dark = new Map([...light, ...declarations(css, "[data-theme='dark']")]);
 const resolve = (theme: Map<string, string>, name: string): string => {
   const value = theme.get(name);
   if (value === undefined) throw new Error(`--ank-${name} is not declared`);
-  const reference = /^var\(--ank-([a-z0-9-]+)\)$/.exec(value);
-  return reference ? resolve(theme, reference[1]) : value;
+  const [, referenced] = /^var\(--ank-([a-z0-9-]+)\)$/.exec(value) ?? [];
+  return referenced ? resolve(theme, referenced) : value;
 };
 
 // https://www.w3.org/WAI/WCAG22/Techniques/general/G18#procedure
 const luminance = (hex: string) => {
-  const [red, green, blue] = [1, 3, 5]
+  const [red = 0, green = 0, blue = 0] = [1, 3, 5]
     .map((offset) => parseInt(hex.slice(offset, offset + 2), 16) / 255)
     .map((channel) => (channel <= 0.04045 ? channel / 12.92 : ((channel + 0.055) / 1.055) ** 2.4));
   return 0.2126 * red + 0.7152 * green + 0.0722 * blue;
 };
 
 const contrast = (first: string, second: string) => {
-  const [lighter, darker] = [luminance(first), luminance(second)].sort((a, b) => b - a);
-  return (lighter + 0.05) / (darker + 0.05);
+  const luminances = [luminance(first), luminance(second)];
+  return (Math.max(...luminances) + 0.05) / (Math.min(...luminances) + 0.05);
 };
 
 describe.each([

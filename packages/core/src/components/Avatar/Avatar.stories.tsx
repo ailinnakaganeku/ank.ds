@@ -45,7 +45,7 @@ export const Tones: Story = {
   render: () => (
     <div style={{ display: 'flex', gap: 16, padding: 32 }}>
       {(['neutral', 'primary', 'secondary', 'accent', 'sand'] as const).map((tone) => (
-        <Avatar key={tone} tone={tone} alt={tone} fallback={tone[0].toUpperCase()} />
+        <Avatar key={tone} tone={tone} alt={tone} fallback={tone.charAt(0).toUpperCase()} />
       ))}
     </div>
   ),

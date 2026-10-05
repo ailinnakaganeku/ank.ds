@@ -31,7 +31,7 @@ const splitSelectorList = (list: string) => {
   return [...parts, current.trim()];
 };
 
-const isScoped = (selector: string) => SCOPED_ROOT.test(selector.split(/[\s>+~]/)[0]);
+const isScoped = (selector: string) => SCOPED_ROOT.test(selector.split(/[\s>+~]/)[0] ?? '');
 
 const unscopedSelectors = (css: string) =>
   [
@@ -40,7 +40,7 @@ const unscopedSelectors = (css: string) =>
       .replace(KEYFRAMES, '')
       .matchAll(/([^{};]+)\{/g),
   ]
-    .map(([, selector]) => selector.trim())
+    .map(([, selector = '']) => selector.trim())
     .filter((selector) => !selector.startsWith('@'))
     .flatMap(splitSelectorList)
     .filter((selector) => !isScoped(selector));
