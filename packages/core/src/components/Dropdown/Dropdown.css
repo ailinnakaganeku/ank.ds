@@ -7,7 +7,7 @@
   position: absolute;
   top: 100%;
   inset-inline-start: 0;
-  margin-top: 8px;
+  margin-top: var(--ank-space-2);
   z-index: var(--ank-z-dropdown);
   min-width: 200px;
   padding: 6px;
@@ -17,7 +17,7 @@
   box-shadow: 4px 4px 0 var(--ank-shadow-color);
   font-family: var(--ank-body);
   list-style: none;
-  margin-block: 8px 0;
+  margin-block: var(--ank-space-2) 0;
   animation: ank-dropdown-in 120ms ease-out;
 }
 
@@ -28,7 +28,7 @@
 .ank-dropdown__item {
   display: flex;
   align-items: center;
-  gap: 8px;
+  gap: var(--ank-space-2);
   width: 100%;
   padding: 8px 10px;
   font-family: var(--ank-body);

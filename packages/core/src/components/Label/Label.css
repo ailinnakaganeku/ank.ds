@@ -1,7 +1,7 @@
 .ank-label {
   display: inline-flex;
   align-items: center;
-  gap: 4px;
+  gap: var(--ank-space-1);
   font-family: var(--ank-body);
   font-size: var(--ank-text-xs);
   font-weight: 700;

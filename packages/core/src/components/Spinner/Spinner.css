@@ -1,7 +1,7 @@
 .ank-spinner {
   display: inline-flex;
   align-items: center;
-  gap: 8px;
+  gap: var(--ank-space-2);
   font-family: var(--ank-body);
   color: var(--ank-ink);
   vertical-align: middle;
@@ -10,7 +10,7 @@
 .ank-spinner__dots {
   display: inline-flex;
   align-items: center;
-  gap: 4px;
+  gap: var(--ank-space-1);
 }
 
 .ank-spinner__dots > span {
@@ -47,7 +47,7 @@
 }
 
 .ank-spinner--md .ank-spinner__dots {
-  gap: 4px;
+  gap: var(--ank-space-1);
 }
 
 .ank-spinner--lg .ank-spinner__dots {

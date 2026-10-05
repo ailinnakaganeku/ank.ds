@@ -1,7 +1,7 @@
 .ank-alert {
   display: flex;
   align-items: flex-start;
-  gap: 12px;
+  gap: var(--ank-space-3);
   padding: 14px 16px 14px 14px;
   border: 2.5px solid var(--ank-ink);
   border-inline-start-width: 6px;
@@ -42,12 +42,12 @@
 .ank-alert__description {
   font-size: 0.875rem;
   color: var(--ank-gray-700);
-  margin: 4px 0 0;
+  margin: var(--ank-space-1) 0 0;
   line-height: 1.55;
 }
 
 .ank-alert__title + .ank-alert__description {
-  margin-top: 4px;
+  margin-top: var(--ank-space-1);
 }
 
 .ank-alert__close {

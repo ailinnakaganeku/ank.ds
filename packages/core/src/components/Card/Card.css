@@ -1,8 +1,8 @@
 .ank-card {
   display: flex;
   flex-direction: column;
-  gap: 12px;
-  padding: 24px;
+  gap: var(--ank-space-3);
+  padding: var(--ank-space-5);
   background: var(--ank-surface);
   color: var(--ank-ink);
   border: 3px solid var(--ank-ink);
@@ -128,8 +128,8 @@
 .ank-card__footer {
   display: flex;
   align-items: center;
-  gap: 12px;
-  margin-top: 8px;
+  gap: var(--ank-space-3);
+  margin-top: var(--ank-space-2);
   flex-wrap: wrap;
 }
 

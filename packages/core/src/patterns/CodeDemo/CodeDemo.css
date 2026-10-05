@@ -37,7 +37,7 @@
 
 .ank-code-demo__dots {
   display: inline-flex;
-  gap: 4px;
+  gap: var(--ank-space-1);
 }
 
 .ank-code-demo__dots > span {

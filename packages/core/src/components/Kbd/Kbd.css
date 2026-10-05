@@ -18,5 +18,5 @@
 }
 
 .ank-kbd + .ank-kbd {
-  margin-inline-start: 4px;
+  margin-inline-start: var(--ank-space-1);
 }

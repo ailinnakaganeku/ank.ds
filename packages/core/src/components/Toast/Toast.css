@@ -3,8 +3,8 @@
   z-index: var(--ank-z-toast);
   display: flex;
   flex-direction: column;
-  gap: 12px;
-  padding: 24px;
+  gap: var(--ank-space-3);
+  padding: var(--ank-space-5);
   max-width: calc(100vw - 16px);
   pointer-events: none;
 }
@@ -55,7 +55,7 @@
 .ank-toast {
   display: flex;
   align-items: flex-start;
-  gap: 12px;
+  gap: var(--ank-space-3);
   width: 360px;
   max-width: calc(100vw - 48px);
   padding: 14px 16px;
@@ -107,7 +107,7 @@
 .ank-toast__action {
   display: inline-flex;
   align-items: center;
-  margin-top: 8px;
+  margin-top: var(--ank-space-2);
   padding: 4px 10px;
   font-family: var(--ank-body);
   font-size: 0.75rem;

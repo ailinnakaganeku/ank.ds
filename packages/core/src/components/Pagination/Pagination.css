@@ -1,14 +1,14 @@
 .ank-pagination {
   display: inline-flex;
   align-items: center;
-  gap: 4px;
+  gap: var(--ank-space-1);
   font-family: var(--ank-body);
 }
 
 .ank-pagination__list {
   display: inline-flex;
   align-items: center;
-  gap: 4px;
+  gap: var(--ank-space-1);
   margin: 0;
   padding: 0;
   list-style: none;

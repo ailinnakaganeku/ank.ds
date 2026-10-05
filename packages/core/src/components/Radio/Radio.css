@@ -81,7 +81,7 @@
 
 .ank-radio--sm {
   font-size: var(--ank-text-sm);
-  gap: 8px;
+  gap: var(--ank-space-2);
 }
 
 .ank-radio--lg .ank-radio__box {
@@ -96,7 +96,7 @@
 
 .ank-radio--lg {
   font-size: 1.0625rem;
-  gap: 12px;
+  gap: var(--ank-space-3);
 }
 
 @media (prefers-reduced-motion: reduce) {

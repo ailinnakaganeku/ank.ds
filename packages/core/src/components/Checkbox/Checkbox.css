@@ -86,7 +86,7 @@
 
 .ank-checkbox--sm {
   font-size: var(--ank-text-sm);
-  gap: 8px;
+  gap: var(--ank-space-2);
 }
 
 .ank-checkbox--lg .ank-checkbox__box {
@@ -101,7 +101,7 @@
 
 .ank-checkbox--lg {
   font-size: 1.0625rem;
-  gap: 12px;
+  gap: var(--ank-space-3);
 }
 
 @media (prefers-reduced-motion: reduce) {

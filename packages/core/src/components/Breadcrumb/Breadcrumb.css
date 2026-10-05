@@ -16,14 +16,14 @@
 .ank-breadcrumb__item {
   display: inline-flex;
   align-items: center;
-  gap: 8px;
+  gap: var(--ank-space-2);
 }
 
 .ank-breadcrumb__item:not(:last-child)::after {
   content: '/';
   content: '/' / '';
   display: inline-block;
-  margin: 0 8px 0 0;
+  margin: 0 var(--ank-space-2) 0 0;
   color: var(--ank-gray-300);
   font-weight: 400;
 }

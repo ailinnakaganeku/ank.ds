@@ -1,7 +1,7 @@
 .ank-badge {
   display: inline-flex;
   align-items: center;
-  gap: 4px;
+  gap: var(--ank-space-1);
   font-family: var(--ank-body);
   font-weight: 700;
   letter-spacing: 0.06em;
@@ -19,7 +19,7 @@
 
 .ank-badge--md {
   font-size: var(--ank-text-xs);
-  padding: 4px 8px;
+  padding: var(--ank-space-1) var(--ank-space-2);
 }
 
 .ank-badge--primary {

@@ -1,7 +1,7 @@
 .ank-toggle {
   display: inline-flex;
   align-items: center;
-  gap: 12px;
+  gap: var(--ank-space-3);
   font-family: var(--ank-body);
   font-size: var(--ank-text-base);
   color: var(--ank-ink);
