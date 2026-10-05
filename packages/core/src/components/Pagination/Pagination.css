@@ -72,3 +72,9 @@
 .ank-pagination__icon {
   display: inline-flex;
 }
+
+@media (prefers-reduced-motion: reduce) {
+  .ank-pagination__button {
+    transition: none;
+  }
+}

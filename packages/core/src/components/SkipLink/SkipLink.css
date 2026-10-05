@@ -1,6 +1,6 @@
 .ank-skip-link {
   position: absolute;
-  top: -200px;
+  top: 16px;
   inset-inline-start: 16px;
   z-index: var(--ank-z-toast);
   padding: 12px 16px;
@@ -13,12 +13,13 @@
   text-decoration: none;
   border: 2.5px solid var(--ank-ink);
   box-shadow: 4px 4px 0 var(--ank-shadow-color);
-  transition: top var(--ank-transition-base);
+  transform: translateY(-200px);
+  transition: transform var(--ank-transition-base);
 }
 
 .ank-skip-link:focus,
 .ank-skip-link:focus-visible {
-  top: 16px;
+  transform: none;
   outline: 2px solid var(--ank-primary);
   outline-offset: 2px;
 }

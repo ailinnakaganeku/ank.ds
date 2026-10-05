@@ -9,7 +9,6 @@
   margin: auto;
   padding: 0;
   flex-direction: column;
-  outline: none;
 }
 
 .ank-modal[open] {

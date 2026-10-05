@@ -115,3 +115,9 @@
 .ank-alert--info .ank-alert__icon {
   color: var(--ank-info);
 }
+
+@media (prefers-reduced-motion: reduce) {
+  .ank-alert__close {
+    transition: none;
+  }
+}

@@ -54,3 +54,9 @@
   color: var(--ank-ink);
   font-weight: 700;
 }
+
+@media (prefers-reduced-motion: reduce) {
+  .ank-breadcrumb__link {
+    transition: none;
+  }
+}

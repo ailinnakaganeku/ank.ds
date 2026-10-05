@@ -151,7 +151,6 @@
   z-index: var(--ank-z-modal);
   display: flex;
   flex-direction: column;
-  outline: none;
   animation: ank-navbar-drawer-in 220ms ease-out;
 }
 
