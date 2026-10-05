@@ -63,6 +63,7 @@ npx playwright install --no-shell chromium
 npm run storybook
 npm run build -w @ankds/core
 npm run lint
+npm run lint:css
 npm run typecheck
 npm test
 ```
