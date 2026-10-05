@@ -1,38 +1,19 @@
 import {
   createContext,
   forwardRef,
-  useCallback,
   useContext,
   useId,
   useMemo,
+  useState,
   type HTMLAttributes,
   type ReactNode,
 } from 'react';
 import clsx from 'clsx';
-import { useControllableState } from '../../hooks/useControllableState';
 import './Accordion.css';
 
-type AccordionType = 'single' | 'multiple';
-
-interface AccordionContextValue {
-  type: AccordionType;
-  isOpen: (value: string) => boolean;
-  toggle: (value: string) => void;
-  baseId: string;
-}
-
-const AccordionContext = createContext<AccordionContextValue | null>(null);
-
-const useAccordionContext = (component: string) => {
-  const ctx = useContext(AccordionContext);
-  if (!ctx) {
-    throw new Error(`${component} must be rendered inside <Accordion>`);
-  }
-  return ctx;
-};
-
 interface ItemContextValue {
-  value: string;
+  open: boolean;
+  toggle: () => void;
   triggerId: string;
   panelId: string;
 }
@@ -47,99 +28,45 @@ const useItemContext = (component: string) => {
   return ctx;
 };
 
-export interface AccordionProps extends Omit<
-  HTMLAttributes<HTMLDivElement>,
-  'onChange' | 'defaultValue'
-> {
-  type?: AccordionType;
-  value?: string | string[];
-  defaultValue?: string | string[];
-  onChange?: (value: string | string[]) => void;
-  collapsible?: boolean;
+export interface AccordionProps extends HTMLAttributes<HTMLDivElement> {
   children: ReactNode;
 }
 
 const AccordionRoot = forwardRef<HTMLDivElement, AccordionProps>(function Accordion(
-  {
-    type = 'single',
-    value,
-    defaultValue,
-    onChange,
-    collapsible = true,
-    className,
-    children,
-    ...rest
-  },
+  { className, children, ...rest },
   ref,
 ) {
-  const [current, update] = useControllableState<string | string[]>({
-    value,
-    defaultValue: () => defaultValue ?? (type === 'multiple' ? [] : ''),
-    onChange,
-  });
-  const baseId = useId();
-
-  const isOpen = useCallback(
-    (itemValue: string) => {
-      if (type === 'multiple') return Array.isArray(current) && current.includes(itemValue);
-      return current === itemValue;
-    },
-    [current, type],
-  );
-
-  const toggle = useCallback(
-    (itemValue: string) => {
-      if (type === 'multiple') {
-        const list = Array.isArray(current) ? current : [];
-        const next = list.includes(itemValue)
-          ? list.filter((v) => v !== itemValue)
-          : [...list, itemValue];
-        update(next);
-        return;
-      }
-      if (current === itemValue) {
-        if (collapsible) update('');
-      } else {
-        update(itemValue);
-      }
-    },
-    [current, type, collapsible, update],
-  );
-
-  const ctxValue = useMemo<AccordionContextValue>(
-    () => ({ type, isOpen, toggle, baseId }),
-    [type, isOpen, toggle, baseId],
-  );
-
   return (
-    <AccordionContext.Provider value={ctxValue}>
-      <div ref={ref} className={clsx('ank-accordion', className)} {...rest}>
-        {children}
-      </div>
-    </AccordionContext.Provider>
+    <div ref={ref} className={clsx('ank-accordion', className)} {...rest}>
+      {children}
+    </div>
   );
 });
 
 export interface AccordionItemProps extends HTMLAttributes<HTMLDivElement> {
-  value: string;
+  defaultOpen?: boolean;
   children: ReactNode;
 }
 
 const Item = forwardRef<HTMLDivElement, AccordionItemProps>(function AccordionItem(
-  { value, children, className, ...rest },
+  { defaultOpen = false, children, className, ...rest },
   ref,
 ) {
-  const ctx = useAccordionContext('<Accordion.Item>');
-  const triggerId = `${ctx.baseId}-trigger-${value}`;
-  const panelId = `${ctx.baseId}-panel-${value}`;
+  const [open, setOpen] = useState(defaultOpen);
+  const id = useId();
 
-  const itemValue = useMemo<ItemContextValue>(
-    () => ({ value, triggerId, panelId }),
-    [value, triggerId, panelId],
+  const item = useMemo<ItemContextValue>(
+    () => ({
+      open,
+      toggle: () => setOpen((current) => !current),
+      triggerId: `${id}-trigger`,
+      panelId: `${id}-panel`,
+    }),
+    [open, id],
   );
 
   return (
-    <ItemContext.Provider value={itemValue}>
+    <ItemContext.Provider value={item}>
       <div ref={ref} className={clsx('ank-accordion__item', className)} {...rest}>
         {children}
       </div>
@@ -156,10 +83,8 @@ const Trigger = forwardRef<HTMLButtonElement, AccordionTriggerProps>(function Ac
   { level = 3, className, children, onClick, ...rest },
   ref,
 ) {
-  const ctx = useAccordionContext('<Accordion.Trigger>');
   const item = useItemContext('<Accordion.Trigger>');
-  const Heading = `h${level}` as 'h3';
-  const expanded = ctx.isOpen(item.value);
+  const Heading = `h${level}` as const;
 
   return (
     <Heading className="ank-accordion__heading">
@@ -167,11 +92,11 @@ const Trigger = forwardRef<HTMLButtonElement, AccordionTriggerProps>(function Ac
         ref={ref}
         type="button"
         id={item.triggerId}
-        aria-expanded={expanded}
+        aria-expanded={item.open}
         aria-controls={item.panelId}
         onClick={(event) => {
           onClick?.(event);
-          if (!event.defaultPrevented) ctx.toggle(item.value);
+          if (!event.defaultPrevented) item.toggle();
         }}
         className={clsx('ank-accordion__trigger', className)}
         {...rest}
@@ -196,9 +121,7 @@ const Panel = forwardRef<HTMLDivElement, AccordionPanelProps>(function Accordion
   { className, children, ...rest },
   ref,
 ) {
-  const ctx = useAccordionContext('<Accordion.Panel>');
   const item = useItemContext('<Accordion.Panel>');
-  const expanded = ctx.isOpen(item.value);
 
   return (
     <div
@@ -206,7 +129,7 @@ const Panel = forwardRef<HTMLDivElement, AccordionPanelProps>(function Accordion
       role="region"
       id={item.panelId}
       aria-labelledby={item.triggerId}
-      hidden={!expanded}
+      hidden={!item.open}
       className={clsx('ank-accordion__panel', className)}
       {...rest}
     >
