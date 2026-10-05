@@ -1,5 +1,5 @@
-import { describe, expect, it } from 'vitest';
-import { useRef, useState } from 'react';
+import { describe, expect, it, vi } from 'vitest';
+import { StrictMode, useRef, useState } from 'react';
 import { userEvent } from '@vitest/browser/context';
 import { act, fireEvent, render, screen, waitFor } from '@testing-library/react';
 import { axe } from 'jest-axe';
@@ -212,6 +212,32 @@ describe('Modal', () => {
 
     expect(email).toHaveValue('ada');
     expect(email).toHaveFocus();
+  });
+
+  it('stays open when mounted open in strict mode', async () => {
+    const onClose = vi.fn();
+    render(
+      <StrictMode>
+        <Modal open onClose={onClose} title="Confirm action" />
+      </StrictMode>,
+    );
+    const dialog = await screen.findByRole('dialog', { name: 'Confirm action' });
+
+    await act(() => new Promise((resolve) => dialog.addEventListener('close', resolve)));
+
+    expect(onClose).not.toHaveBeenCalled();
+  });
+
+  it('tells its owner when something else closes the dialog', async () => {
+    const onClose = vi.fn();
+    render(<Modal open onClose={onClose} title="Confirm action" />);
+    const dialog = await screen.findByRole<HTMLDialogElement>('dialog', {
+      name: 'Confirm action',
+    });
+
+    act(() => dialog.close());
+
+    await waitFor(() => expect(onClose).toHaveBeenCalledTimes(1));
   });
 
   it('has no axe violations when open', async () => {

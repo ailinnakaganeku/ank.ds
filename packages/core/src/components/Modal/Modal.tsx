@@ -36,8 +36,9 @@ const ModalRoot = ({
   'aria-describedby': ariaDescribedBy,
 }: ModalProps) => {
   const titleId = useId();
-  const { dialogRef, backdropHandlers } = useModalDialog({
+  const { dialogRef, dialogHandlers } = useModalDialog({
     open,
+    onClose,
     initialFocus,
     onBackdropPress: () => {
       if (closeOnOverlay) onClose();
@@ -56,10 +57,7 @@ const ModalRoot = ({
         event.preventDefault();
         if (closeOnEscape) onClose();
       }}
-      onClose={(event) => {
-        if (event.target === event.currentTarget && open) onClose();
-      }}
-      {...backdropHandlers}
+      {...dialogHandlers}
     >
       {open && (
         <>

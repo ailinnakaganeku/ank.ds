@@ -1,4 +1,4 @@
-import { useEffect, useRef, type MouseEvent, type RefObject } from 'react';
+import { useEffect, useRef, type MouseEvent, type RefObject, type SyntheticEvent } from 'react';
 import { lockBodyScroll, unlockBodyScroll } from '../utils/bodyScrollLock';
 
 const isOnBackdrop = (event: MouseEvent<HTMLDialogElement>) => {
@@ -14,13 +14,20 @@ const isOnBackdrop = (event: MouseEvent<HTMLDialogElement>) => {
 
 export interface UseModalDialogOptions {
   open: boolean;
+  onClose: () => void;
   onBackdropPress: () => void;
   initialFocus?: RefObject<HTMLElement>;
 }
 
-export const useModalDialog = ({ open, onBackdropPress, initialFocus }: UseModalDialogOptions) => {
+export const useModalDialog = ({
+  open,
+  onClose,
+  onBackdropPress,
+  initialFocus,
+}: UseModalDialogOptions) => {
   const dialogRef = useRef<HTMLDialogElement>(null);
   const pressStartedOnBackdrop = useRef(false);
+  const closesOfOurOwn = useRef(0);
 
   useEffect(() => {
     const dialog = dialogRef.current;
@@ -31,6 +38,7 @@ export const useModalDialog = ({ open, onBackdropPress, initialFocus }: UseModal
     lockBodyScroll();
 
     return () => {
+      closesOfOurOwn.current += 1;
       dialog.close();
       unlockBodyScroll();
     };
@@ -38,7 +46,15 @@ export const useModalDialog = ({ open, onBackdropPress, initialFocus }: UseModal
 
   return {
     dialogRef,
-    backdropHandlers: {
+    dialogHandlers: {
+      onClose: (event: SyntheticEvent<HTMLDialogElement>) => {
+        if (event.target !== event.currentTarget) return;
+        if (closesOfOurOwn.current > 0) {
+          closesOfOurOwn.current -= 1;
+          return;
+        }
+        onClose();
+      },
       onMouseDown: (event: MouseEvent<HTMLDialogElement>) => {
         pressStartedOnBackdrop.current = isOnBackdrop(event);
       },

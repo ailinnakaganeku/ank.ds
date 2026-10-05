@@ -108,8 +108,9 @@ export const Navbar = forwardRef<HTMLElement, NavbarProps>(function Navbar(
   const [drawerOpen, setDrawerOpen] = useState(false);
   const drawerId = useId();
   const closeDrawer = () => setDrawerOpen(false);
-  const { dialogRef, backdropHandlers } = useModalDialog({
+  const { dialogRef, dialogHandlers } = useModalDialog({
     open: drawerOpen,
+    onClose: closeDrawer,
     onBackdropPress: closeDrawer,
   });
 
@@ -160,10 +161,7 @@ export const Navbar = forwardRef<HTMLElement, NavbarProps>(function Navbar(
           event.preventDefault();
           closeDrawer();
         }}
-        onClose={(event) => {
-          if (event.target === event.currentTarget) closeDrawer();
-        }}
-        {...backdropHandlers}
+        {...dialogHandlers}
       >
         {drawerOpen && (
           <>
