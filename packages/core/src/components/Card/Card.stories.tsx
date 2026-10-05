@@ -25,7 +25,6 @@ const meta = {
   parameters: { layout: 'centered' },
   args: {
     variant: 'default',
-    interactive: false,
   },
   argTypes: {
     variant: {
@@ -57,7 +56,25 @@ export const Primary: Story = { args: { variant: 'primary' } };
 export const Secondary: Story = { args: { variant: 'secondary' } };
 export const Dark: Story = { args: { variant: 'dark' } };
 export const Outlined: Story = { args: { variant: 'outlined' } };
-export const Interactive: Story = { args: { interactive: true } };
+export const Interactive: Story = {
+  render: () => (
+    <div style={{ width: SINGLE_WIDTH }}>
+      <Card interactive>
+        <Card.Eyebrow>New</Card.Eyebrow>
+        <Card.Title>
+          <a href="#card">Card title</a>
+        </Card.Title>
+        <Card.Description>
+          The whole card activates the link in its title. Actions in the footer keep working on
+          their own.
+        </Card.Description>
+        <Card.Footer>
+          <Button size="sm">Read more</Button>
+        </Card.Footer>
+      </Card>
+    </div>
+  ),
+};
 
 export const WithMedia: Story = {
   render: () => (
@@ -120,11 +137,13 @@ export const InteractiveGrid: Story = {
         { eyebrow: 'Reference', title: 'Design tokens overview' },
         { eyebrow: 'Tutorial', title: 'Building your first component' },
       ].map(({ eyebrow, title }) => (
-        <Card key={title} interactive onClick={() => alert(title)}>
+        <Card key={title} interactive>
           <Card.Eyebrow>{eyebrow}</Card.Eyebrow>
-          <Card.Title>{title}</Card.Title>
+          <Card.Title>
+            <a href="#guide">{title}</a>
+          </Card.Title>
           <Card.Description>
-            Hover the card to see it lift. Click it to confirm the action.
+            Hover the card to see it lift. Click anywhere on it to follow the link.
           </Card.Description>
         </Card>
       ))}
@@ -159,7 +178,9 @@ export const ProductCard: Story = {
             In stock
           </Badge>
         </div>
-        <Card.Title>Cormorant Garamond</Card.Title>
+        <Card.Title>
+          <a href="#font">Cormorant Garamond</a>
+        </Card.Title>
         <Card.Description>
           A display typeface with a calligraphic edge. Free under the SIL Open Font License.
         </Card.Description>

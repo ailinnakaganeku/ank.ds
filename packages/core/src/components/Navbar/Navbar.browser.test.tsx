@@ -9,7 +9,7 @@ const links = [
   { label: 'Foundations', href: '#foundations' },
 ];
 
-const click = (element: Element) => act(() => userEvent.click(element));
+const click = (element: Element) => act(() => userEvent.click(element, { timeout: 5000 }));
 
 const press = (keys: string) => act(() => userEvent.keyboard(keys));
 

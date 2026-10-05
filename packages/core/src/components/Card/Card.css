@@ -34,7 +34,7 @@
 }
 
 .ank-card--interactive {
-  cursor: pointer;
+  position: relative;
   transition:
     transform var(--ank-transition-fast),
     box-shadow var(--ank-transition-fast);
@@ -45,9 +45,36 @@
   box-shadow: 8px 8px 0 var(--ank-shadow-color);
 }
 
-.ank-card--interactive:focus-visible {
+.ank-card--interactive .ank-card__title :is(a, button) {
+  padding: 0;
+  font: inherit;
+  color: inherit;
+  text-align: inherit;
+  text-decoration: none;
+  background: none;
+  border: 0;
+  cursor: pointer;
+}
+
+.ank-card--interactive .ank-card__title :is(a, button)::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  z-index: var(--ank-z-base);
+}
+
+.ank-card--interactive .ank-card__title :is(a, button):focus-visible {
+  outline: none;
+}
+
+.ank-card--interactive .ank-card__title :is(a, button):focus-visible::after {
   outline: 2px solid var(--ank-focus-ring);
   outline-offset: 3px;
+}
+
+.ank-card--interactive .ank-card__footer {
+  position: relative;
+  z-index: var(--ank-z-base);
 }
 
 .ank-card__media {

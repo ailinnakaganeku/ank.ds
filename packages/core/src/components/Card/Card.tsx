@@ -1,4 +1,4 @@
-import { forwardRef, type HTMLAttributes, type KeyboardEvent, type ReactNode } from 'react';
+import { forwardRef, type HTMLAttributes, type ReactNode } from 'react';
 import { cva, type VariantProps } from 'class-variance-authority';
 import clsx from 'clsx';
 import './Card.css';
@@ -26,27 +26,11 @@ export interface CardProps extends HTMLAttributes<HTMLDivElement>, CardVariants 
 }
 
 const CardRoot = forwardRef<HTMLDivElement, CardProps>(function Card(
-  { variant, interactive, className, children, onKeyDown, ...rest },
+  { variant, interactive, className, children, ...rest },
   ref,
 ) {
-  const handleKeyDown = (event: KeyboardEvent<HTMLDivElement>) => {
-    onKeyDown?.(event);
-    if (!interactive || event.defaultPrevented) return;
-    if (event.key === 'Enter' || event.key === ' ') {
-      event.preventDefault();
-      event.currentTarget.click();
-    }
-  };
-
   return (
-    <div
-      ref={ref}
-      tabIndex={interactive ? 0 : undefined}
-      role={interactive ? 'button' : undefined}
-      onKeyDown={handleKeyDown}
-      className={clsx(cardVariants({ variant, interactive }), className)}
-      {...rest}
-    >
+    <div ref={ref} className={clsx(cardVariants({ variant, interactive }), className)} {...rest}>
       {children}
     </div>
   );
