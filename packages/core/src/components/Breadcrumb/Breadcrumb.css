@@ -40,12 +40,12 @@
     background-color var(--ank-transition-fast);
 }
 
-a.ank-breadcrumb__link:hover {
+.ank-breadcrumb__link:any-link:hover {
   color: var(--ank-ink);
   background: var(--ank-surface);
 }
 
-a.ank-breadcrumb__link:focus-visible {
+.ank-breadcrumb__link:focus-visible {
   outline: 2px solid var(--ank-primary);
   outline-offset: 2px;
 }

@@ -12,7 +12,7 @@ const sheets = readdirSync(SRC_DIR, { recursive: true, encoding: 'utf8' })
 
 const KEYFRAMES = /@keyframes[^{]*\{(?:[^{}]*\{[^{}]*\})*[^{}]*\}/g;
 const COMMENTS = /\/\*[\s\S]*?\*\//g;
-const SCOPED_ROOT = /\.ank-|^:where\(\[class/;
+const SCOPED_ROOT = /^\.ank-|^:where\(\[class/;
 
 const splitSelectorList = (list: string) => {
   const parts: string[] = [];
