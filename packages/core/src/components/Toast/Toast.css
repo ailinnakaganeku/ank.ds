@@ -14,23 +14,27 @@
   left: 0;
   align-items: flex-start;
 }
+
 .ank-toast-viewport[data-placement='top-center'] {
   top: 0;
   left: 50%;
   transform: translateX(-50%);
   align-items: center;
 }
+
 .ank-toast-viewport[data-placement='top-right'] {
   top: 0;
   right: 0;
   align-items: flex-end;
 }
+
 .ank-toast-viewport[data-placement='bottom-left'] {
   bottom: 0;
   left: 0;
   align-items: flex-start;
   flex-direction: column-reverse;
 }
+
 .ank-toast-viewport[data-placement='bottom-center'] {
   bottom: 0;
   left: 50%;
@@ -38,6 +42,7 @@
   align-items: center;
   flex-direction: column-reverse;
 }
+
 .ank-toast-viewport[data-placement='bottom-right'] {
   bottom: 0;
   right: 0;
@@ -94,7 +99,7 @@
 .ank-toast__description {
   font-size: 13px;
   color: var(--ank-gray-700);
-  margin: 2px 0 0 0;
+  margin: 2px 0 0;
 }
 
 .ank-toast__action {
@@ -116,6 +121,7 @@
 .ank-toast__action:hover {
   background: var(--ank-surface);
 }
+
 .ank-toast__action:focus-visible {
   outline: 2px solid var(--ank-primary);
   outline-offset: 2px;
@@ -139,10 +145,12 @@
 .ank-toast__close:hover {
   background: var(--ank-gray-100);
 }
+
 .ank-toast__close:focus-visible {
   outline: 2px solid var(--ank-primary);
   outline-offset: 1px;
 }
+
 .ank-toast__close svg {
   width: 12px;
   height: 12px;
@@ -152,6 +160,7 @@
 .ank-toast--default {
   border-left-color: var(--ank-ink);
 }
+
 .ank-toast--default .ank-toast__icon {
   color: var(--ank-ink);
 }
@@ -159,6 +168,7 @@
 .ank-toast--success {
   border-left-color: var(--ank-success);
 }
+
 .ank-toast--success .ank-toast__icon {
   color: var(--ank-success);
 }
@@ -166,6 +176,7 @@
 .ank-toast--warning {
   border-left-color: var(--ank-warning);
 }
+
 .ank-toast--warning .ank-toast__icon {
   color: var(--ank-warning-dark);
 }
@@ -173,6 +184,7 @@
 .ank-toast--error {
   border-left-color: var(--ank-error-dark);
 }
+
 .ank-toast--error .ank-toast__icon {
   color: var(--ank-error-dark);
 }
@@ -180,6 +192,7 @@
 .ank-toast--info {
   border-left-color: var(--ank-info);
 }
+
 .ank-toast--info .ank-toast__icon {
   color: var(--ank-info);
 }
@@ -189,6 +202,7 @@
     opacity: 0;
     transform: translateY(8px);
   }
+
   to {
     opacity: 1;
     transform: translateY(0);

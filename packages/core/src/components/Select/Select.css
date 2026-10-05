@@ -10,8 +10,6 @@
 
 .ank-select {
   appearance: none;
-  -webkit-appearance: none;
-  -moz-appearance: none;
   padding-right: 36px;
   cursor: pointer;
   background-color: var(--ank-white);
@@ -48,6 +46,7 @@
 .ank-select-wrapper--sm .ank-select-wrapper__arrow {
   right: 10px;
 }
+
 .ank-select-wrapper--lg .ank-select-wrapper__arrow {
   right: 18px;
 }

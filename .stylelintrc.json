@@ -1,0 +1,41 @@
+{
+  "extends": ["stylelint-config-standard"],
+  "rules": {
+    "selector-class-pattern": "^ank-[a-z0-9]+(-[a-z0-9]+)*(__[a-z0-9]+(-[a-z0-9]+)*)?(--[a-z0-9]+(-[a-z0-9]+)*)?$",
+    "keyframes-name-pattern": "^ank-[a-z0-9]+(-[a-z0-9]+)*$",
+    "custom-property-pattern": "^ank-[a-z0-9]+(-[a-z0-9]+)*$",
+    "declaration-no-important": true,
+    "selector-max-id": 0,
+    "declaration-property-unit-disallowed-list": {
+      "font-size": ["px"]
+    },
+    "property-disallowed-list": [
+      "margin-left",
+      "margin-right",
+      "padding-left",
+      "padding-right",
+      "border-left",
+      "border-right",
+      "border-left-color",
+      "border-right-color",
+      "border-left-width",
+      "border-right-width",
+      "left",
+      "right"
+    ],
+    "declaration-property-value-disallowed-list": {
+      "text-align": ["left", "right"],
+      "/^transition/": ["/\\ball\\b/"]
+    },
+    "import-notation": "string"
+  },
+  "overrides": [
+    {
+      "files": ["packages/core/src/components/**/*.css", "packages/core/src/layout/**/*.css"],
+      "rules": {
+        "color-no-hex": true,
+        "function-disallowed-list": ["rgb", "rgba", "hsl", "hsla"]
+      }
+    }
+  ]
+}

@@ -8,9 +8,11 @@
 .ank-stack[data-align='center'] {
   align-items: center;
 }
+
 .ank-stack[data-align='end'] {
   align-items: flex-end;
 }
+
 .ank-stack[data-align='stretch'] {
   align-items: stretch;
 }

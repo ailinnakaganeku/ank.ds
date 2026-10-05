@@ -50,6 +50,7 @@
 .ank-code-demo__dots > span:nth-child(2) {
   background: var(--ank-warning);
 }
+
 .ank-code-demo__dots > span:nth-child(3) {
   background: var(--ank-accent);
 }
@@ -119,6 +120,7 @@
   49% {
     opacity: 1;
   }
+
   50%,
   100% {
     opacity: 0;

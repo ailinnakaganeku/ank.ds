@@ -42,11 +42,13 @@
   padding: 0 10px;
   font-size: 13px;
 }
+
 .ank-input--md {
   height: 42px;
   padding: 0 14px;
   font-size: 15px;
 }
+
 .ank-input--lg {
   height: 52px;
   padding: 0 18px;
@@ -56,6 +58,7 @@
 .ank-input--error {
   border-color: var(--ank-error);
 }
+
 .ank-input--error:focus,
 .ank-input--error:focus-visible {
   border-color: var(--ank-error);
@@ -65,6 +68,7 @@
 .ank-input--success {
   border-color: var(--ank-success);
 }
+
 .ank-input--success:focus,
 .ank-input--success:focus-visible {
   border-color: var(--ank-success);

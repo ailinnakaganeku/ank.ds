@@ -62,36 +62,43 @@
     opacity: 0;
     transform: translateY(-4px);
   }
+
   to {
     opacity: 1;
     transform: translateY(0);
   }
 }
+
 @keyframes ank-popover-in-top {
   from {
     opacity: 0;
     transform: translateY(4px);
   }
+
   to {
     opacity: 1;
     transform: translateY(0);
   }
 }
+
 @keyframes ank-popover-in-right {
   from {
     opacity: 0;
     transform: translateX(-4px);
   }
+
   to {
     opacity: 1;
     transform: translateX(0);
   }
 }
+
 @keyframes ank-popover-in-left {
   from {
     opacity: 0;
     transform: translateX(4px);
   }
+
   to {
     opacity: 1;
     transform: translateX(0);

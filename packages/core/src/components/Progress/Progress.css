@@ -43,9 +43,11 @@
 .ank-progress--sm .ank-progress__track {
   height: 10px;
 }
+
 .ank-progress--md .ank-progress__track {
   height: 14px;
 }
+
 .ank-progress--lg .ank-progress__track {
   height: 20px;
 }
@@ -53,18 +55,23 @@
 .ank-progress--primary .ank-progress__fill {
   background: var(--ank-primary);
 }
+
 .ank-progress--secondary .ank-progress__fill {
   background: var(--ank-secondary);
 }
+
 .ank-progress--accent .ank-progress__fill {
   background: var(--ank-accent);
 }
+
 .ank-progress--success .ank-progress__fill {
   background: var(--ank-success);
 }
+
 .ank-progress--warning .ank-progress__fill {
   background: var(--ank-warning-dark);
 }
+
 .ank-progress--error .ank-progress__fill {
   background: var(--ank-error-dark);
 }
@@ -78,6 +85,7 @@
   0% {
     transform: translateX(-100%);
   }
+
   100% {
     transform: translateX(400%);
   }
@@ -87,6 +95,7 @@
   .ank-progress__fill {
     transition: none;
   }
+
   .ank-progress--indeterminate .ank-progress__fill {
     animation: none;
     width: 100%;

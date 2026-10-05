@@ -10,7 +10,7 @@ html {
   color: var(--ank-ink-soft);
   background-color: var(--ank-bg);
   -webkit-font-smoothing: antialiased;
-  text-rendering: optimizeLegibility;
+  text-rendering: optimizelegibility;
 }
 
 body {

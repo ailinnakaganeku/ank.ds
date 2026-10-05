@@ -21,17 +21,20 @@
   box-shadow: 2px 2px 0 var(--ank-shadow-color);
   border-width: 2px;
 }
+
 .ank-avatar--md {
   width: 40px;
   height: 40px;
   font-size: 15px;
 }
+
 .ank-avatar--lg {
   width: 56px;
   height: 56px;
   font-size: 20px;
   box-shadow: 4px 4px 0 var(--ank-shadow-color);
 }
+
 .ank-avatar--xl {
   width: 80px;
   height: 80px;
@@ -60,14 +63,17 @@
   background: var(--ank-primary);
   color: var(--ank-on-brand);
 }
+
 .ank-avatar--secondary .ank-avatar__fallback {
   background: var(--ank-secondary);
   color: var(--ank-on-brand-inverse);
 }
+
 .ank-avatar--accent .ank-avatar__fallback {
   background: var(--ank-accent);
   color: var(--ank-on-brand);
 }
+
 .ank-avatar--sand .ank-avatar__fallback {
   background: var(--ank-sand);
   color: var(--ank-on-brand-inverse);

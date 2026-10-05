@@ -37,7 +37,7 @@
     color var(--ank-transition-fast);
 }
 
-.ank-pagination__button:hover:not(:disabled):not([aria-current='page']) {
+.ank-pagination__button:hover:not(:disabled, [aria-current='page']) {
   background: var(--ank-surface);
 }
 

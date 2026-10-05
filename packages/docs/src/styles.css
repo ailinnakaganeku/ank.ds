@@ -16,7 +16,7 @@
     color: var(--ank-ink-soft);
     background-color: var(--ank-bg);
     -webkit-font-smoothing: antialiased;
-    text-rendering: optimizeLegibility;
+    text-rendering: optimizelegibility;
     margin: 0;
     line-height: 1.6;
   }

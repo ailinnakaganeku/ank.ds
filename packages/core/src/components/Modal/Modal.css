@@ -18,16 +18,18 @@
 }
 
 .ank-modal::backdrop {
-  background: rgba(13, 15, 14, 0.75);
+  background: rgb(13 15 14 / 75%);
   animation: ank-modal-overlay-in 200ms ease-out;
 }
 
 .ank-modal--sm {
   max-width: 380px;
 }
+
 .ank-modal--md {
   max-width: 500px;
 }
+
 .ank-modal--lg {
   max-width: 720px;
 }
@@ -93,7 +95,7 @@
   align-items: center;
   justify-content: flex-end;
   gap: 12px;
-  padding: 14px 24px 20px 24px;
+  padding: 14px 24px 20px;
   border-top: 2.5px solid var(--ank-ink);
   flex-wrap: wrap;
 }
@@ -102,6 +104,7 @@
   from {
     opacity: 0;
   }
+
   to {
     opacity: 1;
   }
@@ -112,6 +115,7 @@
     opacity: 0;
     transform: translateY(-16px);
   }
+
   to {
     opacity: 1;
     transform: translateY(0);
@@ -123,6 +127,7 @@
   .ank-modal::backdrop {
     animation: none;
   }
+
   .ank-modal__close {
     transition: none;
   }

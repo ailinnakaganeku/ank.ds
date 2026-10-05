@@ -32,7 +32,7 @@
     box-shadow var(--ank-transition-fast);
 }
 
-.ank-tab:hover:not([disabled]):not([aria-selected='true']) {
+.ank-tab:hover:not([disabled], [aria-selected='true']) {
   background: var(--ank-surface);
 }
 
