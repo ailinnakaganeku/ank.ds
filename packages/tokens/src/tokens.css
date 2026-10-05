@@ -38,6 +38,9 @@
   --ank-error-bg: #fdf0ec;
   --ank-info: #1c3d4f;
   --ank-info-bg: #e8eff3;
+  --ank-success-fg: var(--ank-success);
+  --ank-info-fg: var(--ank-info);
+  --ank-focus-ring: var(--ank-primary);
   --ank-border-color: #0d0f0e;
   --ank-border: 3px solid #0d0f0e;
   --ank-border-2: 2px solid #0d0f0e;
@@ -105,6 +108,9 @@
   --ank-warning-bg: #262015;
   --ank-error-bg: #261812;
   --ank-info-bg: #16212a;
+  --ank-success-fg: var(--ank-accent-light);
+  --ank-info-fg: #8e9ea7;
+  --ank-focus-ring: var(--ank-sand);
   --ank-border-color: #f7f3ed;
   --ank-border: 3px solid #f7f3ed;
   --ank-border-2: 2px solid #f7f3ed;

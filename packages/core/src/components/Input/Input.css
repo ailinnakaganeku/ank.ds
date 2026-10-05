@@ -23,8 +23,8 @@
 
 .ank-input:focus,
 .ank-input:focus-visible {
-  border-color: var(--ank-primary);
-  box-shadow: 3px 3px 0 var(--ank-primary);
+  border-color: var(--ank-focus-ring);
+  box-shadow: 3px 3px 0 var(--ank-focus-ring);
 }
 
 .ank-input:disabled {

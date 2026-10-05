@@ -71,7 +71,7 @@
 }
 
 .ank-modal__close:focus-visible {
-  outline: 2px solid var(--ank-primary);
+  outline: 2px solid var(--ank-focus-ring);
   outline-offset: 2px;
 }
 

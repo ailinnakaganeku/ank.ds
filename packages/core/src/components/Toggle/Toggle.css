@@ -60,7 +60,7 @@
 }
 
 .ank-toggle__input:focus-visible + .ank-toggle__track {
-  box-shadow: 3px 3px 0 var(--ank-primary);
+  box-shadow: 3px 3px 0 var(--ank-focus-ring);
 }
 
 .ank-toggle__input:disabled + .ank-toggle__track {

@@ -59,7 +59,7 @@
 }
 
 .ank-checkbox__input:focus-visible ~ .ank-checkbox__box {
-  box-shadow: 3px 3px 0 var(--ank-primary);
+  box-shadow: 3px 3px 0 var(--ank-focus-ring);
 }
 
 .ank-checkbox__input:disabled ~ .ank-checkbox__box {

@@ -20,7 +20,7 @@
 .ank-skip-link:focus,
 .ank-skip-link:focus-visible {
   transform: none;
-  outline: 2px solid var(--ank-primary);
+  outline: 2px solid var(--ank-focus-ring);
   outline-offset: 2px;
 }
 

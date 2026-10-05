@@ -33,7 +33,7 @@
 }
 
 .ank-navbar__brand:focus-visible {
-  outline: 2px solid var(--ank-primary);
+  outline: 2px solid var(--ank-focus-ring);
   outline-offset: 4px;
 }
 
@@ -75,7 +75,7 @@
 }
 
 .ank-navbar__link:focus-visible {
-  outline: 2px solid var(--ank-primary);
+  outline: 2px solid var(--ank-focus-ring);
   outline-offset: 2px;
 }
 
@@ -105,7 +105,7 @@
 }
 
 .ank-navbar__hamburger:focus-visible {
-  outline: 2px solid var(--ank-primary);
+  outline: 2px solid var(--ank-focus-ring);
   outline-offset: 2px;
 }
 
@@ -190,7 +190,7 @@
 }
 
 .ank-navbar-drawer__close:focus-visible {
-  outline: 2px solid var(--ank-primary);
+  outline: 2px solid var(--ank-focus-ring);
   outline-offset: 2px;
 }
 
@@ -233,7 +233,7 @@
 }
 
 .ank-navbar-drawer__link:focus-visible {
-  outline: 2px solid var(--ank-primary);
+  outline: 2px solid var(--ank-focus-ring);
   outline-offset: 2px;
 }
 

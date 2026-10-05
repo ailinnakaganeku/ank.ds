@@ -125,7 +125,7 @@
 }
 
 .ank-toast__action:focus-visible {
-  outline: 2px solid var(--ank-primary);
+  outline: 2px solid var(--ank-focus-ring);
   outline-offset: 2px;
 }
 
@@ -149,7 +149,7 @@
 }
 
 .ank-toast__close:focus-visible {
-  outline: 2px solid var(--ank-primary);
+  outline: 2px solid var(--ank-focus-ring);
   outline-offset: 1px;
 }
 
@@ -168,11 +168,11 @@
 }
 
 .ank-toast--success {
-  border-inline-start-color: var(--ank-success);
+  border-inline-start-color: var(--ank-success-fg);
 }
 
 .ank-toast--success .ank-toast__icon {
-  color: var(--ank-success);
+  color: var(--ank-success-fg);
 }
 
 .ank-toast--warning {
@@ -192,11 +192,11 @@
 }
 
 .ank-toast--info {
-  border-inline-start-color: var(--ank-info);
+  border-inline-start-color: var(--ank-info-fg);
 }
 
 .ank-toast--info .ank-toast__icon {
-  color: var(--ank-info);
+  color: var(--ank-info-fg);
 }
 
 @keyframes ank-toast-in {

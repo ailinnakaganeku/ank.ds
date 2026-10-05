@@ -70,7 +70,7 @@
 }
 
 .ank-alert__close:focus-visible {
-  outline: 2px solid var(--ank-primary);
+  outline: 2px solid var(--ank-focus-ring);
   outline-offset: 1px;
 }
 
@@ -81,12 +81,12 @@
 }
 
 .ank-alert--success {
-  border-inline-start-color: var(--ank-success);
+  border-inline-start-color: var(--ank-success-fg);
   background: var(--ank-success-bg);
 }
 
 .ank-alert--success .ank-alert__icon {
-  color: var(--ank-success);
+  color: var(--ank-success-fg);
 }
 
 .ank-alert--warning {
@@ -108,12 +108,12 @@
 }
 
 .ank-alert--info {
-  border-inline-start-color: var(--ank-info);
+  border-inline-start-color: var(--ank-info-fg);
   background: var(--ank-info-bg);
 }
 
 .ank-alert--info .ank-alert__icon {
-  color: var(--ank-info);
+  color: var(--ank-info-fg);
 }
 
 @media (prefers-reduced-motion: reduce) {

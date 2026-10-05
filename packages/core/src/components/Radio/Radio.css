@@ -57,7 +57,7 @@
 }
 
 .ank-radio__input:focus-visible ~ .ank-radio__box {
-  box-shadow: 3px 3px 0 var(--ank-primary);
+  box-shadow: 3px 3px 0 var(--ank-focus-ring);
 }
 
 .ank-radio__input:disabled ~ .ank-radio__box {
