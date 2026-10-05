@@ -4,25 +4,17 @@ import userEvent from '@testing-library/user-event';
 import { axe } from 'jest-axe';
 import { Accordion } from './Accordion';
 
-const Three = ({
-  type = 'single',
-  collapsible,
-  defaultValue,
-}: {
-  type?: 'single' | 'multiple';
-  collapsible?: boolean;
-  defaultValue?: string | string[];
-}) => (
-  <Accordion type={type} collapsible={collapsible} defaultValue={defaultValue}>
-    <Accordion.Item value="a">
+const Three = () => (
+  <Accordion>
+    <Accordion.Item>
       <Accordion.Trigger>Question A</Accordion.Trigger>
       <Accordion.Panel>Answer A</Accordion.Panel>
     </Accordion.Item>
-    <Accordion.Item value="b">
+    <Accordion.Item defaultOpen>
       <Accordion.Trigger>Question B</Accordion.Trigger>
       <Accordion.Panel>Answer B</Accordion.Panel>
     </Accordion.Item>
-    <Accordion.Item value="c">
+    <Accordion.Item>
       <Accordion.Trigger>Question C</Accordion.Trigger>
       <Accordion.Panel>Answer C</Accordion.Panel>
     </Accordion.Item>
@@ -32,58 +24,80 @@ const Three = ({
 describe('Accordion', () => {
   it('renders each trigger as a button inside a heading', () => {
     render(<Three />);
-    const trigger = screen.getByRole('button', { name: 'Question A' });
-    expect(trigger.parentElement?.tagName).toBe('H3');
+
+    expect(screen.getByRole('heading', { level: 3, name: 'Question A' })).toContainElement(
+      screen.getByRole('button', { name: 'Question A' }),
+    );
   });
 
-  it('wires aria-expanded and aria-controls on each trigger', () => {
-    render(<Three defaultValue="b" />);
-    const a = screen.getByRole('button', { name: 'Question A' });
-    const b = screen.getByRole('button', { name: 'Question B' });
-    expect(a).toHaveAttribute('aria-expanded', 'false');
-    expect(b).toHaveAttribute('aria-expanded', 'true');
-    expect(b.getAttribute('aria-controls')).toBe(
+  it('uses the heading level it is given', () => {
+    render(
+      <Accordion>
+        <Accordion.Item>
+          <Accordion.Trigger level={2}>Question A</Accordion.Trigger>
+          <Accordion.Panel>Answer A</Accordion.Panel>
+        </Accordion.Item>
+      </Accordion>,
+    );
+
+    expect(screen.getByRole('heading', { level: 2, name: 'Question A' })).toBeInTheDocument();
+  });
+
+  it('starts with only the items marked defaultOpen expanded', () => {
+    render(<Three />);
+
+    expect(screen.getByRole('button', { name: 'Question A' })).toHaveAttribute(
+      'aria-expanded',
+      'false',
+    );
+    expect(screen.getByRole('button', { name: 'Question B' })).toHaveAttribute(
+      'aria-expanded',
+      'true',
+    );
+    expect(screen.queryByRole('region', { name: 'Question A' })).not.toBeInTheDocument();
+  });
+
+  it('points each trigger at the panel it controls', () => {
+    render(<Three />);
+
+    expect(screen.getByRole('button', { name: 'Question B' })).toHaveAttribute(
+      'aria-controls',
       screen.getByRole('region', { name: 'Question B' }).id,
     );
   });
 
-  it('opens an item when its trigger is clicked', async () => {
+  it('opens an item without closing the ones already open', async () => {
     const user = userEvent.setup();
     render(<Three />);
+
     await user.click(screen.getByRole('button', { name: 'Question A' }));
-    expect(screen.getByRole('region', { name: 'Question A' })).toBeInTheDocument();
-  });
 
-  it('closes the previously open item when type is single', async () => {
-    const user = userEvent.setup();
-    render(<Three defaultValue="a" />);
     expect(screen.getByRole('region', { name: 'Question A' })).toBeInTheDocument();
-
-    await user.click(screen.getByRole('button', { name: 'Question B' }));
-    expect(screen.queryByRole('region', { name: 'Question A' })).not.toBeInTheDocument();
     expect(screen.getByRole('region', { name: 'Question B' })).toBeInTheDocument();
   });
 
-  it('keeps multiple items open when type is multiple', async () => {
+  it('closes an open item when its trigger is activated again', async () => {
     const user = userEvent.setup();
-    render(<Three type="multiple" />);
+    render(<Three />);
 
-    await user.click(screen.getByRole('button', { name: 'Question A' }));
-    await user.click(screen.getByRole('button', { name: 'Question C' }));
+    await user.click(screen.getByRole('button', { name: 'Question B' }));
 
-    expect(screen.getByRole('region', { name: 'Question A' })).toBeInTheDocument();
-    expect(screen.getByRole('region', { name: 'Question C' })).toBeInTheDocument();
+    expect(screen.queryByRole('region', { name: 'Question B' })).not.toBeInTheDocument();
   });
 
-  it('allows the current single item to collapse when collapsible is true', async () => {
+  it('toggles from the keyboard', async () => {
     const user = userEvent.setup();
-    render(<Three defaultValue="a" collapsible />);
-    await user.click(screen.getByRole('button', { name: 'Question A' }));
-    expect(screen.queryByRole('region', { name: 'Question A' })).not.toBeInTheDocument();
+    render(<Three />);
+
+    await user.tab();
+    await user.keyboard('{Enter}');
+
+    expect(screen.getByRole('region', { name: 'Question A' })).toBeInTheDocument();
   });
 
   it('has no axe violations', async () => {
-    const { container } = render(<Three defaultValue="a" />);
+    const { container } = render(<Three />);
+
     expect(await axe(container)).toHaveNoViolations();
   });
 });

@@ -6,7 +6,7 @@
   height: 22px;
   padding: 0 6px;
   font-family: var(--ank-mono);
-  font-size: 12px;
+  font-size: 0.75rem;
   font-weight: 500;
   line-height: 1;
   color: var(--ank-ink);
@@ -18,5 +18,5 @@
 }
 
 .ank-kbd + .ank-kbd {
-  margin-left: 4px;
+  margin-inline-start: var(--ank-space-1);
 }

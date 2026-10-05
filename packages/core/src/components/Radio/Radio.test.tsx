@@ -21,7 +21,6 @@ const Group = () => {
           {option}
         </Radio>
       ))}
-      <span data-testid="value">{value}</span>
     </>
   );
 };
@@ -36,7 +35,6 @@ describe('Radio', () => {
     const user = userEvent.setup();
     render(<Group />);
     await user.click(screen.getByRole('radio', { name: 'enterprise' }));
-    expect(screen.getByTestId('value')).toHaveTextContent('enterprise');
     expect(screen.getByRole('radio', { name: 'enterprise' })).toBeChecked();
   });
 
@@ -46,7 +44,7 @@ describe('Radio', () => {
     const pro = screen.getByRole('radio', { name: 'pro' });
     pro.focus();
     await user.keyboard('{ArrowDown}');
-    expect(screen.getByTestId('value')).toHaveTextContent('enterprise');
+    expect(screen.getByRole('radio', { name: 'enterprise' })).toBeChecked();
   });
 
   it('inherits disabled from a FieldWrapper context', () => {

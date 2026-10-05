@@ -1,76 +1,27 @@
-import { describe, expect, it, beforeEach, afterEach } from 'vitest';
+import { describe, expect, it } from 'vitest';
 import { useRef } from 'react';
 import { act, render, screen } from '@testing-library/react';
-import { useFocusTrap, getFocusableElements, __resetBodyLockForTests } from './useFocusTrap';
+import { useFocusTrap, getFocusableElements } from './useFocusTrap';
 
-const Trapped = ({
-  active,
-  onEscape,
-  lockScroll = true,
-}: {
-  active: boolean;
-  onEscape?: () => void;
-  lockScroll?: boolean;
-}) => {
+const Trapped = ({ active, onEscape }: { active: boolean; onEscape?: () => void }) => {
   const ref = useRef<HTMLDivElement>(null);
-  useFocusTrap({ active, containerRef: ref, onEscape, lockScroll });
+  useFocusTrap({ active, containerRef: ref, onEscape });
   return (
-    <div ref={ref} data-testid="container">
+    <div ref={ref}>
       <button>one</button>
       <button>two</button>
     </div>
   );
 };
 
-beforeEach(() => {
-  __resetBodyLockForTests();
-});
-
-afterEach(() => {
-  __resetBodyLockForTests();
-});
-
 describe('useFocusTrap', () => {
-  it('locks the body overflow when active', () => {
-    document.body.style.overflow = '';
-    render(<Trapped active />);
-    expect(document.body.style.overflow).toBe('hidden');
-  });
-
-  it('restores the body overflow when the trap releases', () => {
-    document.body.style.overflow = 'auto';
-    const { unmount } = render(<Trapped active />);
-    expect(document.body.style.overflow).toBe('hidden');
-    unmount();
-    expect(document.body.style.overflow).toBe('auto');
-  });
-
-  it('keeps the body locked while another trap is still active (refcount)', () => {
-    document.body.style.overflow = '';
-    const first = render(<Trapped active />);
-    const second = render(<Trapped active />);
-    expect(document.body.style.overflow).toBe('hidden');
-
-    first.unmount();
-    expect(document.body.style.overflow).toBe('hidden');
-
-    second.unmount();
-    expect(document.body.style.overflow).toBe('');
-  });
-
-  it('does not lock the body when lockScroll is false', () => {
-    document.body.style.overflow = '';
-    render(<Trapped active lockScroll={false} />);
-    expect(document.body.style.overflow).toBe('');
-  });
-
   it('returns focus to the SVG element that had it before the trap', async () => {
     const Chart = ({ active }: { active: boolean }) => (
       <>
         <svg>
           <a href="#series" aria-label="Open series" />
         </svg>
-        <Trapped active={active} lockScroll={false} />
+        <Trapped active={active} />
       </>
     );
     const { rerender } = render(<Chart active={false} />);
@@ -94,12 +45,15 @@ describe('useFocusTrap', () => {
     expect(called).toBe(1);
   });
 
-  it('ignores Escape when no onEscape handler is provided', () => {
+  it('leaves Escape alone when no onEscape handler is provided', () => {
     render(<Trapped active />);
+    const escape = new KeyboardEvent('keydown', { key: 'Escape', cancelable: true });
+
     act(() => {
-      document.dispatchEvent(new KeyboardEvent('keydown', { key: 'Escape' }));
+      document.dispatchEvent(escape);
     });
-    expect(document.body.style.overflow).toBe('hidden');
+
+    expect(escape.defaultPrevented).toBe(false);
   });
 });
 

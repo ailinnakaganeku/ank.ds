@@ -8,7 +8,7 @@
   z-index: var(--ank-z-toast);
   padding: 6px 10px;
   font-family: var(--ank-body);
-  font-size: 12px;
+  font-size: 0.75rem;
   font-weight: 500;
   line-height: 1.4;
   color: var(--ank-white);
@@ -22,16 +22,17 @@
 
 .ank-tooltip[data-side='top'] {
   bottom: calc(100% + 6px);
-  left: 50%;
+  inset-inline-start: 50%;
   transform: translateX(-50%);
 }
 
 .ank-tooltip[data-side='bottom'] {
   top: calc(100% + 6px);
-  left: 50%;
+  inset-inline-start: 50%;
   transform: translateX(-50%);
 }
 
+/* stylelint-disable property-disallowed-list -- these sides are named left and right, so they stay physical */
 .ank-tooltip[data-side='left'] {
   right: calc(100% + 6px);
   top: 50%;
@@ -43,11 +44,13 @@
   top: 50%;
   transform: translateY(-50%);
 }
+/* stylelint-enable property-disallowed-list */
 
 @keyframes ank-tooltip-in {
   from {
     opacity: 0;
   }
+
   to {
     opacity: 1;
   }

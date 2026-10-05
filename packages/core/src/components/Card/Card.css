@@ -1,8 +1,8 @@
 .ank-card {
   display: flex;
   flex-direction: column;
-  gap: 12px;
-  padding: 24px;
+  gap: var(--ank-space-3);
+  padding: var(--ank-space-5);
   background: var(--ank-surface);
   color: var(--ank-ink);
   border: 3px solid var(--ank-ink);
@@ -34,7 +34,7 @@
 }
 
 .ank-card--interactive {
-  cursor: pointer;
+  position: relative;
   transition:
     transform var(--ank-transition-fast),
     box-shadow var(--ank-transition-fast);
@@ -45,14 +45,41 @@
   box-shadow: 8px 8px 0 var(--ank-shadow-color);
 }
 
-.ank-card--interactive:focus-visible {
-  outline: 2px solid var(--ank-primary);
+.ank-card--interactive .ank-card__title :is(a, button) {
+  padding: 0;
+  font: inherit;
+  color: inherit;
+  text-align: inherit;
+  text-decoration: none;
+  background: none;
+  border: 0;
+  cursor: pointer;
+}
+
+.ank-card--interactive .ank-card__title :is(a, button)::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  z-index: var(--ank-z-base);
+}
+
+.ank-card--interactive .ank-card__title :is(a, button):focus-visible {
+  outline: none;
+}
+
+.ank-card--interactive .ank-card__title :is(a, button):focus-visible::after {
+  outline: 2px solid var(--ank-focus-ring);
   outline-offset: 3px;
+}
+
+.ank-card--interactive .ank-card__footer {
+  position: relative;
+  z-index: var(--ank-z-base);
 }
 
 .ank-card__media {
   display: block;
-  margin: -24px -24px 4px -24px;
+  margin: -24px -24px 4px;
   border-bottom: 3px solid var(--ank-ink);
 }
 
@@ -72,28 +99,28 @@
 
 .ank-card__eyebrow {
   font-family: var(--ank-body);
-  font-size: 11px;
+  font-size: var(--ank-text-xs);
   font-weight: 700;
   letter-spacing: 0.1em;
   text-transform: uppercase;
-  color: currentColor;
+  color: currentcolor;
   opacity: 0.7;
 }
 
 .ank-card__title {
   font-family: var(--ank-display);
-  font-size: 24px;
+  font-size: 1.5rem;
   font-weight: 700;
   line-height: 1.2;
-  color: currentColor;
+  color: currentcolor;
   margin: 0;
 }
 
 .ank-card__description {
   font-family: var(--ank-body);
-  font-size: 15px;
+  font-size: var(--ank-text-base);
   line-height: 1.55;
-  color: currentColor;
+  color: currentcolor;
   opacity: 0.85;
   margin: 0;
 }
@@ -101,8 +128,8 @@
 .ank-card__footer {
   display: flex;
   align-items: center;
-  gap: 12px;
-  margin-top: 8px;
+  gap: var(--ank-space-3);
+  margin-top: var(--ank-space-2);
   flex-wrap: wrap;
 }
 

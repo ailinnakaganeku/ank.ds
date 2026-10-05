@@ -28,6 +28,6 @@ export const moveRovingFocus = <T extends HTMLElement>(
 
   event.preventDefault();
   const target = items[index];
-  target.focus();
+  target?.focus();
   return target;
 };

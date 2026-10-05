@@ -20,18 +20,22 @@ jobs:
       - run: npm ci
 
       - name: Tokens in sync
-        run: |
-          npm run generate -w @ankds/tokens
-          git diff --exit-code packages/tokens/src/tokens.ts
+        run: npm run tokens:check
 
       - name: Lint
         run: npm run lint
+
+      - name: Lint styles
+        run: npm run lint:css
 
       - name: Format
         run: npm run format:check
 
       - name: Typecheck
         run: npm run typecheck
+
+      - name: Install Chromium for the browser tests
+        run: npx playwright install --with-deps --no-shell chromium
 
       - name: Test
         run: npm test

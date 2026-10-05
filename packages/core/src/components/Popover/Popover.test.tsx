@@ -3,7 +3,7 @@ import { render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import { axe } from 'jest-axe';
 import { Popover } from './Popover';
-import { __resetBodyLockForTests } from '../../hooks/useFocusTrap';
+import { __resetBodyLockForTests } from '../../utils/bodyScrollLock';
 
 afterEach(() => {
   __resetBodyLockForTests();
@@ -17,7 +17,7 @@ const Demo = ({
   defaultOpen?: boolean;
 }) => (
   <div>
-    <p data-testid="outside">outside content</p>
+    <p>outside content</p>
     <Popover defaultOpen={defaultOpen} onOpenChange={onOpenChange}>
       <Popover.Trigger>Open</Popover.Trigger>
       <Popover.Content>
@@ -64,7 +64,7 @@ describe('Popover', () => {
     await user.click(screen.getByRole('button', { name: 'Open' }));
     expect(await screen.findByRole('dialog')).toBeInTheDocument();
 
-    await user.click(screen.getByTestId('outside'));
+    await user.click(screen.getByText('outside content'));
     expect(screen.queryByRole('dialog')).not.toBeInTheDocument();
   });
 

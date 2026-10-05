@@ -53,6 +53,15 @@ describe('Input', () => {
     expect(input.getAttribute('aria-describedby')).toBe(error.id);
   });
 
+  it('is announced as invalid when its state is error inside a field with no error text', () => {
+    render(
+      <FieldWrapper label="Email">
+        <Input state="error" />
+      </FieldWrapper>,
+    );
+    expect(screen.getByLabelText('Email')).toHaveAttribute('aria-invalid', 'true');
+  });
+
   it('forwards ref to the underlying input', () => {
     const ref = createRef<HTMLInputElement>();
     render(<Input ref={ref} aria-label="Email" />);

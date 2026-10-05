@@ -125,7 +125,6 @@ const Content = forwardRef<HTMLDivElement, PopoverContentProps>(function Popover
     active: ctx.open,
     containerRef: ctx.contentRef,
     onEscape: () => ctx.setOpen(false),
-    lockScroll: false,
   });
 
   if (!ctx.open) return null;

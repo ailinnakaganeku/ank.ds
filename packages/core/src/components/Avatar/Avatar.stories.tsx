@@ -6,7 +6,7 @@ const meta = {
   component: Avatar,
   tags: ['autodocs'],
   parameters: { layout: 'centered' },
-  args: { size: 'md', tone: 'neutral', children: 'AB' },
+  args: { size: 'md', tone: 'neutral', alt: 'Ada Lovelace', fallback: 'AL' },
   argTypes: {
     size: { control: 'inline-radio', options: ['sm', 'md', 'lg', 'xl'] },
     tone: { control: 'select', options: ['neutral', 'primary', 'secondary', 'accent', 'sand'] },
@@ -16,51 +16,26 @@ const meta = {
 export default meta;
 type Story = StoryObj<typeof meta>;
 
-export const InitialsFallback: Story = {
-  render: (args) => (
-    <Avatar {...args}>
-      <Avatar.Fallback>AL</Avatar.Fallback>
-    </Avatar>
-  ),
-};
+export const InitialsFallback: Story = {};
 
 export const WithImage: Story = {
-  render: (args) => (
-    <Avatar {...args}>
-      <Avatar.Image
-        src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=160&h=160&fit=crop"
-        alt="Ada Lovelace"
-      />
-      <Avatar.Fallback>AL</Avatar.Fallback>
-    </Avatar>
-  ),
+  args: {
+    src: 'https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=160&h=160&fit=crop',
+  },
 };
 
 export const FailedImageFallsBack: Story = {
-  render: (args) => (
-    <Avatar {...args}>
-      <Avatar.Image src="https://does-not-exist.example.com/avatar.jpg" alt="Ada Lovelace" />
-      <Avatar.Fallback>AL</Avatar.Fallback>
-    </Avatar>
-  ),
+  args: { src: 'https://does-not-exist.example.com/avatar.jpg' },
 };
 
 export const Sizes: Story = {
   parameters: { layout: 'fullscreen' },
   render: () => (
     <div style={{ display: 'flex', alignItems: 'center', gap: 20, padding: 32 }}>
-      <Avatar size="sm" tone="primary">
-        <Avatar.Fallback>S</Avatar.Fallback>
-      </Avatar>
-      <Avatar size="md" tone="secondary">
-        <Avatar.Fallback>M</Avatar.Fallback>
-      </Avatar>
-      <Avatar size="lg" tone="accent">
-        <Avatar.Fallback>L</Avatar.Fallback>
-      </Avatar>
-      <Avatar size="xl" tone="sand">
-        <Avatar.Fallback>XL</Avatar.Fallback>
-      </Avatar>
+      <Avatar size="sm" tone="primary" alt="Small" fallback="S" />
+      <Avatar size="md" tone="secondary" alt="Medium" fallback="M" />
+      <Avatar size="lg" tone="accent" alt="Large" fallback="L" />
+      <Avatar size="xl" tone="sand" alt="Extra large" fallback="XL" />
     </div>
   ),
 };
@@ -70,9 +45,7 @@ export const Tones: Story = {
   render: () => (
     <div style={{ display: 'flex', gap: 16, padding: 32 }}>
       {(['neutral', 'primary', 'secondary', 'accent', 'sand'] as const).map((tone) => (
-        <Avatar key={tone} tone={tone}>
-          <Avatar.Fallback>{tone[0].toUpperCase()}</Avatar.Fallback>
-        </Avatar>
+        <Avatar key={tone} tone={tone} alt={tone} fallback={tone.charAt(0).toUpperCase()} />
       ))}
     </div>
   ),

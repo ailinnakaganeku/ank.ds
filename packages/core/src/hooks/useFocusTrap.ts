@@ -24,31 +24,6 @@ export const getFocusableElements = (root: HTMLElement): HTMLElement[] => {
   return Array.from(nodes).filter(isFocusable);
 };
 
-let bodyLockCount = 0;
-let savedBodyOverflow: string | null = null;
-
-const acquireBodyLock = () => {
-  if (bodyLockCount === 0) {
-    savedBodyOverflow = document.body.style.overflow;
-    document.body.style.overflow = 'hidden';
-  }
-  bodyLockCount += 1;
-};
-
-const releaseBodyLock = () => {
-  bodyLockCount = Math.max(0, bodyLockCount - 1);
-  if (bodyLockCount === 0 && savedBodyOverflow !== null) {
-    document.body.style.overflow = savedBodyOverflow;
-    savedBodyOverflow = null;
-  }
-};
-
-export const __resetBodyLockForTests = () => {
-  bodyLockCount = 0;
-  savedBodyOverflow = null;
-  document.body.style.overflow = '';
-};
-
 const restoreFocus = (element: Element | null) => {
   if (element instanceof HTMLElement || element instanceof SVGElement) element.focus();
 };
@@ -56,18 +31,10 @@ const restoreFocus = (element: Element | null) => {
 export interface UseFocusTrapOptions {
   active: boolean;
   containerRef: RefObject<HTMLElement>;
-  initialFocus?: RefObject<HTMLElement>;
   onEscape?: () => void;
-  lockScroll?: boolean;
 }
 
-export const useFocusTrap = ({
-  active,
-  containerRef,
-  initialFocus,
-  onEscape,
-  lockScroll = true,
-}: UseFocusTrapOptions) => {
+export const useFocusTrap = ({ active, containerRef, onEscape }: UseFocusTrapOptions) => {
   const latestOnEscape = useLatestRef(onEscape);
 
   useEffect(() => {
@@ -75,14 +42,10 @@ export const useFocusTrap = ({
 
     const previouslyFocused = document.activeElement;
 
-    if (lockScroll) {
-      acquireBodyLock();
-    }
-
     const rafId = requestAnimationFrame(() => {
       const node = containerRef.current;
       if (!node) return;
-      const target = initialFocus?.current ?? getFocusableElements(node)[0] ?? node;
+      const target = getFocusableElements(node)[0] ?? node;
       target.focus();
     });
 
@@ -98,14 +61,14 @@ export const useFocusTrap = ({
       if (!node) return;
 
       const focusable = getFocusableElements(node);
-      if (focusable.length === 0) {
+      const first = focusable[0];
+      const last = focusable[focusable.length - 1];
+      if (!first || !last) {
         event.preventDefault();
         node.focus();
         return;
       }
 
-      const first = focusable[0];
-      const last = focusable[focusable.length - 1];
       const activeEl = document.activeElement;
 
       if (event.shiftKey) {
@@ -124,10 +87,7 @@ export const useFocusTrap = ({
     return () => {
       cancelAnimationFrame(rafId);
       document.removeEventListener('keydown', handleKeyDown);
-      if (lockScroll) {
-        releaseBodyLock();
-      }
       restoreFocus(previouslyFocused);
     };
-  }, [active, containerRef, initialFocus, latestOnEscape, lockScroll]);
+  }, [active, containerRef, latestOnEscape]);
 };

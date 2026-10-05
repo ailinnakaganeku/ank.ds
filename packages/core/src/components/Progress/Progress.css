@@ -8,19 +8,19 @@
   display: flex;
   justify-content: space-between;
   align-items: baseline;
-  gap: 12px;
+  gap: var(--ank-space-3);
   margin-bottom: 6px;
 }
 
 .ank-progress__label {
-  font-size: 13px;
+  font-size: var(--ank-text-sm);
   font-weight: 700;
   color: var(--ank-ink);
 }
 
 .ank-progress__value {
   font-family: var(--ank-mono);
-  font-size: 12px;
+  font-size: 0.75rem;
   color: var(--ank-gray-700);
 }
 
@@ -43,9 +43,11 @@
 .ank-progress--sm .ank-progress__track {
   height: 10px;
 }
+
 .ank-progress--md .ank-progress__track {
   height: 14px;
 }
+
 .ank-progress--lg .ank-progress__track {
   height: 20px;
 }
@@ -53,18 +55,23 @@
 .ank-progress--primary .ank-progress__fill {
   background: var(--ank-primary);
 }
+
 .ank-progress--secondary .ank-progress__fill {
   background: var(--ank-secondary);
 }
+
 .ank-progress--accent .ank-progress__fill {
   background: var(--ank-accent);
 }
+
 .ank-progress--success .ank-progress__fill {
   background: var(--ank-success);
 }
+
 .ank-progress--warning .ank-progress__fill {
   background: var(--ank-warning-dark);
 }
+
 .ank-progress--error .ank-progress__fill {
   background: var(--ank-error-dark);
 }
@@ -78,6 +85,7 @@
   0% {
     transform: translateX(-100%);
   }
+
   100% {
     transform: translateX(400%);
   }
@@ -87,9 +95,16 @@
   .ank-progress__fill {
     transition: none;
   }
+
   .ank-progress--indeterminate .ank-progress__fill {
     animation: none;
     width: 100%;
     opacity: 0.6;
+  }
+}
+
+@media (forced-colors: active) {
+  .ank-progress .ank-progress__fill {
+    background: highlight;
   }
 }

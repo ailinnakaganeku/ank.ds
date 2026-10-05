@@ -10,9 +10,7 @@
 
 .ank-select {
   appearance: none;
-  -webkit-appearance: none;
-  -moz-appearance: none;
-  padding-right: 36px;
+  padding-inline-end: 36px;
   cursor: pointer;
   background-color: var(--ank-white);
 }
@@ -23,7 +21,7 @@
 
 .ank-select-wrapper__arrow {
   position: absolute;
-  right: 14px;
+  inset-inline-end: 14px;
   top: 50%;
   transform: translateY(-50%);
   pointer-events: none;
@@ -46,8 +44,9 @@
 }
 
 .ank-select-wrapper--sm .ank-select-wrapper__arrow {
-  right: 10px;
+  inset-inline-end: 10px;
 }
+
 .ank-select-wrapper--lg .ank-select-wrapper__arrow {
-  right: 18px;
+  inset-inline-end: 18px;
 }

@@ -1,17 +1,7 @@
-import {
-  useEffect,
-  useId,
-  useRef,
-  type HTMLAttributes,
-  type MouseEvent,
-  type ReactNode,
-  type RefObject,
-} from 'react';
-import { createPortal } from 'react-dom';
+import { useId, type HTMLAttributes, type ReactNode, type RefObject } from 'react';
 import clsx from 'clsx';
-import { useFocusTrap } from '../../hooks/useFocusTrap';
-import { useIsClient } from '../../hooks/useIsClient';
 import './Modal.css';
+import { useModalDialog } from '../../hooks/useModalDialog';
 import { CloseIcon } from '../Icon';
 
 export type ModalSize = 'sm' | 'md' | 'lg';
@@ -46,90 +36,50 @@ const ModalRoot = ({
   'aria-describedby': ariaDescribedBy,
 }: ModalProps) => {
   const titleId = useId();
-  const containerRef = useRef<HTMLDivElement>(null);
-  const overlayRef = useRef<HTMLDivElement>(null);
-  const mouseDownTargetRef = useRef<EventTarget | null>(null);
-  const mounted = useIsClient();
-
-  useFocusTrap({
-    active: open,
-    containerRef,
+  const { dialogRef, dialogHandlers } = useModalDialog({
+    open,
+    onClose,
     initialFocus,
-    onEscape: closeOnEscape ? onClose : undefined,
-    lockScroll: true,
+    onBackdropPress: () => {
+      if (closeOnOverlay) onClose();
+    },
   });
 
-  useEffect(() => {
-    if (!open) return;
-    const overlay = overlayRef.current;
-    if (!overlay) return;
-    const inerted: Element[] = [];
-    Array.from(document.body.children).forEach((child) => {
-      if (child !== overlay && !child.hasAttribute('inert')) {
-        child.setAttribute('inert', '');
-        inerted.push(child);
-      }
-    });
-    return () => {
-      inerted.forEach((node) => node.removeAttribute('inert'));
-    };
-  }, [open]);
-
-  if (!mounted || !open) return null;
-
-  const handleOverlayMouseDown = (event: MouseEvent<HTMLDivElement>) => {
-    mouseDownTargetRef.current = event.target;
-  };
-
-  const handleOverlayClick = (event: MouseEvent<HTMLDivElement>) => {
-    if (!closeOnOverlay) {
-      mouseDownTargetRef.current = null;
-      return;
-    }
-    const clickedOverlay = event.target === event.currentTarget;
-    const startedOnOverlay = mouseDownTargetRef.current === event.currentTarget;
-    mouseDownTargetRef.current = null;
-    if (clickedOverlay && startedOnOverlay) {
-      onClose();
-    }
-  };
-
-  return createPortal(
-    <div
-      ref={overlayRef}
-      className="ank-modal-overlay"
-      onMouseDown={handleOverlayMouseDown}
-      onClick={handleOverlayClick}
+  return (
+    <dialog
+      ref={dialogRef}
+      aria-labelledby={title ? titleId : undefined}
+      aria-label={!title ? ariaLabel : undefined}
+      aria-describedby={ariaDescribedBy}
+      className={clsx('ank-modal', `ank-modal--${size}`, className)}
+      onCancel={(event) => {
+        if (event.target !== event.currentTarget) return;
+        event.preventDefault();
+        if (closeOnEscape) onClose();
+      }}
+      {...dialogHandlers}
     >
-      <div
-        ref={containerRef}
-        role="dialog"
-        aria-modal="true"
-        aria-labelledby={title ? titleId : undefined}
-        aria-label={!title ? ariaLabel : undefined}
-        aria-describedby={ariaDescribedBy}
-        tabIndex={-1}
-        className={clsx('ank-modal', `ank-modal--${size}`, className)}
-      >
-        {title && (
-          <header className="ank-modal__header">
-            <h2 id={titleId} className="ank-modal__title">
-              {title}
-            </h2>
-            <button
-              type="button"
-              onClick={onClose}
-              aria-label={closeLabel}
-              className="ank-modal__close"
-            >
-              <CloseIcon size={14} />
-            </button>
-          </header>
-        )}
-        {children}
-      </div>
-    </div>,
-    document.body,
+      {open && (
+        <>
+          {title && (
+            <header className="ank-modal__header">
+              <h2 id={titleId} className="ank-modal__title">
+                {title}
+              </h2>
+              <button
+                type="button"
+                onClick={onClose}
+                aria-label={closeLabel}
+                className="ank-modal__close"
+              >
+                <CloseIcon size={14} />
+              </button>
+            </header>
+          )}
+          {children}
+        </>
+      )}
+    </dialog>
   );
 };
 

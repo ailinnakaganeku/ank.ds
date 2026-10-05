@@ -122,7 +122,6 @@ describe('Tabs', () => {
       const [value, setValue] = useState('overview');
       return (
         <>
-          <span data-testid="state">{value}</span>
           <Tabs value={value} onChange={setValue}>
             <Tabs.List aria-label="Controlled">
               <Tabs.Tab value="overview">Overview</Tabs.Tab>
@@ -136,7 +135,7 @@ describe('Tabs', () => {
     };
     render(<Wrapper />);
     await user.click(screen.getByRole('tab', { name: 'Billing' }));
-    expect(screen.getByTestId('state')).toHaveTextContent('billing');
+    expect(screen.getByRole('tab', { name: 'Billing' })).toHaveAttribute('aria-selected', 'true');
   });
 
   it('wires aria-controls and aria-labelledby bidirectionally', () => {

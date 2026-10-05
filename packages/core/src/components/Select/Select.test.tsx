@@ -29,13 +29,23 @@ describe('Select', () => {
             <option value="pro">Pro</option>
             <option value="enterprise">Enterprise</option>
           </Select>
-          <span data-testid="value">{value}</span>
         </>
       );
     };
     render(<Controlled />);
     await user.selectOptions(screen.getByRole('combobox', { name: 'Plan' }), 'pro');
-    expect(screen.getByTestId('value')).toHaveTextContent('pro');
+    expect(screen.getByRole('combobox', { name: 'Plan' })).toHaveValue('pro');
+  });
+
+  it('is announced as invalid when its state is error inside a field with no error text', () => {
+    render(
+      <FieldWrapper label="Country">
+        <Select state="error">
+          <option value="ar">Argentina</option>
+        </Select>
+      </FieldWrapper>,
+    );
+    expect(screen.getByLabelText('Country')).toHaveAttribute('aria-invalid', 'true');
   });
 
   it('inherits invalid and aria-describedby from FieldWrapper', () => {

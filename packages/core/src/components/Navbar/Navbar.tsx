@@ -1,7 +1,6 @@
 import {
   forwardRef,
   useId,
-  useRef,
   useState,
   useSyncExternalStore,
   type AnchorHTMLAttributes,
@@ -9,10 +8,9 @@ import {
   type MouseEvent,
   type ReactNode,
 } from 'react';
-import { createPortal } from 'react-dom';
 import clsx from 'clsx';
-import { useFocusTrap } from '../../hooks/useFocusTrap';
-import { useIsClient } from '../../hooks/useIsClient';
+import { useModalDialog } from '../../hooks/useModalDialog';
+import { VisuallyHidden } from '../VisuallyHidden/VisuallyHidden';
 import './Navbar.css';
 import { MenuIcon, CloseIcon } from '../Icon';
 
@@ -75,7 +73,7 @@ const renderLink = (
     return (
       <a href={link.href} {...externalAttrs} {...commonProps}>
         {link.label}
-        {link.external && <span className="ank-navbar__sr-only"> ({externalLabel})</span>}
+        {link.external && <VisuallyHidden> ({externalLabel})</VisuallyHidden>}
       </a>
     );
   }
@@ -108,25 +106,13 @@ export const Navbar = forwardRef<HTMLElement, NavbarProps>(function Navbar(
     isPageScrolledOnServer,
   );
   const [drawerOpen, setDrawerOpen] = useState(false);
-  const mounted = useIsClient();
-  const drawerRef = useRef<HTMLDivElement>(null);
-  const hamburgerRef = useRef<HTMLButtonElement>(null);
-  const drawerTitleId = useId();
-
-  useFocusTrap({
-    active: drawerOpen,
-    containerRef: drawerRef,
-    onEscape: () => setDrawerOpen(false),
-    lockScroll: true,
-  });
-
+  const drawerId = useId();
   const closeDrawer = () => setDrawerOpen(false);
-
-  const handleOverlayClick = (event: MouseEvent<HTMLDivElement>) => {
-    if (event.target === event.currentTarget) {
-      closeDrawer();
-    }
-  };
+  const { dialogRef, dialogHandlers } = useModalDialog({
+    open: drawerOpen,
+    onClose: closeDrawer,
+    onBackdropPress: closeDrawer,
+  });
 
   return (
     <>
@@ -154,56 +140,55 @@ export const Navbar = forwardRef<HTMLElement, NavbarProps>(function Navbar(
         {actions && <div className="ank-navbar__actions">{actions}</div>}
 
         <button
-          ref={hamburgerRef}
           type="button"
           aria-label={menuLabel}
           aria-expanded={drawerOpen}
-          aria-controls={drawerTitleId}
-          onClick={() => setDrawerOpen((prev) => !prev)}
+          aria-controls={drawerId}
+          onClick={() => setDrawerOpen(true)}
           className="ank-navbar__hamburger"
         >
           <MenuIcon size={20} />
         </button>
       </nav>
 
-      {mounted &&
-        drawerOpen &&
-        createPortal(
-          <div className="ank-navbar-overlay" onMouseDown={handleOverlayClick}>
-            <div
-              ref={drawerRef}
-              id={drawerTitleId}
-              role="dialog"
-              aria-modal="true"
-              aria-label={ariaLabel}
-              tabIndex={-1}
-              className="ank-navbar-drawer"
-            >
-              <header className="ank-navbar-drawer__header">
-                <div className="ank-navbar-drawer__brand">{brand}</div>
-                <button
-                  type="button"
-                  aria-label={menuCloseLabel}
-                  onClick={closeDrawer}
-                  className="ank-navbar-drawer__close"
-                >
-                  <CloseIcon size={14} />
-                </button>
-              </header>
-              {links.length > 0 && (
-                <ul className="ank-navbar-drawer__links" role="list">
-                  {links.map((link, index) => (
-                    <li key={link.key ?? index}>
-                      {renderLink(link, 'ank-navbar-drawer__link', externalLabel, closeDrawer)}
-                    </li>
-                  ))}
-                </ul>
-              )}
-              {actions && <div className="ank-navbar-drawer__actions">{actions}</div>}
-            </div>
-          </div>,
-          document.body,
+      <dialog
+        ref={dialogRef}
+        id={drawerId}
+        aria-label={ariaLabel}
+        className="ank-navbar-drawer"
+        onCancel={(event) => {
+          if (event.target !== event.currentTarget) return;
+          event.preventDefault();
+          closeDrawer();
+        }}
+        {...dialogHandlers}
+      >
+        {drawerOpen && (
+          <>
+            <header className="ank-navbar-drawer__header">
+              <div className="ank-navbar-drawer__brand">{brand}</div>
+              <button
+                type="button"
+                aria-label={menuCloseLabel}
+                onClick={closeDrawer}
+                className="ank-navbar-drawer__close"
+              >
+                <CloseIcon size={14} />
+              </button>
+            </header>
+            {links.length > 0 && (
+              <ul className="ank-navbar-drawer__links" role="list">
+                {links.map((link, index) => (
+                  <li key={link.key ?? index}>
+                    {renderLink(link, 'ank-navbar-drawer__link', externalLabel, closeDrawer)}
+                  </li>
+                ))}
+              </ul>
+            )}
+            {actions && <div className="ank-navbar-drawer__actions">{actions}</div>}
+          </>
         )}
+      </dialog>
     </>
   );
 });

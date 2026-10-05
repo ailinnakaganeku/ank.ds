@@ -11,10 +11,9 @@ describe('Spinner', () => {
     expect(status).toHaveTextContent('Saving');
   });
 
-  it('hides the label visually by default but keeps it for screen readers', () => {
-    const { container } = render(<Spinner label="Loading" />);
-    const labelNode = container.querySelector('.ank-spinner__sr-only');
-    expect(labelNode).toHaveTextContent('Loading');
+  it('keeps the label for screen readers when it is not shown', () => {
+    render(<Spinner label="Loading" />);
+    expect(screen.getByRole('status')).toHaveTextContent('Loading');
   });
 
   it('renders the label visually when showLabel is true', () => {

@@ -1,10 +1,10 @@
 .ank-alert {
   display: flex;
   align-items: flex-start;
-  gap: 12px;
+  gap: var(--ank-space-3);
   padding: 14px 16px 14px 14px;
   border: 2.5px solid var(--ank-ink);
-  border-left-width: 6px;
+  border-inline-start-width: 6px;
   background: var(--ank-white);
   color: var(--ank-ink);
   font-family: var(--ank-body);
@@ -33,21 +33,21 @@
 }
 
 .ank-alert__title {
-  font-size: 15px;
+  font-size: var(--ank-text-base);
   font-weight: 700;
   margin: 0;
   line-height: 1.4;
 }
 
 .ank-alert__description {
-  font-size: 14px;
+  font-size: 0.875rem;
   color: var(--ank-gray-700);
-  margin: 4px 0 0 0;
+  margin: var(--ank-space-1) 0 0;
   line-height: 1.55;
 }
 
 .ank-alert__title + .ank-alert__description {
-  margin-top: 4px;
+  margin-top: var(--ank-space-1);
 }
 
 .ank-alert__close {
@@ -70,7 +70,7 @@
 }
 
 .ank-alert__close:focus-visible {
-  outline: 2px solid var(--ank-primary);
+  outline: 2px solid var(--ank-focus-ring);
   outline-offset: 1px;
 }
 
@@ -81,33 +81,43 @@
 }
 
 .ank-alert--success {
-  border-left-color: var(--ank-success);
+  border-inline-start-color: var(--ank-success-fg);
   background: var(--ank-success-bg);
 }
+
 .ank-alert--success .ank-alert__icon {
-  color: var(--ank-success);
+  color: var(--ank-success-fg);
 }
 
 .ank-alert--warning {
-  border-left-color: var(--ank-warning);
+  border-inline-start-color: var(--ank-warning);
   background: var(--ank-warning-bg);
 }
+
 .ank-alert--warning .ank-alert__icon {
   color: var(--ank-warning-dark);
 }
 
 .ank-alert--error {
-  border-left-color: var(--ank-error);
+  border-inline-start-color: var(--ank-error);
   background: var(--ank-error-bg);
 }
+
 .ank-alert--error .ank-alert__icon {
   color: var(--ank-error);
 }
 
 .ank-alert--info {
-  border-left-color: var(--ank-info);
+  border-inline-start-color: var(--ank-info-fg);
   background: var(--ank-info-bg);
 }
+
 .ank-alert--info .ank-alert__icon {
-  color: var(--ank-info);
+  color: var(--ank-info-fg);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .ank-alert__close {
+    transition: none;
+  }
 }

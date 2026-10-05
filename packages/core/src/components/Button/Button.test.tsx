@@ -1,6 +1,6 @@
 import { describe, expect, it, vi } from 'vitest';
 import { createRef } from 'react';
-import { render, screen } from '@testing-library/react';
+import { render, screen, within } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import { axe } from 'jest-axe';
 import { Button, buttonVariants } from './Button';
@@ -72,22 +72,22 @@ describe('Button', () => {
   it('renders left and right icons in order', () => {
     render(
       <Button
-        iconLeft={<svg data-testid="left" aria-hidden />}
-        iconRight={<svg data-testid="right" aria-hidden />}
+        iconLeft={<svg role="img" aria-label="left" />}
+        iconRight={<svg role="img" aria-label="right" />}
       >
         With icons
       </Button>,
     );
-    const left = screen.getByTestId('left');
-    const right = screen.getByTestId('right');
+    const left = screen.getByRole('img', { name: 'left' });
+    const right = screen.getByRole('img', { name: 'right' });
     expect(left.compareDocumentPosition(right) & Node.DOCUMENT_POSITION_FOLLOWING).toBeTruthy();
   });
 
   it('treats children-less icon button as icon-only and requires aria-label', () => {
-    render(<Button iconLeft={<svg data-testid="icon" aria-hidden />} aria-label="Add" />);
+    render(<Button iconLeft={<svg role="img" aria-label="plus" />} aria-label="Add" />);
     const button = screen.getByRole('button', { name: 'Add' });
     expect(button).toBeInTheDocument();
-    expect(screen.getByTestId('icon')).toBeInTheDocument();
+    expect(within(button).getByRole('img', { name: 'plus' })).toBeInTheDocument();
   });
 
   it('applies the requested variant class', () => {

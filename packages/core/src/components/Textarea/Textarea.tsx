@@ -32,22 +32,18 @@ const textareaVariants = cva('ank-input ank-textarea', {
 export type TextareaVariants = VariantProps<typeof textareaVariants>;
 
 export interface TextareaProps
-  extends TextareaHTMLAttributes<HTMLTextAreaElement>, TextareaVariants {
-  invalid?: boolean;
-}
+  extends TextareaHTMLAttributes<HTMLTextAreaElement>, TextareaVariants {}
 
 export const Textarea = forwardRef<HTMLTextAreaElement, TextareaProps>(function Textarea(
   {
     size,
     state,
     fullWidth,
-    invalid,
     id: idProp,
     className,
     rows = 4,
     disabled,
     'aria-describedby': describedByProp,
-    'aria-invalid': ariaInvalidProp,
     ...rest
   },
   ref,
@@ -55,11 +51,9 @@ export const Textarea = forwardRef<HTMLTextAreaElement, TextareaProps>(function 
   const field = useContext(FieldContext);
   const generatedId = useId();
   const id = idProp ?? field?.id ?? generatedId;
-  const resolvedInvalid = invalid ?? field?.invalid ?? state === 'error';
-  const resolvedState = state ?? (resolvedInvalid ? 'error' : 'default');
+  const resolvedState = state ?? (field?.invalid ? 'error' : 'default');
   const resolvedDisabled = disabled ?? field?.disabled;
   const ariaDescribedBy = describedByProp ?? field?.describedBy;
-  const ariaInvalid = ariaInvalidProp ?? (resolvedInvalid || undefined);
 
   return (
     <textarea
@@ -68,7 +62,7 @@ export const Textarea = forwardRef<HTMLTextAreaElement, TextareaProps>(function 
       rows={rows}
       disabled={resolvedDisabled}
       aria-describedby={ariaDescribedBy}
-      aria-invalid={ariaInvalid}
+      aria-invalid={resolvedState === 'error' || undefined}
       className={clsx(textareaVariants({ size, state: resolvedState, fullWidth }), className)}
       {...rest}
     />

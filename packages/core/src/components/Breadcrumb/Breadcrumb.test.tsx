@@ -41,14 +41,13 @@ describe('Breadcrumb', () => {
   });
 
   it('exposes items as an ordered list', () => {
-    const { container } = render(
+    render(
       <Breadcrumb>
         <Breadcrumb.Item href="/">Home</Breadcrumb.Item>
         <Breadcrumb.Item current>Now</Breadcrumb.Item>
       </Breadcrumb>,
     );
-    expect(container.querySelector('ol')).toBeInTheDocument();
-    expect(container.querySelectorAll('li')).toHaveLength(2);
+    expect(within(screen.getByRole('list')).getAllByRole('listitem')).toHaveLength(2);
   });
 
   it('has no axe violations', async () => {

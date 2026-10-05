@@ -1,5 +1,6 @@
 import { forwardRef, type HTMLAttributes } from 'react';
 import clsx from 'clsx';
+import { VisuallyHidden } from '../VisuallyHidden/VisuallyHidden';
 import './Spinner.css';
 
 export type SpinnerSize = 'sm' | 'md' | 'lg';
@@ -32,7 +33,7 @@ export const Spinner = forwardRef<HTMLSpanElement, SpinnerProps>(function Spinne
       {showLabel ? (
         <span className="ank-spinner__label">{label}</span>
       ) : (
-        <span className="ank-spinner__sr-only">{label}</span>
+        <VisuallyHidden>{label}</VisuallyHidden>
       )}
     </span>
   );

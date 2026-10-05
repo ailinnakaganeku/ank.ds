@@ -17,7 +17,7 @@
   gap: 6px;
   padding: 8px 14px;
   font-family: var(--ank-body);
-  font-size: 14px;
+  font-size: 0.875rem;
   font-weight: 700;
   line-height: 1;
   background: transparent;
@@ -32,12 +32,12 @@
     box-shadow var(--ank-transition-fast);
 }
 
-.ank-tab:hover:not([disabled]):not([aria-selected='true']) {
+.ank-tab:hover:not([disabled], [aria-selected='true']) {
   background: var(--ank-surface);
 }
 
 .ank-tab:focus-visible {
-  outline: 2px solid var(--ank-primary);
+  outline: 2px solid var(--ank-focus-ring);
   outline-offset: 2px;
 }
 
@@ -57,12 +57,20 @@
 }
 
 .ank-tabs__panel:focus-visible {
-  outline: 2px solid var(--ank-primary);
+  outline: 2px solid var(--ank-focus-ring);
   outline-offset: 4px;
 }
 
 @media (prefers-reduced-motion: reduce) {
   .ank-tab {
     transition: none;
+  }
+}
+
+@media (forced-colors: active) {
+  .ank-tab[aria-selected='true'] {
+    forced-color-adjust: none;
+    background: highlight;
+    color: highlighttext;
   }
 }

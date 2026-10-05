@@ -11,9 +11,11 @@
 .ank-autogrid[data-align='center'] {
   align-items: center;
 }
+
 .ank-autogrid[data-align='end'] {
   align-items: end;
 }
+
 .ank-autogrid[data-align='stretch'] {
   align-items: stretch;
 }

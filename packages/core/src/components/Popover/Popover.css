@@ -6,18 +6,17 @@
 .ank-popover__content {
   position: absolute;
   top: 100%;
-  left: 0;
-  margin-top: 8px;
+  inset-inline-start: 0;
+  margin-top: var(--ank-space-2);
   z-index: var(--ank-z-dropdown);
   min-width: 200px;
-  padding: 12px;
+  padding: var(--ank-space-3);
   background: var(--ank-white);
   color: var(--ank-ink);
   border: 2.5px solid var(--ank-ink);
   box-shadow: 4px 4px 0 var(--ank-shadow-color);
-  outline: none;
   font-family: var(--ank-body);
-  font-size: 14px;
+  font-size: 0.875rem;
   animation: ank-popover-in 120ms ease-out;
 }
 
@@ -25,15 +24,16 @@
   top: auto;
   bottom: 100%;
   margin-top: 0;
-  margin-bottom: 8px;
+  margin-bottom: var(--ank-space-2);
   animation-name: ank-popover-in-top;
 }
 
+/* stylelint-disable property-disallowed-list -- these sides are named left and right, so they stay physical */
 .ank-popover__content[data-side='right'] {
   top: 0;
   left: 100%;
   margin-top: 0;
-  margin-left: 8px;
+  margin-left: var(--ank-space-2);
   animation-name: ank-popover-in-right;
 }
 
@@ -42,18 +42,17 @@
   left: auto;
   right: 100%;
   margin-top: 0;
-  margin-right: 8px;
+  margin-right: var(--ank-space-2);
   animation-name: ank-popover-in-left;
 }
+/* stylelint-enable property-disallowed-list */
 
 .ank-popover__content[data-align='end'] {
-  left: auto;
-  right: 0;
+  inset-inline: auto 0;
 }
 
 .ank-popover__content[data-align='center'] {
-  left: 50%;
-  right: auto;
+  inset-inline: 50% auto;
   transform: translateX(-50%);
 }
 
@@ -62,36 +61,43 @@
     opacity: 0;
     transform: translateY(-4px);
   }
+
   to {
     opacity: 1;
     transform: translateY(0);
   }
 }
+
 @keyframes ank-popover-in-top {
   from {
     opacity: 0;
     transform: translateY(4px);
   }
+
   to {
     opacity: 1;
     transform: translateY(0);
   }
 }
+
 @keyframes ank-popover-in-right {
   from {
     opacity: 0;
     transform: translateX(-4px);
   }
+
   to {
     opacity: 1;
     transform: translateX(0);
   }
 }
+
 @keyframes ank-popover-in-left {
   from {
     opacity: 0;
     transform: translateX(4px);
   }
+
   to {
     opacity: 1;
     transform: translateX(0);

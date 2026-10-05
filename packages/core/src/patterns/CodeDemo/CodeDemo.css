@@ -6,7 +6,7 @@
   border: 2.5px solid var(--ank-ink);
   box-shadow: 6px 6px 0 var(--ank-shadow-color);
   font-family: var(--ank-mono);
-  font-size: 13px;
+  font-size: var(--ank-text-sm);
   line-height: 1.55;
   overflow: hidden;
 }
@@ -24,7 +24,7 @@
   background: var(--ank-gray-900);
   border-bottom: 2.5px solid var(--ank-ink);
   font-family: var(--ank-body);
-  font-size: 11px;
+  font-size: var(--ank-text-xs);
   font-weight: 500;
   letter-spacing: 0.04em;
   color: var(--ank-gray-300);
@@ -37,7 +37,7 @@
 
 .ank-code-demo__dots {
   display: inline-flex;
-  gap: 4px;
+  gap: var(--ank-space-1);
 }
 
 .ank-code-demo__dots > span {
@@ -50,6 +50,7 @@
 .ank-code-demo__dots > span:nth-child(2) {
   background: var(--ank-warning);
 }
+
 .ank-code-demo__dots > span:nth-child(3) {
   background: var(--ank-accent);
 }
@@ -77,7 +78,7 @@
   align-items: baseline;
   gap: 10px;
   white-space: pre-wrap;
-  word-break: break-word;
+  overflow-wrap: anywhere;
 }
 
 .ank-code-demo__prompt {
@@ -106,7 +107,7 @@
   height: 1em;
   background: var(--ank-accent-light);
   vertical-align: text-bottom;
-  margin-left: 2px;
+  margin-inline-start: 2px;
   animation: ank-code-caret 1.05s steps(2, end) infinite;
 }
 
@@ -119,6 +120,7 @@
   49% {
     opacity: 1;
   }
+
   50%,
   100% {
     opacity: 0;

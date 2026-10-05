@@ -31,22 +31,18 @@ const inputVariants = cva('ank-input', {
 export type InputVariants = VariantProps<typeof inputVariants>;
 
 export interface InputProps
-  extends Omit<InputHTMLAttributes<HTMLInputElement>, 'size'>, InputVariants {
-  invalid?: boolean;
-}
+  extends Omit<InputHTMLAttributes<HTMLInputElement>, 'size'>, InputVariants {}
 
 export const Input = forwardRef<HTMLInputElement, InputProps>(function Input(
   {
     size,
     state,
     fullWidth,
-    invalid,
     id: idProp,
     className,
     type = 'text',
     disabled,
     'aria-describedby': describedByProp,
-    'aria-invalid': ariaInvalidProp,
     ...rest
   },
   ref,
@@ -54,11 +50,9 @@ export const Input = forwardRef<HTMLInputElement, InputProps>(function Input(
   const field = useContext(FieldContext);
   const generatedId = useId();
   const id = idProp ?? field?.id ?? generatedId;
-  const resolvedInvalid = invalid ?? field?.invalid ?? state === 'error';
-  const resolvedState = state ?? (resolvedInvalid ? 'error' : 'default');
+  const resolvedState = state ?? (field?.invalid ? 'error' : 'default');
   const resolvedDisabled = disabled ?? field?.disabled;
   const ariaDescribedBy = describedByProp ?? field?.describedBy;
-  const ariaInvalid = ariaInvalidProp ?? (resolvedInvalid || undefined);
 
   return (
     <input
@@ -67,7 +61,7 @@ export const Input = forwardRef<HTMLInputElement, InputProps>(function Input(
       type={type}
       disabled={resolvedDisabled}
       aria-describedby={ariaDescribedBy}
-      aria-invalid={ariaInvalid}
+      aria-invalid={resolvedState === 'error' || undefined}
       className={clsx(inputVariants({ size, state: resolvedState, fullWidth }), className)}
       {...rest}
     />

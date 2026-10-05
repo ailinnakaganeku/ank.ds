@@ -34,7 +34,6 @@ export type SelectVariants = VariantProps<typeof selectVariants>;
 
 export interface SelectProps
   extends Omit<SelectHTMLAttributes<HTMLSelectElement>, 'size'>, SelectVariants {
-  invalid?: boolean;
   children?: ReactNode;
 }
 
@@ -43,13 +42,11 @@ export const Select = forwardRef<HTMLSelectElement, SelectProps>(function Select
     size = 'md',
     state,
     fullWidth = true,
-    invalid,
     id: idProp,
     className,
     disabled,
     children,
     'aria-describedby': describedByProp,
-    'aria-invalid': ariaInvalidProp,
     ...rest
   },
   ref,
@@ -57,11 +54,9 @@ export const Select = forwardRef<HTMLSelectElement, SelectProps>(function Select
   const field = useContext(FieldContext);
   const generatedId = useId();
   const id = idProp ?? field?.id ?? generatedId;
-  const resolvedInvalid = invalid ?? field?.invalid ?? state === 'error';
-  const resolvedState = state ?? (resolvedInvalid ? 'error' : 'default');
+  const resolvedState = state ?? (field?.invalid ? 'error' : 'default');
   const resolvedDisabled = disabled ?? field?.disabled;
   const ariaDescribedBy = describedByProp ?? field?.describedBy;
-  const ariaInvalid = ariaInvalidProp ?? (resolvedInvalid || undefined);
 
   return (
     <span
@@ -77,7 +72,7 @@ export const Select = forwardRef<HTMLSelectElement, SelectProps>(function Select
         id={id}
         disabled={resolvedDisabled}
         aria-describedby={ariaDescribedBy}
-        aria-invalid={ariaInvalid}
+        aria-invalid={resolvedState === 'error' || undefined}
         className={selectVariants({ size, state: resolvedState, fullWidth })}
         {...rest}
       >

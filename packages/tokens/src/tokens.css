@@ -2,19 +2,15 @@
   --ank-primary: #1c3d4f;
   --ank-primary-dark: #0f2535;
   --ank-primary-light: #2e5870;
-
   --ank-secondary: #c4714a;
   --ank-secondary-dark: #a05838;
   --ank-secondary-light: #d68e6a;
-
   --ank-accent: #4a7a5c;
   --ank-accent-dark: #345847;
   --ank-accent-light: #629e77;
-
   --ank-sand: #d4b896;
   --ank-sand-dark: #b89b78;
   --ank-sand-light: #e8d5b5;
-
   --ank-ink: #0d0f0e;
   --ank-ink-soft: #1a1c1b;
   --ank-gray-900: #2c2e2d;
@@ -22,10 +18,8 @@
   --ank-gray-500: #6e706f;
   --ank-gray-300: #a8aaaa;
   --ank-gray-100: #d8dada;
-
   --ank-text-muted: var(--ank-gray-700);
   --ank-text-subtle: var(--ank-gray-500);
-
   --ank-bg: #f7f3ed;
   --ank-surface: #eee9e1;
   --ank-surface-raised: #f2ede5;
@@ -33,7 +27,6 @@
   --ank-white: #fdfaf6;
   --ank-on-brand: #fdfaf6;
   --ank-on-brand-inverse: #0d0f0e;
-
   --ank-success: #3d6b4a;
   --ank-success-bg: #ebf4ee;
   --ank-warning: #c9973a;
@@ -45,37 +38,36 @@
   --ank-error-bg: #fdf0ec;
   --ank-info: #1c3d4f;
   --ank-info-bg: #e8eff3;
-
+  --ank-success-fg: var(--ank-success);
+  --ank-info-fg: var(--ank-info);
+  --ank-focus-ring: var(--ank-primary);
   --ank-border-color: #0d0f0e;
   --ank-border: 3px solid #0d0f0e;
   --ank-border-2: 2px solid #0d0f0e;
   --ank-border-thin: 1.5px solid #0d0f0e;
-
+  --ank-overlay: rgb(13 15 14 / 50%);
+  --ank-overlay-strong: rgb(13 15 14 / 75%);
   --ank-shadow-color: #0d0f0e;
   --ank-shadow-sm: 3px 3px 0px var(--ank-shadow-color);
   --ank-shadow: 4px 4px 0px var(--ank-shadow-color);
   --ank-shadow-lg: 6px 6px 0px var(--ank-shadow-color);
   --ank-shadow-xl: 8px 8px 0px var(--ank-shadow-color);
   --ank-shadow-press: 2px 2px 0px var(--ank-shadow-color);
-
   --ank-shadow-primary: 4px 4px 0px #1c3d4f;
   --ank-shadow-secondary: 4px 4px 0px #c4714a;
   --ank-shadow-accent: 4px 4px 0px #4a7a5c;
-
-  --ank-display: 'Cormorant Garamond', Georgia, serif;
+  --ank-display: 'Cormorant Garamond', georgia, serif;
   --ank-body: 'Space Grotesk', system-ui, sans-serif;
   --ank-mono: 'JetBrains Mono', 'Courier New', monospace;
-
-  --ank-text-xs: 11px;
-  --ank-text-sm: 13px;
-  --ank-text-base: 15px;
-  --ank-text-lg: 18px;
-  --ank-text-xl: 22px;
-  --ank-text-2xl: 30px;
-  --ank-text-3xl: 42px;
-  --ank-text-4xl: 60px;
-  --ank-text-hero: 84px;
-
+  --ank-text-xs: 0.6875rem;
+  --ank-text-sm: 0.8125rem;
+  --ank-text-base: 0.9375rem;
+  --ank-text-lg: 1.125rem;
+  --ank-text-xl: 1.375rem;
+  --ank-text-2xl: 1.875rem;
+  --ank-text-3xl: 2.625rem;
+  --ank-text-4xl: 3.75rem;
+  --ank-text-hero: 5.25rem;
   --ank-space-1: 4px;
   --ank-space-2: 8px;
   --ank-space-3: 12px;
@@ -86,15 +78,12 @@
   --ank-space-8: 64px;
   --ank-space-9: 96px;
   --ank-space-10: 128px;
-
   --ank-radius-none: 0px;
   --ank-radius-sm: 2px;
   --ank-radius-md: 4px;
-
   --ank-transition-fast: 80ms ease;
   --ank-transition-base: 150ms ease;
   --ank-transition-slow: 300ms ease;
-
   --ank-z-base: 1;
   --ank-z-dropdown: 100;
   --ank-z-sticky: 200;
@@ -119,6 +108,9 @@
   --ank-warning-bg: #262015;
   --ank-error-bg: #261812;
   --ank-info-bg: #16212a;
+  --ank-success-fg: var(--ank-accent-light);
+  --ank-info-fg: #8e9ea7;
+  --ank-focus-ring: var(--ank-sand);
   --ank-border-color: #f7f3ed;
   --ank-border: 3px solid #f7f3ed;
   --ank-border-2: 2px solid #f7f3ed;

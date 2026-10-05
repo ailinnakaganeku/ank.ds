@@ -1,9 +1,9 @@
 .ank-toggle {
   display: inline-flex;
   align-items: center;
-  gap: 12px;
+  gap: var(--ank-space-3);
   font-family: var(--ank-body);
-  font-size: 15px;
+  font-size: var(--ank-text-base);
   color: var(--ank-ink);
   cursor: pointer;
   user-select: none;
@@ -22,7 +22,7 @@
   margin: -1px;
   padding: 0;
   overflow: hidden;
-  clip: rect(0, 0, 0, 0);
+  clip-path: inset(50%);
   white-space: nowrap;
   border: 0;
 }
@@ -60,7 +60,7 @@
 }
 
 .ank-toggle__input:focus-visible + .ank-toggle__track {
-  box-shadow: 3px 3px 0 var(--ank-primary);
+  box-shadow: 3px 3px 0 var(--ank-focus-ring);
 }
 
 .ank-toggle__input:disabled + .ank-toggle__track {
@@ -80,15 +80,18 @@
   width: 32px;
   height: 18px;
 }
+
 .ank-toggle--sm .ank-toggle__thumb {
   width: 10px;
   height: 10px;
 }
+
 .ank-toggle--sm .ank-toggle__input:checked + .ank-toggle__track .ank-toggle__thumb {
   transform: translateX(13px);
 }
+
 .ank-toggle--sm {
-  font-size: 13px;
+  font-size: var(--ank-text-sm);
   gap: 10px;
 }
 
@@ -96,15 +99,18 @@
   width: 48px;
   height: 26px;
 }
+
 .ank-toggle--lg .ank-toggle__thumb {
   width: 18px;
   height: 18px;
 }
+
 .ank-toggle--lg .ank-toggle__input:checked + .ank-toggle__track .ank-toggle__thumb {
   transform: translateX(21px);
 }
+
 .ank-toggle--lg {
-  font-size: 17px;
+  font-size: 1.0625rem;
   gap: 14px;
 }
 
@@ -112,5 +118,23 @@
   .ank-toggle__track,
   .ank-toggle__thumb {
     transition: none;
+  }
+}
+
+@media (forced-colors: active) {
+  .ank-toggle__thumb {
+    background: canvastext;
+  }
+
+  .ank-toggle__input:checked + .ank-toggle__track {
+    background: highlight;
+  }
+
+  .ank-toggle__input:checked + .ank-toggle__track .ank-toggle__thumb {
+    background: highlighttext;
+  }
+
+  .ank-toggle__input:disabled + .ank-toggle__track .ank-toggle__thumb {
+    background: graytext;
   }
 }

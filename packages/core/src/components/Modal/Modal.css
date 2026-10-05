@@ -1,35 +1,34 @@
-.ank-modal-overlay {
-  position: fixed;
-  inset: 0;
-  background: rgba(13, 15, 14, 0.75);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  padding: 24px;
-  z-index: var(--ank-z-modal);
-  animation: ank-modal-overlay-in 200ms ease-out;
-}
-
 .ank-modal {
   background: var(--ank-white);
   color: var(--ank-ink);
   border: 3px solid var(--ank-ink);
   box-shadow: 8px 8px 0 var(--ank-shadow-color);
-  width: 100%;
+  width: calc(100% - var(--ank-space-7));
   max-width: 500px;
   max-height: 90vh;
-  display: flex;
+  margin: auto;
+  padding: 0;
   flex-direction: column;
-  outline: none;
+}
+
+.ank-modal[open] {
+  display: flex;
   animation: ank-modal-in 200ms ease-out;
+}
+
+.ank-modal::backdrop {
+  background: var(--ank-overlay-strong);
+  animation: ank-modal-overlay-in 200ms ease-out;
 }
 
 .ank-modal--sm {
   max-width: 380px;
 }
+
 .ank-modal--md {
   max-width: 500px;
 }
+
 .ank-modal--lg {
   max-width: 720px;
 }
@@ -38,14 +37,14 @@
   display: flex;
   align-items: flex-start;
   justify-content: space-between;
-  gap: 16px;
+  gap: var(--ank-space-4);
   padding: 18px 20px 14px 24px;
   border-bottom: 2.5px solid var(--ank-ink);
 }
 
 .ank-modal__title {
   font-family: var(--ank-display);
-  font-size: 24px;
+  font-size: 1.5rem;
   font-weight: 700;
   line-height: 1.2;
   margin: 0;
@@ -72,7 +71,7 @@
 }
 
 .ank-modal__close:focus-visible {
-  outline: 2px solid var(--ank-primary);
+  outline: 2px solid var(--ank-focus-ring);
   outline-offset: 2px;
 }
 
@@ -84,7 +83,7 @@
   padding: 20px 24px;
   overflow-y: auto;
   font-family: var(--ank-body);
-  font-size: 15px;
+  font-size: var(--ank-text-base);
   line-height: 1.6;
   color: var(--ank-ink-soft);
   flex: 1 1 auto;
@@ -94,8 +93,8 @@
   display: flex;
   align-items: center;
   justify-content: flex-end;
-  gap: 12px;
-  padding: 14px 24px 20px 24px;
+  gap: var(--ank-space-3);
+  padding: 14px 24px 20px;
   border-top: 2.5px solid var(--ank-ink);
   flex-wrap: wrap;
 }
@@ -104,6 +103,7 @@
   from {
     opacity: 0;
   }
+
   to {
     opacity: 1;
   }
@@ -114,6 +114,7 @@
     opacity: 0;
     transform: translateY(-16px);
   }
+
   to {
     opacity: 1;
     transform: translateY(0);
@@ -121,10 +122,11 @@
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .ank-modal-overlay,
-  .ank-modal {
+  .ank-modal[open],
+  .ank-modal::backdrop {
     animation: none;
   }
+
   .ank-modal__close {
     transition: none;
   }
