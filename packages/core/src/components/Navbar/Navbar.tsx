@@ -13,6 +13,7 @@ import { createPortal } from 'react-dom';
 import clsx from 'clsx';
 import { useFocusTrap } from '../../hooks/useFocusTrap';
 import { useIsClient } from '../../hooks/useIsClient';
+import { VisuallyHidden } from '../VisuallyHidden/VisuallyHidden';
 import './Navbar.css';
 import { MenuIcon, CloseIcon } from '../Icon';
 
@@ -75,7 +76,7 @@ const renderLink = (
     return (
       <a href={link.href} {...externalAttrs} {...commonProps}>
         {link.label}
-        {link.external && <span className="ank-navbar__sr-only"> ({externalLabel})</span>}
+        {link.external && <VisuallyHidden> ({externalLabel})</VisuallyHidden>}
       </a>
     );
   }
