@@ -19,7 +19,13 @@ import '@ankds/core/styles.css';
 export const App = () => <Button variant="primary">Continue</Button>;
 ```
 
-`styles.css` is a single self-contained stylesheet: design tokens, base reset, and every component's styles.
+`styles.css` has the design tokens and every component's styles, scoped to the components so it never restyles the rest of the page.
+
+To also adopt the ank.ds typography and background for the whole document, add the optional base layer:
+
+```tsx
+import '@ankds/core/base.css';
+```
 
 ### Dark mode
 
