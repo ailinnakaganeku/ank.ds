@@ -1,5 +1,5 @@
 import { describe, expect, it, afterEach } from 'vitest';
-import { fireEvent, render, screen } from '@testing-library/react';
+import { fireEvent, render, screen, within } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import { axe } from 'jest-axe';
 import { Navbar } from './Navbar';
@@ -91,9 +91,7 @@ describe('Navbar', () => {
     render(<Navbar links={links} />);
     await user.click(getHamburger());
     const drawer = await screen.findByRole('dialog');
-    const linkInDrawer = drawer.querySelector<HTMLAnchorElement>('a[href="#foundations"]');
-    expect(linkInDrawer).not.toBeNull();
-    await user.click(linkInDrawer!);
+    await user.click(within(drawer).getByRole('link', { name: 'Foundations' }));
     expect(screen.queryByRole('dialog')).not.toBeInTheDocument();
   });
 
