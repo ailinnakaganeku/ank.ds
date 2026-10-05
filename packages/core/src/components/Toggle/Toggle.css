@@ -120,3 +120,21 @@
     transition: none;
   }
 }
+
+@media (forced-colors: active) {
+  .ank-toggle__thumb {
+    background: canvastext;
+  }
+
+  .ank-toggle__input:checked + .ank-toggle__track {
+    background: highlight;
+  }
+
+  .ank-toggle__input:checked + .ank-toggle__track .ank-toggle__thumb {
+    background: highlighttext;
+  }
+
+  .ank-toggle__input:disabled + .ank-toggle__track .ank-toggle__thumb {
+    background: graytext;
+  }
+}

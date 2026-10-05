@@ -104,3 +104,13 @@
     transition: none;
   }
 }
+
+@media (forced-colors: active) {
+  .ank-radio__input:checked ~ .ank-radio__box {
+    background: highlight;
+  }
+
+  .ank-radio__dot {
+    background: highlighttext;
+  }
+}

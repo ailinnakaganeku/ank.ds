@@ -66,3 +66,11 @@
     transition: none;
   }
 }
+
+@media (forced-colors: active) {
+  .ank-tab[aria-selected='true'] {
+    forced-color-adjust: none;
+    background: highlight;
+    color: highlighttext;
+  }
+}

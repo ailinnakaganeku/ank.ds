@@ -102,3 +102,9 @@
     opacity: 0.6;
   }
 }
+
+@media (forced-colors: active) {
+  .ank-progress .ank-progress__fill {
+    background: highlight;
+  }
+}
