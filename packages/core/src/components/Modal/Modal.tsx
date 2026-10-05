@@ -29,8 +29,9 @@ export interface ModalProps {
   'aria-describedby'?: string;
 }
 
-const isOutside = (dialog: HTMLDialogElement, event: MouseEvent) => {
-  const box = dialog.getBoundingClientRect();
+const isOnBackdrop = (event: MouseEvent<HTMLDialogElement>) => {
+  if (event.target !== event.currentTarget) return false;
+  const box = event.currentTarget.getBoundingClientRect();
   return (
     event.clientX < box.left ||
     event.clientX > box.right ||
@@ -55,7 +56,7 @@ const ModalRoot = ({
 }: ModalProps) => {
   const titleId = useId();
   const dialogRef = useRef<HTMLDialogElement>(null);
-  const pressStartedOutside = useRef(false);
+  const pressStartedOnBackdrop = useRef(false);
 
   useEffect(() => {
     const dialog = dialogRef.current;
@@ -79,18 +80,20 @@ const ModalRoot = ({
       aria-describedby={ariaDescribedBy}
       className={clsx('ank-modal', `ank-modal--${size}`, className)}
       onCancel={(event) => {
+        if (event.target !== event.currentTarget) return;
         event.preventDefault();
         if (closeOnEscape) onClose();
       }}
-      onClose={() => {
-        if (open) onClose();
+      onClose={(event) => {
+        if (event.target === event.currentTarget && open) onClose();
       }}
       onMouseDown={(event) => {
-        pressStartedOutside.current = isOutside(event.currentTarget, event);
+        pressStartedOnBackdrop.current = isOnBackdrop(event);
       }}
       onClick={(event) => {
-        if (!closeOnOverlay || !pressStartedOutside.current) return;
-        if (isOutside(event.currentTarget, event)) onClose();
+        const startedOnBackdrop = pressStartedOnBackdrop.current;
+        pressStartedOnBackdrop.current = false;
+        if (closeOnOverlay && startedOnBackdrop && isOnBackdrop(event)) onClose();
       }}
     >
       {open && (

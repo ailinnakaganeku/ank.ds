@@ -27,6 +27,7 @@ const Harness = ({
         <Modal.Body>
           <p>are you sure?</p>
           <input aria-label="Notes" />
+          <button>details</button>
         </Modal.Body>
         <Modal.Footer>
           <button onClick={() => setOpen(false)}>cancel</button>
@@ -109,6 +110,15 @@ describe('Modal', () => {
     expect(screen.getByRole('dialog')).toBeInTheDocument();
   });
 
+  it('stays open when a field inside reports its own cancel, as a dismissed file picker does', async () => {
+    render(<Harness />);
+    await openDialog();
+
+    fireEvent(screen.getByLabelText('Notes'), new Event('cancel', { bubbles: true }));
+
+    expect(screen.getByRole('dialog')).toBeInTheDocument();
+  });
+
   it('closes when the backdrop is clicked', async () => {
     render(<Harness />);
     const dialog = await openDialog();
@@ -125,6 +135,18 @@ describe('Modal', () => {
 
     fireEvent.mouseDown(dialog, centreOf(dialog));
     fireEvent.click(dialog, BACKDROP);
+
+    expect(screen.getByRole('dialog')).toBeInTheDocument();
+  });
+
+  it('stays open when a button inside is activated from the keyboard after a press on the backdrop', async () => {
+    render(<Harness />);
+    const dialog = await openDialog();
+    fireEvent.mouseDown(dialog, BACKDROP);
+    fireEvent.click(dialog, centreOf(dialog));
+
+    screen.getByRole('button', { name: 'details' }).focus();
+    await press('{Enter}');
 
     expect(screen.getByRole('dialog')).toBeInTheDocument();
   });
