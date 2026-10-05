@@ -5,12 +5,12 @@ import {
   useEffect,
   useId,
   useRef,
+  useState,
   type ReactElement,
   type ReactNode,
   type SyntheticEvent,
 } from 'react';
 import clsx from 'clsx';
-import { useControllableState } from '../../hooks/useControllableState';
 import { useEscapeKey } from '../../hooks/useEscapeKey';
 import './Tooltip.css';
 
@@ -20,9 +20,6 @@ export interface TooltipProps {
   content: ReactNode;
   side?: TooltipSide;
   delayMs?: number;
-  defaultOpen?: boolean;
-  open?: boolean;
-  onOpenChange?: (open: boolean) => void;
   className?: string;
   children: ReactElement<TriggerProps>;
 }
@@ -35,9 +32,6 @@ export const Tooltip = ({
   content,
   side = 'top',
   delayMs = 200,
-  defaultOpen = false,
-  open: openProp,
-  onOpenChange,
   className,
   children,
 }: TooltipProps) => {
@@ -45,11 +39,7 @@ export const Tooltip = ({
   if (!isValidElement(child)) {
     throw new Error('<Tooltip> requires a single React element child.');
   }
-  const [open, setOpen] = useControllableState({
-    value: openProp,
-    defaultValue: defaultOpen,
-    onChange: onOpenChange,
-  });
+  const [open, setOpen] = useState(false);
   const tooltipId = useId();
   const timerRef = useRef<number | null>(null);
 
