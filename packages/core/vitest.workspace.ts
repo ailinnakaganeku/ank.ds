@@ -13,6 +13,7 @@ export default defineWorkspace([
     extends: './vitest.config.ts',
     test: {
       name: 'browser',
+      setupFiles: ['./src/test-setup.browser.ts'],
       include: ['src/**/*.browser.test.tsx'],
       css: true,
       browser: {

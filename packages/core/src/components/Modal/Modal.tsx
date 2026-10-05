@@ -9,6 +9,7 @@ import {
 } from 'react';
 import clsx from 'clsx';
 import './Modal.css';
+import { lockBodyScroll, unlockBodyScroll } from '../../utils/bodyScrollLock';
 import { CloseIcon } from '../Icon';
 
 export type ModalSize = 'sm' | 'md' | 'lg';
@@ -58,12 +59,16 @@ const ModalRoot = ({
 
   useEffect(() => {
     const dialog = dialogRef.current;
-    if (!dialog) return;
-    if (open && !dialog.open) {
-      dialog.showModal();
-      initialFocus?.current?.focus();
-    }
-    if (!open && dialog.open) dialog.close();
+    if (!dialog || !open) return;
+
+    dialog.showModal();
+    initialFocus?.current?.focus();
+    lockBodyScroll();
+
+    return () => {
+      dialog.close();
+      unlockBodyScroll();
+    };
   }, [open, initialFocus]);
 
   return (

@@ -152,13 +152,11 @@ describe('Modal', () => {
   it('stops the page from scrolling while open', async () => {
     render(<Harness />);
     await openDialog();
-    expect(getComputedStyle(document.documentElement).overflow).toBe('hidden');
+    expect(document.body).toHaveStyle({ overflow: 'hidden' });
 
     await press('{Escape}');
 
-    await waitFor(() =>
-      expect(getComputedStyle(document.documentElement).overflow).not.toBe('hidden'),
-    );
+    await waitFor(() => expect(document.body).not.toHaveStyle({ overflow: 'hidden' }));
   });
 
   it('returns focus to the trigger when it closes', async () => {
