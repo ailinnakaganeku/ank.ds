@@ -15,23 +15,21 @@ export interface AvatarProps extends Omit<HTMLAttributes<HTMLSpanElement>, 'chil
 
 const AvatarFace = ({ src, alt, fallback }: Pick<AvatarProps, 'src' | 'alt' | 'fallback'>) => {
   const [failed, setFailed] = useState(false);
-  const showsPicture = Boolean(src) && !failed;
-  const fallbackIsTheImage = !showsPicture && alt !== '';
 
-  return (
-    <>
-      <span
-        className="ank-avatar__fallback"
-        role={fallbackIsTheImage ? 'img' : undefined}
-        aria-label={fallbackIsTheImage ? alt : undefined}
-        aria-hidden={fallbackIsTheImage ? undefined : true}
-      >
-        {fallback}
-      </span>
-      {showsPicture && (
-        <img className="ank-avatar__image" src={src} alt={alt} onError={() => setFailed(true)} />
-      )}
-    </>
+  if (src && !failed) {
+    return (
+      <img className="ank-avatar__image" src={src} alt={alt} onError={() => setFailed(true)} />
+    );
+  }
+
+  return alt === '' ? (
+    <span className="ank-avatar__fallback" aria-hidden>
+      {fallback}
+    </span>
+  ) : (
+    <span className="ank-avatar__fallback" role="img" aria-label={alt}>
+      {fallback}
+    </span>
   );
 };
 

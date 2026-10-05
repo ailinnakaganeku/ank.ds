@@ -19,6 +19,12 @@ describe('Avatar', () => {
     expect(images[0]).toHaveAccessibleName('Ada Lovelace');
   });
 
+  it('does not render the fallback while the picture shows', () => {
+    render(<Avatar src="/ada.jpg" alt="Ada Lovelace" fallback="AL" />);
+
+    expect(screen.queryByText('AL')).not.toBeInTheDocument();
+  });
+
   it('falls back when the picture fails to load', () => {
     render(<Avatar src="/bad.jpg" alt="Ada Lovelace" fallback="AL" />);
 
