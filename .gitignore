@@ -9,3 +9,4 @@ storybook-static
 .vite
 .turbo
 coverage
+__screenshots__

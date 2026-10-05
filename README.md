@@ -53,12 +53,15 @@ ank-ds/
 
 ```bash
 npm install
+npx playwright install --no-shell chromium
 npm run storybook
 npm run build -w @ankds/core
 npm run lint
 npm run typecheck
 npm test
 ```
+
+`npm test` runs most tests in jsdom and the ones named `*.browser.test.tsx` in a real Chromium, for what jsdom does not implement (`<dialog>`, native focus). That is why Playwright's Chromium is installed once.
 
 ## License
 
