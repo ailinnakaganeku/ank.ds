@@ -42,6 +42,8 @@ export const tokens = {
   border: '3px solid #0d0f0e',
   border2: '2px solid #0d0f0e',
   borderThin: '1.5px solid #0d0f0e',
+  overlay: 'rgb(13 15 14 / 50%)',
+  overlayStrong: 'rgb(13 15 14 / 75%)',
   shadowColor: '#0d0f0e',
   shadowSm: '3px 3px 0px var(--ank-shadow-color)',
   shadow: '4px 4px 0px var(--ank-shadow-color)',

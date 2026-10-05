@@ -42,6 +42,8 @@
   --ank-border: 3px solid #0d0f0e;
   --ank-border-2: 2px solid #0d0f0e;
   --ank-border-thin: 1.5px solid #0d0f0e;
+  --ank-overlay: rgb(13 15 14 / 50%);
+  --ank-overlay-strong: rgb(13 15 14 / 75%);
   --ank-shadow-color: #0d0f0e;
   --ank-shadow-sm: 3px 3px 0px var(--ank-shadow-color);
   --ank-shadow: 4px 4px 0px var(--ank-shadow-color);

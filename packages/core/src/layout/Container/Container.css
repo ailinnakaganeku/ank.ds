@@ -1,9 +1,8 @@
 .ank-container {
   width: 100%;
-  margin-left: auto;
-  margin-right: auto;
-  padding-left: var(--ank-container-pad, var(--ank-space-5));
-  padding-right: var(--ank-container-pad, var(--ank-space-5));
+  margin-inline: auto;
+  padding-inline: var(--ank-container-pad, var(--ank-space-5))
+    var(--ank-container-pad, var(--ank-space-5));
   max-width: var(--ank-container-max, 1200px);
 }
 

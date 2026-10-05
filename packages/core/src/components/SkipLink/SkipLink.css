@@ -1,7 +1,7 @@
 .ank-skip-link {
   position: absolute;
   top: -200px;
-  left: 16px;
+  inset-inline-start: 16px;
   z-index: var(--ank-z-toast);
   padding: 12px 16px;
   background: var(--ank-ink);

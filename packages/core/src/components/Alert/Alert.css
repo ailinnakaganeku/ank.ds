@@ -4,7 +4,7 @@
   gap: 12px;
   padding: 14px 16px 14px 14px;
   border: 2.5px solid var(--ank-ink);
-  border-left-width: 6px;
+  border-inline-start-width: 6px;
   background: var(--ank-white);
   color: var(--ank-ink);
   font-family: var(--ank-body);
@@ -81,7 +81,7 @@
 }
 
 .ank-alert--success {
-  border-left-color: var(--ank-success);
+  border-inline-start-color: var(--ank-success);
   background: var(--ank-success-bg);
 }
 
@@ -90,7 +90,7 @@
 }
 
 .ank-alert--warning {
-  border-left-color: var(--ank-warning);
+  border-inline-start-color: var(--ank-warning);
   background: var(--ank-warning-bg);
 }
 
@@ -99,7 +99,7 @@
 }
 
 .ank-alert--error {
-  border-left-color: var(--ank-error);
+  border-inline-start-color: var(--ank-error);
   background: var(--ank-error-bg);
 }
 
@@ -108,7 +108,7 @@
 }
 
 .ank-alert--info {
-  border-left-color: var(--ank-info);
+  border-inline-start-color: var(--ank-info);
   background: var(--ank-info-bg);
 }
 

@@ -83,7 +83,7 @@
   display: flex;
   align-items: center;
   gap: 12px;
-  margin-left: 12px;
+  margin-inline-start: 12px;
 }
 
 .ank-navbar__hamburger {
@@ -92,7 +92,7 @@
   justify-content: center;
   width: 40px;
   height: 40px;
-  margin-left: auto;
+  margin-inline-start: auto;
   background: transparent;
   color: var(--ank-ink);
   border: 2.5px solid var(--ank-ink);
@@ -133,7 +133,7 @@
 .ank-navbar-overlay {
   position: fixed;
   inset: 0;
-  background: rgb(13 15 14 / 50%);
+  background: var(--ank-overlay);
   z-index: var(--ank-z-modal);
   animation: ank-navbar-overlay-in 200ms ease-out;
 }
@@ -141,12 +141,12 @@
 .ank-navbar-drawer {
   position: fixed;
   top: 0;
-  right: 0;
+  inset-inline-end: 0;
   bottom: 0;
   width: 320px;
   max-width: 90vw;
   background: var(--ank-white);
-  border-left: 3px solid var(--ank-ink);
+  border-inline-start: 3px solid var(--ank-ink);
   box-shadow: -6px 0 0 var(--ank-shadow-color);
   z-index: var(--ank-z-modal);
   display: flex;

@@ -78,7 +78,7 @@
   align-items: baseline;
   gap: 10px;
   white-space: pre-wrap;
-  word-break: break-word;
+  overflow-wrap: anywhere;
 }
 
 .ank-code-demo__prompt {
@@ -107,7 +107,7 @@
   height: 1em;
   background: var(--ank-accent-light);
   vertical-align: text-bottom;
-  margin-left: 2px;
+  margin-inline-start: 2px;
   animation: ank-code-caret 1.05s steps(2, end) infinite;
 }
 

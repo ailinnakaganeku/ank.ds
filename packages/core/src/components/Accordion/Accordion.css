@@ -30,7 +30,7 @@
   font-size: var(--ank-text-base);
   font-weight: 700;
   color: var(--ank-ink);
-  text-align: left;
+  text-align: start;
   line-height: 1.4;
   transition: background-color var(--ank-transition-fast);
 }

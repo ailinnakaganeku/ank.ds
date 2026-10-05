@@ -6,7 +6,7 @@
 .ank-popover__content {
   position: absolute;
   top: 100%;
-  left: 0;
+  inset-inline-start: 0;
   margin-top: 8px;
   z-index: var(--ank-z-dropdown);
   min-width: 200px;
@@ -29,6 +29,7 @@
   animation-name: ank-popover-in-top;
 }
 
+/* stylelint-disable property-disallowed-list -- these sides are named left and right, so they stay physical */
 .ank-popover__content[data-side='right'] {
   top: 0;
   left: 100%;
@@ -45,15 +46,14 @@
   margin-right: 8px;
   animation-name: ank-popover-in-left;
 }
+/* stylelint-enable property-disallowed-list */
 
 .ank-popover__content[data-align='end'] {
-  left: auto;
-  right: 0;
+  inset-inline: auto 0;
 }
 
 .ank-popover__content[data-align='center'] {
-  left: 50%;
-  right: auto;
+  inset-inline: 50% auto;
   transform: translateX(-50%);
 }
 

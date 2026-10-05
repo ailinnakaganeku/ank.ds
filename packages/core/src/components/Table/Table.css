@@ -21,7 +21,7 @@
 
 .ank-table__caption {
   caption-side: top;
-  text-align: left;
+  text-align: start;
   font-family: var(--ank-body);
   font-size: var(--ank-text-xs);
   font-weight: 700;
@@ -45,7 +45,7 @@
 
 .ank-table th {
   padding: 12px 16px;
-  text-align: left;
+  text-align: start;
   font-family: var(--ank-body);
   font-size: var(--ank-text-sm);
   font-weight: 700;
@@ -53,27 +53,27 @@
   color: var(--ank-white);
   background: var(--ank-ink);
   border-bottom: 2px solid var(--ank-ink);
-  border-right: 2px solid var(--ank-ink);
+  border-inline-end: 2px solid var(--ank-ink);
 }
 
 .ank-table th:last-child {
-  border-right: none;
+  border-inline-end: none;
 }
 
 .ank-table__head-cell--numeric {
-  text-align: right;
+  text-align: end;
 }
 
 .ank-table td {
   padding: 12px 16px;
   border-bottom: 2px solid var(--ank-ink);
-  border-right: 2px solid var(--ank-ink);
+  border-inline-end: 2px solid var(--ank-ink);
   line-height: 1.5;
   background: var(--ank-white);
 }
 
 .ank-table td:last-child {
-  border-right: none;
+  border-inline-end: none;
 }
 
 .ank-table tbody tr:last-child td {
@@ -89,12 +89,12 @@
 }
 
 .ank-table__cell--numeric {
-  text-align: right;
+  text-align: end;
   font-variant-numeric: tabular-nums;
 }
 
 .ank-table__head-cell--numeric .ank-table__sort-button {
-  margin-left: auto;
+  margin-inline-start: auto;
 }
 
 .ank-table__sort-button {

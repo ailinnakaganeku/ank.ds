@@ -6,7 +6,7 @@
 .ank-dropdown__menu {
   position: absolute;
   top: 100%;
-  left: 0;
+  inset-inline-start: 0;
   margin-top: 8px;
   z-index: var(--ank-z-dropdown);
   min-width: 200px;
@@ -23,8 +23,7 @@
 }
 
 .ank-dropdown__menu[data-align='end'] {
-  left: auto;
-  right: 0;
+  inset-inline: auto 0;
 }
 
 .ank-dropdown__item {
@@ -39,7 +38,7 @@
   background: transparent;
   border: 0;
   cursor: pointer;
-  text-align: left;
+  text-align: start;
   user-select: none;
   transition: background-color var(--ank-transition-fast);
 }
