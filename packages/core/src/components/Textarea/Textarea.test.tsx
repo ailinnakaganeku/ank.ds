@@ -32,6 +32,15 @@ describe('Textarea', () => {
     expect(screen.getByLabelText('Message')).toHaveAttribute('aria-invalid', 'true');
   });
 
+  it('is announced as invalid when its state is error inside a field with no error text', () => {
+    render(
+      <FieldWrapper label="Message">
+        <Textarea state="error" />
+      </FieldWrapper>,
+    );
+    expect(screen.getByLabelText('Message')).toHaveAttribute('aria-invalid', 'true');
+  });
+
   it('inherits invalid and aria-describedby from FieldWrapper', () => {
     render(
       <FieldWrapper label="Message" error="Required.">

@@ -38,6 +38,17 @@ describe('Select', () => {
     expect(screen.getByTestId('value')).toHaveTextContent('pro');
   });
 
+  it('is announced as invalid when its state is error inside a field with no error text', () => {
+    render(
+      <FieldWrapper label="Country">
+        <Select state="error">
+          <option value="ar">Argentina</option>
+        </Select>
+      </FieldWrapper>,
+    );
+    expect(screen.getByLabelText('Country')).toHaveAttribute('aria-invalid', 'true');
+  });
+
   it('inherits invalid and aria-describedby from FieldWrapper', () => {
     render(
       <FieldWrapper label="Plan" error="Pick one.">
