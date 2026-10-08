@@ -48,9 +48,9 @@ Tokens flip on a `data-theme` attribute:
 ```
 ank-ds/
 ├── packages/
-│   ├── tokens/    Design tokens (CSS source → generated TS)
-│   ├── core/      Components, layout, patterns
-│   └── docs/      Storybook
+│   ├── tokens/    
+│   ├── core/      
+│   └── docs/      
 └── apps/
     └── playground/
 ```
